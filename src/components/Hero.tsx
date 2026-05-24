@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { useLanguage } from '../context/LanguageContext';
 import { useMedia } from '../context/MediaContext';
 import { Calendar, Compass } from 'lucide-react';
@@ -7,7 +6,6 @@ import { Calendar, Compass } from 'lucide-react';
 export const Hero: React.FC = () => {
   const { t } = useLanguage();
   const { media } = useMedia();
-  const navigate = useNavigate();
   const [currentIdx, setCurrentIdx] = useState(0);
 
   const heroImages = [
@@ -23,8 +21,8 @@ export const Hero: React.FC = () => {
     return () => clearInterval(timer);
   }, [heroImages.length]);
 
-  const handleBookClick = (category: 'Estadía' | 'Pasadía') => {
-    navigate('/reservar', { state: { category } });
+  const handleBookClick = () => {
+    window.location.href = 'https://casa-mahana-pms.onrender.com/reservar';
   };
 
   return (
@@ -72,7 +70,7 @@ export const Hero: React.FC = () => {
           {/* Call to Actions */}
           <div className="flex flex-col sm:flex-row gap-4 pt-4">
             <button
-              onClick={() => handleBookClick('Estadía')}
+              onClick={handleBookClick}
               className="flex items-center justify-center space-x-2 px-8 py-4 bg-turquoise-700 hover:bg-turquoise-900 text-white rounded-2xl font-bold transition-all shadow-lg hover:shadow-xl hover:scale-[1.03] active:scale-[0.97]"
             >
               <Calendar className="h-5 w-5" />
@@ -80,7 +78,7 @@ export const Hero: React.FC = () => {
             </button>
             
             <button
-              onClick={() => handleBookClick('Pasadía')}
+              onClick={handleBookClick}
               className="flex items-center justify-center space-x-2 px-8 py-4 bg-white/10 hover:bg-white/20 text-white border border-white/40 hover:border-white rounded-2xl font-bold backdrop-blur-md transition-all shadow-md hover:scale-[1.03] active:scale-[0.97]"
             >
               <Compass className="h-5 w-5" />

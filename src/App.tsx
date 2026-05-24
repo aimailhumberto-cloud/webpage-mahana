@@ -8,7 +8,6 @@ import { Footer } from './components/Footer';
 // Existing Pages
 import { LandingPage } from './pages/LandingPage';
 import { ProductShowcase } from './pages/ProductShowcase';
-import { BookingWizard } from './components/BookingWizard';
 
 // New Multi-Page Extensions
 import { EstadiasHub } from './pages/EstadiasHub';
@@ -34,6 +33,22 @@ const ScrollToTop: React.FC = () => {
   return null;
 };
 
+const RedirectToPMS: React.FC = () => {
+  React.useEffect(() => {
+    window.location.replace('https://casa-mahana-pms.onrender.com/reservar');
+  }, []);
+
+  return (
+    <div className="flex items-center justify-center min-h-[60vh] bg-mahana-light">
+      <div className="text-center p-8 bg-white/80 backdrop-blur-md rounded-2xl shadow-xl max-w-md mx-auto border border-turquoise-100/50 animate-pulse">
+        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-turquoise-500 mx-auto mb-4"></div>
+        <p className="font-semibold text-lg text-mahana-dark">Redireccionando al sistema de reservas...</p>
+        <p className="text-sm text-gray-500 mt-2">Por favor, espera un momento mientras te conectamos de forma segura.</p>
+      </div>
+    </div>
+  );
+};
+
 export const App: React.FC = () => {
   return (
     <LanguageProvider>
@@ -47,7 +62,7 @@ export const App: React.FC = () => {
                 {/* Home & Core */}
                 <Route path="/" element={<LandingPage />} />
                 <Route path="/experiencias" element={<ProductShowcase />} />
-                <Route path="/reservar" element={<BookingWizard />} />
+                <Route path="/reservar" element={<RedirectToPMS />} />
 
                 {/* Lodging & Stays Hub */}
                 <Route path="/estadias" element={<EstadiasHub />} />

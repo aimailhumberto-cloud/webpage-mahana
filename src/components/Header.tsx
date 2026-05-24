@@ -151,7 +151,7 @@ export const Header: React.FC = () => {
 
             {/* CTA Button */}
             <button
-              onClick={() => navigate('/reservar')}
+              onClick={() => window.location.href = 'https://casa-mahana-pms.onrender.com/reservar'}
               className="px-5 py-2.5 bg-turquoise-700 hover:bg-turquoise-900 text-white rounded-xl transition-all shadow-md font-bold text-sm hover:scale-[1.02] active:scale-[0.98]"
             >
               {t('hero.cta_book')}
@@ -279,7 +279,7 @@ export const Header: React.FC = () => {
             <button
               onClick={() => {
                 setIsOpen(false);
-                navigate('/reservar');
+                window.location.href = 'https://casa-mahana-pms.onrender.com/reservar';
               }}
               className="mt-4 w-full py-3.5 bg-turquoise-700 hover:bg-turquoise-900 text-white rounded-xl text-center font-extrabold shadow-md"
             >
