@@ -1,0 +1,2493 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Visor de Subdivisión - Proyecto Casa Mahana</title>
+  
+  <!-- Google Fonts: Outfit & Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Lucide Icons for premium feel -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <!-- Three.js with robust fallback CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/build/three.min.js"></script>
+  <script>
+    if (typeof THREE === 'undefined') {
+      console.warn("Primary CDN (jsDelivr) for Three.js failed to load. Trying unpkg fallback...");
+      document.write('<script src="https://unpkg.com/three@0.128.0/build/three.min.js"><\/script>');
+    }
+  </script>
+
+  <!-- OrbitControls with robust fallback CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+  <script>
+    if (typeof THREE !== 'undefined' && typeof THREE.OrbitControls === 'undefined') {
+      console.warn("Primary CDN (jsDelivr) for OrbitControls failed to load. Trying unpkg fallback...");
+      document.write('<script src="https://unpkg.com/three@0.128.0/examples/js/controls/OrbitControls.js"><\/script>');
+    }
+  </script>
+
+
+  <style>
+    :root {
+      --bg-main: #0f172a;
+      --bg-card: #1e293b;
+      --bg-input: #334155;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      
+      --color-primary: #f59e0b; /* Gold */
+      --color-success: #10b981; /* Emerald */
+      --color-blue: #3b82f6; /* Sapphire */
+      --color-danger: #ef4444;
+      
+      --shadow-premium: 0 10px 30px -15px rgba(0, 0, 0, 0.5);
+      --border-light: rgba(255, 255, 255, 0.05);
+      --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-main);
+      color: var(--text-main);
+      font-family: 'Inter', sans-serif;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    h1, h2, h3, h4, .font-heading {
+      font-family: 'Outfit', sans-serif;
+      font-weight: 600;
+    }
+
+    /* Container */
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+
+    /* Header styling */
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 2rem;
+      border-bottom: 1px solid var(--border-light);
+      padding-bottom: 1.5rem;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .brand i {
+      color: var(--color-primary);
+      width: 32px;
+      height: 32px;
+    }
+
+    .brand h1 {
+      font-size: 1.8rem;
+      letter-spacing: -0.5px;
+    }
+
+    .brand span {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      font-weight: 400;
+    }
+
+    .badge-premium {
+      background: linear-gradient(135deg, var(--color-primary), #d97706);
+      color: #0f172a;
+      padding: 0.35rem 0.75rem;
+      border-radius: 9999px;
+      font-weight: 700;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    /* Main Grid Layout */
+    .dashboard-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 2rem;
+      align-items: start;
+    }
+
+    @media (max-width: 1024px) {
+      .dashboard-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Card Panels */
+    .card {
+      background-color: var(--bg-card);
+      border: 1px solid var(--border-light);
+      border-radius: 16px;
+      padding: 1.75rem;
+      box-shadow: var(--shadow-premium);
+      margin-bottom: 1.5rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      background: transparent;
+    }
+
+    .card.card-success::before {
+      background: var(--color-success);
+    }
+
+    .card.card-blue::before {
+      background: var(--color-blue);
+    }
+
+    .card.card-primary::before {
+      background: var(--color-primary);
+    }
+
+    .card-title {
+      font-size: 1.25rem;
+      margin-bottom: 1.25rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      border-bottom: 1px solid var(--border-light);
+      padding-bottom: 0.75rem;
+    }
+
+    .card-title i {
+      color: var(--color-primary);
+    }
+
+    /* SVG Map Panel container */
+    .map-container {
+      background-color: #090d16;
+      border-radius: 12px;
+      border: 1px solid var(--border-light);
+      overflow: hidden;
+      aspect-ratio: 9/8;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      /* 3D Perspective setup */
+      perspective: 1200px;
+    }
+
+    #svgMap {
+      transition: transform 0.1s ease-out;
+      transform-style: preserve-3d;
+      cursor: grab;
+    }
+    
+    #svgMap.dragging {
+      cursor: grabbing;
+      transition: none;
+    }
+    
+    .view-3d-hint {
+      position: absolute;
+      bottom: 12px;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: rgba(15, 23, 42, 0.9);
+      border: 1px solid var(--border-light);
+      padding: 0.4rem 0.8rem;
+      border-radius: 6px;
+      font-size: 0.75rem;
+      color: var(--color-primary);
+      pointer-events: none;
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+      opacity: 0;
+      transition: opacity 0.3s;
+      z-index: 10;
+    }
+    
+    .view-3d-hint.active {
+      opacity: 1;
+    }
+
+    /* Interactive Simulator Slider */
+    .simulator-controls {
+      margin-top: 1.5rem;
+      padding: 1.25rem;
+      background-color: rgba(255,255,255,0.02);
+      border-radius: 12px;
+      border: 1px solid var(--border-light);
+    }
+
+    .slider-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.75rem;
+    }
+
+    .slider-title {
+      font-weight: 600;
+      color: var(--text-main);
+      font-size: 0.95rem;
+    }
+
+    .slider-value {
+      font-weight: 700;
+      color: var(--color-primary);
+      background-color: rgba(245, 158, 11, 0.1);
+      padding: 0.15rem 0.5rem;
+      border-radius: 4px;
+      font-size: 0.9rem;
+    }
+
+    .range-slider {
+      -webkit-appearance: none;
+      width: 100%;
+      height: 6px;
+      border-radius: 3px;
+      background: var(--bg-input);
+      outline: none;
+      margin-bottom: 1rem;
+    }
+
+    .range-slider::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: var(--color-primary);
+      cursor: pointer;
+      box-shadow: 0 0 10px rgba(245, 158, 11, 0.5);
+      transition: var(--transition);
+    }
+
+    .range-slider::-webkit-slider-thumb:hover {
+      transform: scale(1.2);
+    }
+
+    .btn {
+      background-color: var(--bg-input);
+      border: 1px solid var(--border-light);
+      color: var(--text-main);
+      padding: 0.6rem 1.2rem;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 0.85rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: var(--transition);
+    }
+
+    .btn:hover {
+      background-color: var(--color-primary);
+      color: #0f172a;
+      border-color: var(--color-primary);
+    }
+
+    .btn-success {
+      background-color: rgba(16, 185, 129, 0.1);
+      border-color: var(--color-success);
+      color: var(--color-success);
+    }
+
+    .btn-success:hover {
+      background-color: var(--color-success);
+      color: #0f172a;
+    }
+
+    /* Metric Grid */
+    .metric-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .metric-card {
+      background-color: rgba(255,255,255,0.02);
+      border: 1px solid var(--border-light);
+      border-radius: 12px;
+      padding: 1rem;
+      text-align: center;
+    }
+
+    .metric-card.success-border {
+      border-left: 3px solid var(--color-success);
+    }
+
+    .metric-card.blue-border {
+      border-left: 3px solid var(--color-blue);
+    }
+
+    .metric-label {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--text-muted);
+      margin-bottom: 0.35rem;
+    }
+
+    .metric-value {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.4rem;
+      font-weight: 700;
+    }
+
+    .metric-subvalue {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-top: 0.15rem;
+    }
+
+    /* Tabs Panel */
+    .tabs {
+      display: flex;
+      border-bottom: 1px solid var(--border-light);
+      margin-bottom: 1.25rem;
+      gap: 0.5rem;
+    }
+
+    .tab-btn {
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      padding: 0.75rem 1rem;
+      cursor: pointer;
+      font-size: 0.9rem;
+      font-weight: 600;
+      position: relative;
+      transition: var(--transition);
+    }
+
+    .tab-btn:hover {
+      color: var(--text-main);
+    }
+
+    .tab-btn.active {
+      color: var(--color-primary);
+    }
+
+    .tab-btn.active::after {
+      content: '';
+      position: absolute;
+      bottom: -1px;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background-color: var(--color-primary);
+    }
+
+    .tab-content {
+      display: none;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    /* Table styles */
+    .table-container {
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 0.85rem;
+    }
+
+    th, td {
+      padding: 0.75rem 1rem;
+      border-bottom: 1px solid var(--border-light);
+    }
+
+    th {
+      color: var(--text-muted);
+      font-weight: 600;
+      text-transform: uppercase;
+      font-size: 0.75rem;
+      letter-spacing: 0.5px;
+    }
+
+    tr:hover td {
+      background-color: rgba(255,255,255,0.02);
+    }
+
+    .code-font {
+      font-family: monospace;
+      background-color: rgba(0,0,0,0.2);
+      padding: 0.15rem 0.35rem;
+      border-radius: 4px;
+      font-size: 0.8rem;
+    }
+
+    /* Fieldwork Guide Steps */
+    .steps-container {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .step-item {
+      display: flex;
+      gap: 1rem;
+      background-color: rgba(255,255,255,0.01);
+      border: 1px solid var(--border-light);
+      border-radius: 12px;
+      padding: 1rem;
+      align-items: flex-start;
+    }
+
+    .step-num {
+      background-color: rgba(245, 158, 11, 0.1);
+      color: var(--color-primary);
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-weight: 700;
+      font-family: 'Outfit', sans-serif;
+      flex-shrink: 0;
+    }
+
+    .step-text h4 {
+      font-size: 0.95rem;
+      margin-bottom: 0.25rem;
+      color: var(--text-main);
+    }
+
+    .step-text p {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    .step-badge {
+      display: inline-block;
+      background-color: rgba(245, 158, 11, 0.15);
+      color: var(--color-primary);
+      padding: 0.1rem 0.4rem;
+      border-radius: 4px;
+      font-weight: 700;
+      font-size: 0.8rem;
+    }
+
+    .alert {
+      background-color: rgba(245, 158, 11, 0.05);
+      border: 1px solid rgba(245, 158, 11, 0.2);
+      color: var(--text-main);
+      padding: 1rem;
+      border-radius: 10px;
+      font-size: 0.85rem;
+      margin-bottom: 1.5rem;
+      display: flex;
+      gap: 0.75rem;
+      align-items: flex-start;
+    }
+
+    .alert i {
+      color: var(--color-primary);
+      flex-shrink: 0;
+    }
+
+    /* Responsive Header & Layout Helpers */
+    .header-actions {
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+    }
+
+    .map-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+      border-bottom: 1px solid var(--border-light);
+      padding-bottom: 0.75rem;
+      margin-bottom: 1.25rem;
+    }
+
+    /* Reset button text helper */
+    .btn-reset-text-mobile {
+      display: none;
+    }
+
+    /* 3D Overlay Labels */
+    .lbl3d-point {
+      position: absolute;
+      transform: translate(-50%, -100%);
+      background: rgba(15, 23, 42, 0.85);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 10px;
+      font-weight: 700;
+      color: #cbd5e1;
+      pointer-events: none;
+      white-space: nowrap;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+    }
+
+    .lbl3d-stake {
+      position: absolute;
+      transform: translate(-50%, -100%);
+      background: rgba(245, 158, 11, 0.95);
+      border: 1px solid #f8fafc;
+      padding: 4px 8px;
+      border-radius: 6px;
+      font-size: 11px;
+      font-weight: 800;
+      color: #0f172a;
+      pointer-events: none;
+      white-space: nowrap;
+      box-shadow: 0 4px 12px rgba(245, 158, 11, 0.4);
+      text-align: center;
+    }
+
+    .lbl3d-stake-sub {
+      font-size: 9px;
+      font-weight: 600;
+    }
+
+    .lbl3d-area {
+      position: absolute;
+      transform: translate(-50%, -50%);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      padding: 6px 12px;
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: 700;
+      color: #f8fafc;
+      pointer-events: none;
+      white-space: nowrap;
+      text-align: center;
+    }
+    
+    .lbl3d-area.area-a {
+      background: rgba(16, 185, 129, 0.9);
+      box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+    }
+    
+    .lbl3d-area.area-b {
+      background: rgba(59, 130, 246, 0.9);
+      box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+    }
+
+    .lbl3d-area-val {
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    /* Mobile Responsive Styles */
+    @media (max-width: 768px) {
+      .container {
+        padding: 1rem;
+      }
+      
+      .card {
+        padding: 1.25rem;
+        border-radius: 12px;
+        margin-bottom: 1rem;
+      }
+      
+      header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+        margin-bottom: 1.5rem;
+        padding-bottom: 1rem;
+      }
+      
+      header .brand h1 {
+        font-size: 1.5rem;
+      }
+    }
+
+    @media (max-width: 600px) {
+      /* Floating 3D Control Bar collapses text */
+      .btn-3d-text {
+        display: none;
+      }
+      
+      #threeControls {
+        top: 8px;
+        left: 8px;
+        right: 8px;
+        display: none;
+        gap: 0.35rem;
+        justify-content: center;
+      }
+      
+      #threeControls .btn {
+        padding: 0.45rem;
+        border-radius: 6px;
+        justify-content: center;
+      }
+      
+      /* Slider Actions stacking */
+      .slider-actions {
+        flex-direction: column;
+        gap: 0.75rem;
+        text-align: center;
+      }
+      
+      .slider-actions span {
+        display: none; /* Hide helper texts to focus on reset button */
+      }
+      
+      #btnReset {
+        width: 100%;
+        justify-content: center;
+      }
+      
+      .btn-reset-text {
+        display: none;
+      }
+      
+      .btn-reset-text-mobile {
+        display: inline;
+      }
+    }
+
+    @media (max-width: 480px) {
+      /* Map card title & button vertical stack */
+      .map-card-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.75rem;
+      }
+      
+      .map-card-header button {
+        width: 100%;
+        justify-content: center;
+      }
+      
+      /* Stack stats grid */
+      .metric-grid {
+        grid-template-columns: 1fr;
+        gap: 0.75rem;
+      }
+      
+      /* Custom styles for smaller header actions */
+      .header-actions {
+        width: 100%;
+        justify-content: space-between;
+      }
+      
+      .header-actions button {
+        padding: 0.5rem 0.8rem;
+        font-size: 0.8rem;
+      }
+      
+      /* Compact steps */
+      .step-item {
+        padding: 0.75rem;
+        gap: 0.75rem;
+      }
+      
+      .step-num {
+        width: 28px;
+        height: 28px;
+        font-size: 0.90rem;
+      }
+      
+      /* Compact tabs */
+      .tab-btn {
+        padding: 0.5rem 0.75rem;
+        font-size: 0.8rem;
+      }
+      
+      /* Mobile scaling for 3D Overlay Labels */
+      .lbl3d-point {
+        font-size: 8px;
+        padding: 1px 4px;
+      }
+      
+      .lbl3d-stake {
+        font-size: 9px;
+        padding: 3px 6px;
+      }
+      
+      .lbl3d-stake-sub {
+        font-size: 8px;
+      }
+      
+      .lbl3d-area {
+        font-size: 10px;
+        padding: 4px 8px;
+      }
+      
+      .lbl3d-area-val {
+        font-size: 11px;
+      }
+    }
+
+    /* Print styles */
+    @media print {
+      * {
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
+      body {
+        background-color: #ffffff !important;
+        color: #0f172a !important;
+      }
+      .container {
+        padding: 0 !important;
+        max-width: 100% !important;
+      }
+      .brand span, .badge-premium, .simulator-controls, .tabs, .btn, .alert, header button, .view-3d-hint {
+        display: none !important;
+      }
+      .card {
+        box-shadow: none !important;
+        border: 1px solid #cbd5e1 !important;
+        background-color: #ffffff !important;
+        color: #0f172a !important;
+        page-break-inside: avoid !important;
+        margin-bottom: 1.5rem !important;
+        padding: 1.5rem !important;
+      }
+      .dashboard-grid {
+        grid-template-columns: 1fr !important;
+        gap: 1.5rem !important;
+      }
+      .map-container {
+        background-color: #ffffff !important;
+        border: 1px solid #cbd5e1 !important;
+        aspect-ratio: 9/8 !important;
+        page-break-inside: avoid !important;
+      }
+      svg {
+        background-color: #ffffff !important;
+      }
+      svg text {
+        fill: #0f172a;
+      }
+      svg line, svg polygon, svg circle, svg path {
+        stroke-opacity: 1 !important;
+        fill-opacity: 1 !important;
+      }
+      
+      /* Grid line subtle rendering in print */
+      #svgGrid line {
+        stroke: #e2e8f0 !important;
+        opacity: 0.4 !important;
+      }
+      
+      /* Polygons transparent background */
+      #polyA {
+        fill: rgba(16, 185, 129, 0.08) !important;
+        stroke: #10b981 !important;
+      }
+      #polyB {
+        fill: rgba(59, 130, 246, 0.08) !important;
+        stroke: #3b82f6 !important;
+      }
+      
+      /* Division Line styling */
+      #divLine {
+        filter: none !important;
+        stroke: #d97706 !important;
+      }
+      
+      /* Markers pins */
+      #markerX circle, #markerY circle {
+        stroke: #0f172a !important;
+      }
+      
+      /* Custom styles for legend */
+      #svgLegend .legend-bg {
+        fill: #ffffff !important;
+        stroke: #cbd5e1 !important;
+      }
+      #svgLegend .legend-header {
+        fill: #0f172a !important;
+      }
+      #svgLegend .legend-label {
+        fill: #334155 !important;
+      }
+      #svgLegend .legend-patch-a {
+        fill: rgba(16, 185, 129, 0.15) !important;
+        stroke: #10b981 !important;
+      }
+      #svgLegend .legend-patch-b {
+        fill: rgba(59, 130, 246, 0.15) !important;
+        stroke: #3b82f6 !important;
+      }
+      #svgLegend .legend-line {
+        stroke: #d97706 !important;
+      }
+      #svgLegend .legend-circle {
+        fill: #f59e0b !important;
+        stroke: #0f172a !important;
+      }
+      
+      /* Area tags styling */
+      #areaTagA .area-tag-bg {
+        fill: #ffffff !important;
+        stroke: #10b981 !important;
+      }
+      #areaTagA .area-tag-title {
+        fill: #047857 !important;
+      }
+      #areaTagA .area-tag-val {
+        fill: #0f172a !important;
+      }
+      
+      #areaTagB .area-tag-bg {
+        fill: #ffffff !important;
+        stroke: #3b82f6 !important;
+      }
+      #areaTagB .area-tag-title {
+        fill: #1d4ed8 !important;
+      }
+      #areaTagB .area-tag-val {
+        fill: #0f172a !important;
+      }
+      
+      /* Original vertices dots and labels */
+      .vertex-dot {
+        fill: #ffffff !important;
+        stroke: #0f172a !important;
+      }
+      .vertex-label {
+        fill: #0f172a !important;
+      }
+      
+      /* Text highlights in SVG map */
+      #labelX, #labelY {
+        fill: #b45309 !important;
+      }
+      #sublabelX, #sublabelY {
+        fill: #475569 !important;
+      }
+      #dimTextFront, #dimTextBack, #dimTextP3, #divLineLengthText {
+        fill: #b45309 !important;
+      }
+      #dimLineFront, #dimLineBack, #dimLineP3 {
+        stroke: #b45309 !important;
+      }
+      
+      /* Table elements */
+      th {
+        color: #475569 !important;
+        background-color: #f1f5f9 !important;
+        border-bottom: 2px solid #cbd5e1 !important;
+      }
+      td {
+        border-bottom: 1px solid #e2e8f0 !important;
+        color: #0f172a !important;
+      }
+      .code-font {
+        background-color: #f1f5f9 !important;
+        color: #0f172a !important;
+        border: 1px solid #e2e8f0 !important;
+      }
+    }
+
+    /* Toast notification styles */
+    .toast-notification {
+      position: fixed;
+      top: 24px;
+      right: 24px;
+      background: rgba(30, 41, 59, 0.95);
+      border: 1px solid rgba(239, 68, 68, 0.3);
+      border-left: 4px solid var(--color-danger);
+      color: var(--text-main);
+      padding: 1rem 1.5rem;
+      border-radius: 12px;
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5), 0 10px 10px -5px rgba(0, 0, 0, 0.5);
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      z-index: 9999;
+      transform: translateY(-20px);
+      opacity: 0;
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      max-width: 400px;
+      pointer-events: none;
+      backdrop-filter: blur(8px);
+    }
+    .toast-notification.active {
+      transform: translateY(0);
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .toast-notification i {
+      color: var(--color-danger);
+      flex-shrink: 0;
+    }
+    .toast-notification-title {
+      font-weight: 700;
+      font-size: 0.9rem;
+      margin-bottom: 0.15rem;
+    }
+    .toast-notification-desc {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      line-height: 1.4;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    
+    <!-- Header -->
+    <header>
+      <div class="brand">
+        <i data-lucide="map"></i>
+        <div>
+          <h1>Visor de Subdivisión</h1>
+          <span>Proyecto Casa Mahana | Medición & Arquitectura</span>
+        </div>
+      </div>
+      <div class="header-actions">
+        <span class="badge-premium">Panamá</span>
+        <button class="btn" onclick="window.print()"><i data-lucide="printer"></i> Imprimir Reporte</button>
+      </div>
+    </header>
+
+    <!-- Main Grid -->
+    <div class="dashboard-grid">
+      
+      <!-- LEFT COLUMN: Interactive Map & Slider -->
+      <div>
+        <div class="card card-primary">
+          <div class="card-title map-card-header">
+            <span style="display: flex; align-items: center; gap: 0.5rem;"><i data-lucide="compass"></i> Plano de Subdivisión UTM</span>
+            <button class="btn btn-success" id="btn3D" style="padding: 0.4rem 0.8rem; font-size: 0.75rem; border-radius: 6px; display: flex; align-items: center; gap: 0.35rem;"><i data-lucide="orbit"></i> Vista 3D</button>
+          </div>
+          
+          <div class="map-container">
+            <div id="view3DHint" class="view-3d-hint"><i data-lucide="hand"></i> Arrastra para rotar | Rueda para zoom en 3D</div>
+            
+            <!-- Floating 3D Control Panel (Visible only in 3D mode) -->
+            <div id="threeControls" style="position: absolute; top: 12px; left: 12px; display: none; gap: 0.5rem; z-index: 10; flex-wrap: wrap;">
+              <button class="btn" id="btnAutoRotate" style="padding: 0.35rem 0.7rem; font-size: 0.7rem; background-color: rgba(15, 23, 42, 0.9); border-color: rgba(255,255,255,0.15); display: flex; align-items: center; gap: 0.25rem; color: var(--color-primary); border-color: var(--color-primary);">
+                <i data-lucide="rotate-cw" style="width: 12px; height: 12px;"></i> <span class="btn-3d-text">Auto-Rotar: ON</span>
+              </button>
+              <button class="btn" id="btnViewTop" style="padding: 0.35rem 0.7rem; font-size: 0.7rem; background-color: rgba(15, 23, 42, 0.9); border-color: rgba(255,255,255,0.15); display: flex; align-items: center; gap: 0.25rem;">
+                <i data-lucide="layout" style="width: 12px; height: 12px;"></i> <span class="btn-3d-text">Vista Cenital</span>
+              </button>
+              <button class="btn" id="btnViewPerspective" style="padding: 0.35rem 0.7rem; font-size: 0.7rem; background-color: rgba(15, 23, 42, 0.9); border-color: rgba(255,255,255,0.15); display: flex; align-items: center; gap: 0.25rem;">
+                <i data-lucide="box" style="width: 12px; height: 12px;"></i> <span class="btn-3d-text">Vista 3D</span>
+              </button>
+              <button class="btn" id="btnReset3D" style="padding: 0.35rem 0.7rem; font-size: 0.7rem; background-color: rgba(15, 23, 42, 0.9); border-color: rgba(255,255,255,0.15); display: flex; align-items: center; gap: 0.25rem;">
+                <i data-lucide="refresh-cw" style="width: 12px; height: 12px;"></i> <span class="btn-3d-text">Reiniciar</span>
+              </button>
+            </div>
+            
+            <!-- Canvas for WebGL 3D -->
+            <canvas id="threeCanvas" style="display: none; width: 100%; height: 100%; background-color: #090d16; cursor: grab; outline: none;"></canvas>
+            
+            <!-- 3D HTML Labels container -->
+            <div id="threeLabels" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; overflow: hidden; display: none;"></div>
+
+            <!-- Inline SVG which we will manipulate dynamically using JS -->
+            <svg id="svgMap" viewBox="0 0 900 800" width="100%" height="100%" style="background-color: #0f172a; font-family: 'Outfit', sans-serif;">
+              <defs>
+                <linearGradient id="gradLoteA" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#10b981" stop-opacity="0.25" />
+                  <stop offset="100%" stop-color="#047857" stop-opacity="0.05" />
+                </linearGradient>
+                <linearGradient id="gradLoteB" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#3b82f6" stop-opacity="0.25" />
+                  <stop offset="100%" stop-color="#1d4ed8" stop-opacity="0.05" />
+                </linearGradient>
+                <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+                  <feGaussianBlur stdDeviation="5" result="blur" />
+                  <feComposite in="SourceGraphic" in2="blur" operator="over" />
+                </filter>
+                <filter id="pinGlow" x="-50%" y="-50%" width="200%" height="200%">
+                  <feGaussianBlur stdDeviation="3" result="blur" />
+                  <feComposite in="SourceGraphic" in2="blur" operator="over" />
+                </filter>
+              </defs>
+
+              <!-- Grid -->
+              <g id="svgGrid" stroke="#334155" stroke-width="0.5" opacity="0.25"></g>
+
+              <!-- Polygons -->
+              <polygon id="polyA" fill="url(#gradLoteA)" stroke="#10b981" stroke-width="2.5" style="transition: fill-opacity 0.3s;" />
+              <polygon id="polyB" fill="url(#gradLoteB)" stroke="#3b82f6" stroke-width="2.5" style="transition: fill-opacity 0.3s;" />
+
+              <!-- Division Line -->
+              <line id="divLine" stroke="#f59e0b" stroke-width="3" stroke-dasharray="8 6" filter="url(#glow)" />
+
+              <!-- Vertices circles and labels will be inserted here dynamically -->
+              <g id="svgVertices"></g>
+
+              <!-- Physical markers -->
+              <g id="markerX" filter="url(#pinGlow)">
+                <circle cx="0" cy="0" r="8" fill="#f59e0b" stroke="#f8fafc" stroke-width="2" />
+                <circle cx="0" cy="0" r="3" fill="#f8fafc" />
+              </g>
+              <g id="markerY" filter="url(#pinGlow)">
+                <circle cx="0" cy="0" r="8" fill="#f59e0b" stroke="#f8fafc" stroke-width="2" />
+                <circle cx="0" cy="0" r="3" fill="#f8fafc" />
+              </g>
+
+              <!-- Physical text labels -->
+              <text id="labelX" fill="#f59e0b" font-size="13" font-weight="700" text-anchor="middle">VARILLA FRENTE (X)</text>
+              <text id="sublabelX" fill="#94a3b8" font-size="11" text-anchor="middle"></text>
+              
+              <text id="labelY" fill="#f59e0b" font-size="13" font-weight="700" text-anchor="middle">VARILLA FONDO (Y)</text>
+              <text id="sublabelY" fill="#94a3b8" font-size="11" text-anchor="middle"></text>
+
+              <!-- Dimension guides (dotted lines) -->
+              <path id="dimLineFront" stroke="#f59e0b" stroke-width="1.5" stroke-dasharray="3 3" />
+              <text id="dimTextFront" fill="#f59e0b" font-size="12" font-weight="700" text-anchor="middle"></text>
+
+              <path id="dimLineBack" stroke="#f59e0b" stroke-width="1.5" stroke-dasharray="3 3" />
+              <text id="dimTextBack" fill="#f59e0b" font-size="12" font-weight="700" text-anchor="middle"></text>
+
+              <!-- Dimension guide from P3 to Divisoria -->
+              <path id="dimLineP3" stroke="#f59e0b" stroke-width="1.5" stroke-dasharray="3 3" />
+              <text id="dimTextP3" fill="#f59e0b" font-size="12" font-weight="700" text-anchor="middle"></text>
+
+              <text id="divLineLengthText" fill="#f59e0b" font-size="13" font-weight="700" text-anchor="middle"></text>
+
+              <!-- Area tags -->
+              <g id="areaTagA">
+                <rect class="area-tag-bg" x="-90" y="-30" width="180" height="60" rx="10" fill="#0f172a" fill-opacity="0.85" stroke="#10b981" stroke-width="1.5" />
+                <text class="area-tag-title" x="0" y="-5" fill="#10b981" font-size="15" font-weight="700" text-anchor="middle">LOTE A (CLIENTE)</text>
+                <text id="areaTextA" class="area-tag-val" x="0" y="15" fill="#f8fafc" font-size="14" font-weight="700" text-anchor="middle"></text>
+              </g>
+
+              <g id="areaTagB">
+                <rect class="area-tag-bg" x="-90" y="-30" width="180" height="60" rx="10" fill="#0f172a" fill-opacity="0.85" stroke="#3b82f6" stroke-width="1.5" />
+                <text class="area-tag-title" x="0" y="-5" fill="#3b82f6" font-size="15" font-weight="700" text-anchor="middle">LOTE B (COMPRADOR)</text>
+                <text id="areaTextB" class="area-tag-val" x="0" y="15" fill="#f8fafc" font-size="14" font-weight="700" text-anchor="middle"></text>
+              </g>
+
+              <!-- Compass Rose -->
+              <g transform="translate(830, 720)">
+                <circle cx="0" cy="0" r="25" fill="#1e293b" stroke="#334155" stroke-width="1.5" />
+                <polygon points="0,-22 6,-4 0,-8 -6,-4" fill="#ef4444" />
+                <polygon points="0,22 6,4 0,8 -6,4" fill="#94a3b8" />
+                <text x="-4" y="-26" fill="#ef4444" font-size="10" font-weight="900">N</text>
+              </g>
+
+              <!-- Legend -->
+              <g id="svgLegend" transform="translate(680, 40)">
+                <rect class="legend-bg" width="180" height="145" rx="12" fill="#1e293b" fill-opacity="0.9" stroke="#334155" stroke-width="1" />
+                <text class="legend-header" x="15" y="22" fill="#f8fafc" font-size="12" font-weight="700">REFERENCIA</text>
+                
+                <rect class="legend-patch-a" x="15" y="40" width="15" height="15" rx="3" fill="#10b981" fill-opacity="0.2" stroke="#10b981" stroke-width="1.5" />
+                <text class="legend-label" x="40" y="52" fill="#cbd5e1" font-size="11">Lote A (Izquierdo)</text>
+                
+                <rect class="legend-patch-b" x="15" y="65" width="15" height="15" rx="3" fill="#3b82f6" fill-opacity="0.2" stroke="#3b82f6" stroke-width="1.5" />
+                <text class="legend-label" x="40" y="77" fill="#cbd5e1" font-size="11">Lote B (Derecho)</text>
+                
+                <line class="legend-line" x1="15" y1="100" x2="30" y2="100" stroke="#f59e0b" stroke-width="2" stroke-dasharray="4 3" />
+                <text class="legend-label" x="40" y="104" fill="#cbd5e1" font-size="11">Línea Divisoria</text>
+                
+                <circle class="legend-circle" cx="22" cy="125" r="5" fill="#f59e0b" stroke="#f8fafc" stroke-width="1" />
+                <text class="legend-label" x="40" y="129" fill="#cbd5e1" font-size="11">Pines (Varillas)</text>
+              </g>
+            </svg>
+          </div>
+
+          <!-- Dynamic Simulator slider -->
+          <div class="simulator-controls">
+            <div class="slider-header">
+              <span class="slider-title"><i data-lucide="sliders" style="display:inline; width:16px; height:16px; vertical-align:middle; margin-right:4px;"></i> Simulador de Partición Dinámica</span>
+              <span id="sliderValueDisplay" class="slider-value">50% / 50%</span>
+            </div>
+            <input type="range" id="splitSlider" class="range-slider" min="10" max="90" value="50">
+            <div class="slider-actions" style="display:flex; justify-content:space-between; align-items:center;">
+              <span style="font-size:0.75rem; color:var(--text-muted);">Más pequeño Lote A</span>
+              <button class="btn btn-success" id="btnReset">
+                <i data-lucide="rotate-ccw"></i>
+                <span class="btn-reset-text">Ajustar a 50/50 Exacto (Cliente)</span>
+                <span class="btn-reset-text-mobile">Reajustar 50/50</span>
+              </button>
+              <span style="font-size:0.75rem; color:var(--text-muted);">Más grande Lote A</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- RIGHT COLUMN: Metrics and Technical Guide -->
+      <div>
+        
+        <!-- Metrics Cards -->
+        <div class="card card-primary">
+          <div class="card-title">
+            <i data-lucide="bar-chart-3"></i> Resumen de Áreas y Medidas
+          </div>
+          
+          <div class="metric-grid">
+            <div class="metric-card success-border">
+              <div class="metric-label">Lote A (Lado Izquierdo)</div>
+              <div id="lblAreaA" class="metric-value">2516.90 m²</div>
+              <div id="lblPercentA" class="metric-subvalue">50.00% del total</div>
+            </div>
+            <div class="metric-card blue-border">
+              <div class="metric-label">Lote B (Lado Derecho)</div>
+              <div id="lblAreaB" class="metric-value">2516.90 m²</div>
+              <div id="lblPercentB" class="metric-subvalue">50.00% del total</div>
+            </div>
+          </div>
+
+          <div style="display:flex; flex-direction:column; gap:0.5rem; font-size:0.85rem; border-top: 1px solid var(--border-light); padding-top:1rem;">
+            <div style="display:flex; justify-content:space-between;">
+              <span style="color:var(--text-muted);"><i data-lucide="arrow-right" style="display:inline; width:14px; height:14px; vertical-align:middle; margin-right:4px;"></i> Frente Lote A (Cerca Calle):</span>
+              <span id="lblFrontA" style="font-weight:700;">31.31 m</span>
+            </div>
+            <div style="display:flex; justify-content:space-between;">
+              <span style="color:var(--text-muted);"><i data-lucide="arrow-right" style="display:inline; width:14px; height:14px; vertical-align:middle; margin-right:4px;"></i> Frente Lote B (Cerca Calle):</span>
+              <span id="lblFrontB" style="font-weight:700;">14.41 m</span>
+            </div>
+            <div style="display:flex; justify-content:space-between;">
+              <span style="color:var(--text-muted);"><i data-lucide="maximize-2" style="display:inline; width:14px; height:14px; vertical-align:middle; margin-right:4px;"></i> Largo de Cerca Divisoria:</span>
+              <span id="lblDivisorLen" style="font-weight:700; color:var(--color-primary);">85.24 m</span>
+            </div>
+            <div style="display:flex; justify-content:space-between;">
+              <span style="color:var(--text-muted);"><i data-lucide="ruler" style="display:inline; width:14px; height:14px; vertical-align:middle; margin-right:4px;"></i> Distancia de P3 a Divisoria:</span>
+              <span id="lblDistP3" style="font-weight:700; color:var(--color-primary);">-- m</span>
+            </div>
+            <div style="display:flex; justify-content:space-between; margin-top:0.25rem; border-top:1px dashed var(--border-light); padding-top:0.25rem;">
+              <span style="color:var(--text-muted);"><i data-lucide="map-pin" style="display:inline; width:14px; height:14px; vertical-align:middle; margin-right:4px;"></i> Varilla Frente (UTM):</span>
+              <span id="lblCoordX" class="code-font">E: 560117.16 | N: 819855.96</span>
+            </div>
+            <div style="display:flex; justify-content:space-between;">
+              <span style="color:var(--text-muted);"><i data-lucide="map-pin" style="display:inline; width:14px; height:14px; vertical-align:middle; margin-right:4px;"></i> Varilla Fondo (UTM):</span>
+              <span id="lblCoordY" class="code-font">E: 560159.83 | N: 819929.75</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tabs Card -->
+        <div class="card">
+          <div class="tabs">
+            <button class="tab-btn active" onclick="switchTab(event, 'fieldGuide')"><i data-lucide="compass" style="display:inline; width:14px; height:14px; vertical-align:middle;"></i> Guía de Campo</button>
+            <button class="tab-btn" onclick="switchTab(event, 'coordinates')"><i data-lucide="table" style="display:inline; width:14px; height:14px; vertical-align:middle;"></i> Cuadro Técnico</button>
+          </div>
+
+          <!-- TAB 1: FIELD GUIDE -->
+          <div id="fieldGuide" class="tab-content active">
+            <div class="alert">
+              <i data-lucide="info"></i>
+              <div>
+                <strong>Instrucciones de Medición Física:</strong> Esta guía te permite ubicar físicamente los dos puntos en el terreno real con cinta métrica y balizas, partiendo desde los hitos catastrales existentes.
+              </div>
+            </div>
+
+            <div class="steps-container">
+              <div class="step-item">
+                <div class="step-num">1</div>
+                <div class="step-text">
+                  <h4>Ubicar Varilla de Frente (Calle)</h4>
+                  <p>Párate en la esquina inferior izquierda del terreno, que corresponde al <strong>Hito Catastral 7</strong>. Mide exactamente <strong id="guideFrontDist" style="color:var(--color-primary);">31.31 metros</strong> sobre la línea de cerca que da a la calle hacia la derecha (dirección al Punto 1). Ahí clava la <strong>Varilla Frente (X)</strong>.</p>
+                </div>
+              </div>
+              
+              <div class="step-item">
+                <div class="step-num">2</div>
+                <div class="step-text">
+                  <h4>Ubicar Varilla de Fondo (Cerca Trasera)</h4>
+                  <p>Párate en el hito trasero superior derecho, el <strong>Punto 4</strong>. Camina sobre la línea de cerca trasera en dirección al Punto 5 (hacia la izquierda). Mide exactamente <strong id="guideBackDist" style="color:var(--color-primary);">33.20 metros</strong>. Ahí clava la <strong>Varilla Fondo (Y)</strong>.</p>
+                </div>
+              </div>
+
+              <div class="step-item">
+                <div class="step-num">3</div>
+                <div class="step-text">
+                  <h4>Validar el Fondo Restante</h4>
+                  <p>Para comprobar que la medición es correcta, mide la distancia restante desde tu <strong>Varilla Fondo (Y)</strong> hasta la esquina trasera izquierda (Punto 5). Debe medir exactamente <strong id="guideBackDistRem" style="color:var(--color-primary);">29.20 metros</strong>.</p>
+                </div>
+              </div>
+
+              <div class="step-item">
+                <div class="step-num">4</div>
+                <div class="step-text">
+                  <h4>Tirar la Cerca Divisoria</h4>
+                  <p>Estira una cuerda o traza la línea directa entre la <strong>Varilla Frente (X)</strong> y la <strong>Varilla Fondo (Y)</strong>. Esta línea medirá <strong id="guideFenceLen" style="color:var(--color-primary);">85.24 metros</strong> y correrá en un ángulo de exactamente <strong>90°</strong> (perpendicular) respecto al frente de la calle.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- TAB 2: TECHNICAL COORDINATES -->
+          <div id="coordinates" class="tab-content">
+            <div class="alert" style="margin-bottom: 1rem; padding: 0.75rem;">
+              <i data-lucide="clipboard"></i>
+              <div>
+                Copia las coordenadas UTM directas para introducirlas en tu GPS portátil, estación total o cargarlas en AutoCAD.
+              </div>
+            </div>
+            
+            <h4 style="font-size:0.9rem; color:var(--color-success); margin-bottom:0.5rem; display:flex; justify-content:space-between; align-items:center;">
+              LOTE A (Vértices de Escritura)
+              <button class="btn btn-success" style="padding:0.2rem 0.5rem; font-size:0.7rem;" onclick="copyCoords('tableLoteA')"><i data-lucide="copy" style="width:10px; height:10px;"></i> Copiar</button>
+            </h4>
+            <div class="table-container" style="margin-bottom:1.5rem;">
+              <table id="tableLoteA">
+                <thead>
+                  <tr>
+                    <th>Vértice</th>
+                    <th>Norte (Y)</th>
+                    <th>Este (X)</th>
+                  </tr>
+                </thead>
+                <tbody id="tbodyLoteA">
+                  <!-- JS generated -->
+                </tbody>
+              </table>
+            </div>
+
+            <h4 style="font-size:0.9rem; color:var(--color-blue); margin-bottom:0.5rem; display:flex; justify-content:space-between; align-items:center;">
+              LOTE B (Vértices de Escritura)
+              <button class="btn" style="padding:0.2rem 0.5rem; font-size:0.7rem;" onclick="copyCoords('tableLoteB')"><i data-lucide="copy" style="width:10px; height:10px;"></i> Copiar</button>
+            </h4>
+            <div class="table-container">
+              <table id="tableLoteB">
+                <thead>
+                  <tr>
+                    <th>Vértice</th>
+                    <th>Norte (Y)</th>
+                    <th>Este (X)</th>
+                  </tr>
+                </thead>
+                <tbody id="tbodyLoteB">
+                  <!-- JS generated -->
+                </tbody>
+              </table>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <script>
+    // Safe utility wrapper for Lucide Icons
+    function safeCreateIcons() {
+      if (typeof lucide !== 'undefined' && typeof lucide.createIcons === 'function') {
+        try {
+          lucide.createIcons();
+        } catch (e) {
+          console.warn("Lucide failed to create icons:", e);
+        }
+      } else {
+        console.warn("Lucide library is not loaded.");
+      }
+    }
+
+    // WebGL support detector
+    function isWebGLAvailable() {
+      try {
+        const canvas = document.createElement('canvas');
+        return !!(window.WebGLRenderingContext && (canvas.getContext('webgl') || canvas.getContext('experimental-webgl')));
+      } catch (e) {
+        return false;
+      }
+    }
+
+    // Premium custom dark-mode toast system
+    function showToast(title, desc) {
+      let toast = document.getElementById("errorToast");
+      if (!toast) {
+        toast = document.createElement("div");
+        toast.id = "errorToast";
+        toast.className = "toast-notification";
+        document.body.appendChild(toast);
+      }
+      
+      toast.innerHTML = `
+        <i data-lucide="alert-triangle" style="width:24px; height:24px;"></i>
+        <div>
+          <div class="toast-notification-title">${title}</div>
+          <div class="toast-notification-desc">${desc}</div>
+        </div>
+      `;
+      
+      safeCreateIcons();
+      
+      // Trigger reflow to enable transition
+      toast.offsetHeight;
+      toast.classList.add("active");
+      
+      // Auto-hide after 6 seconds
+      setTimeout(() => {
+        toast.classList.remove("active");
+      }, 6000);
+    }
+
+    // Initialize Lucide Icons safely
+    safeCreateIcons();
+
+    // 1. Data and Geometry parameters from Python calculations
+    // Control Points
+    const P7 = { E: 560090.057, N: 819871.638 };
+    const P1 = { E: 560129.634, N: 819848.750 };
+    const P2 = { E: 560142.926, N: 819878.966 };
+    const P3 = { E: 560169.133, N: 819864.039 };
+    const P4 = { E: 560192.200, N: 819922.346 };
+    const P5 = { E: 560131.371, N: 819936.260 };
+    const P6 = { E: 560127.795, N: 819936.885 };
+
+    const vertices = [P7, P1, P2, P3, P4, P5, P6];
+    
+    // Front vector 7 -> 1
+    const v_x = P1.E - P7.E;
+    const v_y = P1.N - P7.N;
+    const len_7_1 = Math.hypot(v_x, v_y);
+    const ux = v_x / len_7_1;
+    const uy = v_y / len_7_1;
+    
+    // Perpendicular vector pointing inside (pointing North/East CCW of u)
+    // u = (ux, uy). CCW: wx = -uy, wy = ux
+    const wx = -uy;
+    const wy = ux;
+
+    // SVG parameters
+    const svgW = 900;
+    const svgH = 800;
+    const padding = 100;
+    
+    // Calculate bounding box of all points
+    const eastings = vertices.map(v => v.E);
+    const northings = vertices.map(v => v.N);
+    const minE = Math.min(...eastings);
+    const maxE = Math.max(...eastings);
+    const minN = Math.min(...northings);
+    const maxN = Math.max(...northings);
+    
+    const w_m = maxE - minE;
+    const h_m = maxN - minN;
+    
+    // SVG Scale
+    const scaleX = (svgW - 2 * padding) / w_m;
+    const scaleY = (svgH - 2 * padding) / h_m;
+    const scale = Math.min(scaleX, scaleY);
+    
+    const offsetX = padding + (svgW - 2 * padding - w_m * scale) / 2;
+    const offsetY = padding + (svgH - 2 * padding - h_m * scale) / 2;
+
+    // Convert UTM coordinate to SVG pixels
+    function toSvg(E, N) {
+      const x = offsetX + (E - minE) * scale;
+      const y = svgH - (offsetY + (N - minN) * scale); // Flip Y axis
+      return { x, y };
+    }
+
+    // Mathematical utility functions
+    function polygonArea(pts) {
+      let area = 0.0;
+      const n = pts.length;
+      for (let i = 0; i < n; i++) {
+        const j = (i + 1) % n;
+        area += pts[i].E * pts[j].N - pts[j].E * pts[i].N;
+      }
+      return Math.abs(area) / 2.0;
+    }
+
+    function lineIntersection(p1, p2, p3, p4) {
+      const denom = (p4.N - p3.N) * (p2.E - p1.E) - (p4.E - p3.E) * (p2.N - p1.N);
+      if (Math.abs(denom) < 1e-10) return null;
+      const num_t = (p4.E - p3.E) * (p1.N - p3.N) - (p4.N - p3.N) * (p1.E - p3.E);
+      const num_s = (p2.E - p1.E) * (p1.N - p3.N) - (p2.N - p1.N) * (p1.E - p3.E);
+      const t = num_t / denom;
+      const s = num_s / denom;
+      return { t, s };
+    }
+
+    // Geometry Split Solver in Javascript
+    function solveSplit(d) {
+      // Starting point on front fence 7-1
+      const X = {
+        E: P7.E + d * ux,
+        N: P7.N + d * uy
+      };
+      
+      // Ray starting at X in direction w
+      const boundarySegments = [
+        { idx: 1, pa: P1, pb: P2 },
+        { idx: 2, pa: P2, pb: P3 },
+        { idx: 3, pa: P3, pb: P4 },
+        { idx: 4, pa: P4, pb: P5 },
+        { idx: 5, pa: P5, pb: P6 },
+        { idx: 6, pa: P6, pb: P7 }
+      ];
+      
+      const intersections = [];
+      for (let seg of boundarySegments) {
+        const res = lineIntersection(seg.pa, seg.pb, X, { E: X.E + wx, N: X.N + wy });
+        if (res !== null) {
+          if (res.t >= 0.0 && res.t <= 1.0 && res.s >= 0.0) {
+            intersections.push({ s: res.s, t: res.t, seg });
+          }
+        }
+      }
+      
+      if (intersections.length === 0) return null;
+      
+      // Sort by s (distance along perpendicular line)
+      intersections.sort((a, b) => a.s - b.s);
+      const closest = intersections[0];
+      const Y = {
+        E: X.E + closest.s * wx,
+        N: X.N + closest.s * wy
+      };
+      
+      const seg_idx = closest.seg.idx;
+      
+      // Construct Lote A (Left side) vertices
+      const loteA = [P7, X, Y];
+      if (seg_idx === 5) {
+        loteA.push(P6);
+      } else if (seg_idx === 4) {
+        loteA.push(P5);
+        loteA.push(P6);
+      } else if (seg_idx === 3) {
+        loteA.push(P4);
+        loteA.push(P5);
+        loteA.push(P6);
+      } else if (seg_idx === 2) {
+        loteA.push(P3);
+        loteA.push(P4);
+        loteA.push(P5);
+        loteA.push(P6);
+      } else if (seg_idx === 1) {
+        loteA.push(P2);
+        loteA.push(P3);
+        loteA.push(P4);
+        loteA.push(P5);
+        loteA.push(P6);
+      }
+      
+      // Construct Lote B (Right side) vertices
+      const loteB = [X];
+      for (let i = 1; i <= seg_idx; i++) {
+        loteB.push(vertices[i]);
+      }
+      loteB.push(Y);
+      
+      const areaA = polygonArea(loteA);
+      const areaB = polygonArea(loteB);
+      
+      return {
+        d, X, Y,
+        loteA, loteB,
+        areaA, areaB,
+        seg_idx,
+        lenDivisoria: closest.s,
+        distPaToY: Math.hypot(Y.E - closest.seg.pa.E, Y.N - closest.seg.pa.N),
+        distYtoPb: Math.hypot(closest.seg.pb.E - Y.E, closest.seg.pb.N - Y.N)
+      };
+    }
+
+    // Find the exact d that gives a certain target area fraction
+    const totalArea = polygonArea(vertices);
+    
+    function findDForAreaPercent(percent) {
+      const target = totalArea * (percent / 100.0);
+      let low = 0.0;
+      let high = len_7_1;
+      let sol = null;
+      for (let i = 0; i < 50; i++) {
+        let mid = (low + high) / 2.0;
+        let res = solveSplit(mid);
+        if (!res) {
+          high = mid;
+          continue;
+        }
+        if (Math.abs(res.areaA - target) < 1e-6) {
+          sol = res;
+          break;
+        } else if (res.areaA < target) {
+          low = mid;
+        } else {
+          high = mid;
+        }
+      }
+      return sol || solveSplit((low + high) / 2.0);
+    }
+
+    // Snap to 50/50 exact solved topographically
+    const d_exact_50 = 31.3097; 
+
+    // Render original vertices labels on map
+    function drawVerticesLabels() {
+      const g = document.getElementById("svgVertices");
+      g.innerHTML = "";
+      vertices.forEach((v, i) => {
+        const svgPt = toSvg(v.E, v.N);
+        const ptNum = i + 1;
+        
+        let dx = 15;
+        let dy = -15;
+        if (ptNum === 7) { dx = -20; dy = 20; }
+        else if (ptNum === 1) { dx = 15; dy = 20; }
+        else if (ptNum === 2) { dx = -18; dy = -10; }
+        else if (ptNum === 3) { dx = 15; dy = 20; }
+        else if (ptNum === 4) { dx = 15; dy = -15; }
+        else if (ptNum === 5) { dx = 10; dy = -20; }
+        else if (ptNum === 6) { dx = -20; dy = -15; }
+
+        g.innerHTML += `
+          <circle class="vertex-dot" cx="${svgPt.x}" cy="${svgPt.y}" r="6" fill="#f8fafc" stroke="#1e293b" stroke-width="2" />
+          <text class="vertex-label" x="${svgPt.x + dx}" y="${svgPt.y + dy}" fill="#cbd5e1" font-size="14" font-weight="700">P${ptNum}</text>
+        `;
+      });
+    }
+
+    // Grid drawing helper
+    function drawSvgGrid() {
+      const grid = document.getElementById("svgGrid");
+      grid.innerHTML = "";
+      for (let i = 0; i < svgW; i += 50) {
+        grid.innerHTML += `<line x1="${i}" y1="0" x2="${i}" y2="${svgH}" />`;
+      }
+      for (let j = 0; j < svgH; j += 50) {
+        grid.innerHTML += `<line x1="0" y1="${j}" x2="${svgW}" y2="${svgH}" />`;
+      }
+    }
+
+    // Update UI Elements with Subdivision Solution
+    let currentSol = null;
+
+    function updateDashboard(sol, percent) {
+      currentSol = sol;
+      const svgA_coords = sol.loteA.map(p => toSvg(p.E, p.N));
+      const svgB_coords = sol.loteB.map(p => toSvg(p.E, p.N));
+      
+      const svgX = toSvg(sol.X.E, sol.X.N);
+      const svgY = toSvg(sol.Y.E, sol.Y.N);
+      const svgP7 = toSvg(P7.E, P7.N);
+      const svgP1 = toSvg(P1.E, P1.N);
+      
+      // Update SVG Polygons
+      document.getElementById("polyA").setAttribute("points", svgA_coords.map(c => `${c.x},${c.y}`).join(" "));
+      document.getElementById("polyB").setAttribute("points", svgB_coords.map(c => `${c.x},${c.y}`).join(" "));
+      
+      // Update Division Line
+      const divLine = document.getElementById("divLine");
+      divLine.setAttribute("x1", svgX.x);
+      divLine.setAttribute("y1", svgX.y);
+      divLine.setAttribute("x2", svgY.x);
+      divLine.setAttribute("y2", svgY.y);
+      
+      // Update Markers
+      document.getElementById("markerX").setAttribute("transform", `translate(${svgX.x}, ${svgX.y})`);
+      document.getElementById("markerY").setAttribute("transform", `translate(${svgY.x}, ${svgY.y})`);
+      
+      // Update Pin labels position
+      document.getElementById("labelX").setAttribute("x", svgX.x);
+      document.getElementById("labelX").setAttribute("y", svgX.y + 30);
+      document.getElementById("sublabelX").setAttribute("x", svgX.x);
+      document.getElementById("sublabelX").setAttribute("y", svgX.y + 45);
+      document.getElementById("sublabelX").textContent = `A ${sol.d.toFixed(2)}m de P7`;
+
+      document.getElementById("labelY").setAttribute("x", svgY.x);
+      document.getElementById("labelY").setAttribute("y", svgY.y - 30);
+      document.getElementById("sublabelY").setAttribute("x", svgY.x);
+      document.getElementById("sublabelY").setAttribute("y", svgY.y - 15);
+      
+      // Dynamic description for Y pin based on back segment
+      let backRefName = `P${sol.seg_idx}`;
+      let backOffset = sol.distPaToY;
+      
+      // If segment is 4 (which is P4-P5)
+      if (sol.seg_idx === 4) {
+        backRefName = "P4";
+        backOffset = sol.distPaToY;
+        document.getElementById("sublabelY").textContent = `A ${backOffset.toFixed(2)}m de P4`;
+      } else {
+        document.getElementById("sublabelY").textContent = `A ${backOffset.toFixed(2)}m de P${sol.seg_idx}`;
+      }
+
+      // Draw dotted dimensions guides
+      // Front: P7 to X
+      document.getElementById("dimLineFront").setAttribute("d", `M ${svgP7.x} ${svgP7.y + 12} L ${svgX.x} ${svgX.y + 12}`);
+      document.getElementById("dimTextFront").setAttribute("x", (svgP7.x + svgX.x)/2);
+      document.getElementById("dimTextFront").setAttribute("y", (svgP7.y + svgX.y)/2 + 25);
+      document.getElementById("dimTextFront").textContent = `${sol.d.toFixed(2)} m`;
+      
+      // Back dimension (P4 to Y, if on segment 4)
+      if (sol.seg_idx === 4) {
+        const svgP4 = toSvg(P4.E, P4.N);
+        document.getElementById("dimLineBack").setAttribute("d", `M ${svgP4.x} ${svgY.y - 12} L ${svgY.x} ${svgY.y - 12}`);
+        document.getElementById("dimTextBack").setAttribute("x", (svgP4.x + svgY.x)/2);
+        document.getElementById("dimTextBack").setAttribute("y", (svgP4.y + svgY.y)/2 - 20);
+        document.getElementById("dimTextBack").textContent = `${sol.distPaToY.toFixed(2)} m`;
+      } else {
+        // Clear back dimension text if divisoria moves off segment 4
+        document.getElementById("dimLineBack").setAttribute("d", "");
+        document.getElementById("dimTextBack").textContent = "";
+      }
+
+      // Distance from P3 to divisoria calculation and 2D drawing
+      const t_proj = (P3.E - sol.X.E) * wx + (P3.N - sol.X.N) * wy;
+      const P3_proj = { E: sol.X.E + t_proj * wx, N: sol.X.N + t_proj * wy };
+      const dist_P3_to_div = Math.hypot(P3.E - P3_proj.E, P3.N - P3_proj.N);
+      
+      const svgP3 = toSvg(P3.E, P3.N);
+      const svgP3Proj = toSvg(P3_proj.E, P3_proj.N);
+      
+      document.getElementById("dimLineP3").setAttribute("d", `M ${svgP3.x} ${svgP3.y} L ${svgP3Proj.x} ${svgP3Proj.y}`);
+      document.getElementById("dimTextP3").setAttribute("x", (svgP3.x + svgP3Proj.x)/2 + 10);
+      document.getElementById("dimTextP3").setAttribute("y", (svgP3.y + svgP3Proj.y)/2 - 10);
+      document.getElementById("dimTextP3").textContent = `${dist_P3_to_div.toFixed(2)} m`;
+
+      // Area tags placement (centroids)
+      const avgA = centroid(sol.loteA);
+      const svgAvgA = toSvg(avgA.E, avgA.N);
+      const tagA = document.getElementById("areaTagA");
+      tagA.setAttribute("transform", `translate(${svgAvgA.x}, ${svgAvgA.y})`);
+      document.getElementById("areaTextA").textContent = `${sol.areaA.toFixed(2)} m²`;
+
+      const avgB = centroid(sol.loteB);
+      const svgAvgB = toSvg(avgB.E, avgB.N);
+      const tagB = document.getElementById("areaTagB");
+      tagB.setAttribute("transform", `translate(${svgAvgB.x}, ${svgAvgB.y - 15})`);
+      document.getElementById("areaTextB").textContent = `${sol.areaB.toFixed(2)} m²`;
+
+      // Middle divider line length label rotation and position
+      const textDiv = document.getElementById("divLineLengthText");
+      textDiv.setAttribute("x", (svgX.x + svgY.x)/2 + 15);
+      textDiv.setAttribute("y", (svgX.y + svgY.y)/2);
+      const angleRad = Math.atan2(svgY.y - svgX.y, svgY.x - svgX.x);
+      const angleDeg = angleRad * (180/Math.PI);
+      textDiv.setAttribute("transform", `rotate(${angleDeg}, ${(svgX.x + svgY.x)/2 + 15}, ${(svgX.y + svgY.y)/2})`);
+      textDiv.textContent = `LÍNEA DIVISORIA: ${sol.lenDivisoria.toFixed(2)} m`;
+
+      // Update values in the dashboard stats
+      document.getElementById("lblAreaA").textContent = `${sol.areaA.toFixed(2)} m²`;
+      document.getElementById("lblPercentA").textContent = `${(sol.areaA / totalArea * 100).toFixed(2)}% del total`;
+      document.getElementById("lblAreaB").textContent = `${sol.areaB.toFixed(2)} m²`;
+      document.getElementById("lblPercentB").textContent = `${(sol.areaB / totalArea * 100).toFixed(2)}% del total`;
+      
+      document.getElementById("lblFrontA").textContent = `${sol.d.toFixed(2)} m`;
+      document.getElementById("lblFrontB").textContent = `${(len_7_1 - sol.d).toFixed(2)} m`;
+      document.getElementById("lblDivisorLen").textContent = `${sol.lenDivisoria.toFixed(2)} m`;
+      document.getElementById("lblDistP3").textContent = `${dist_P3_to_div.toFixed(2)} m`;
+      
+      document.getElementById("lblCoordX").textContent = `E: ${sol.X.E.toFixed(2)} | N: ${sol.X.N.toFixed(2)}`;
+      document.getElementById("lblCoordY").textContent = `E: ${sol.Y.E.toFixed(2)} | N: ${sol.Y.N.toFixed(2)}`;
+
+      // Update Field Guide step measurements
+      document.getElementById("guideFrontDist").textContent = `${sol.d.toFixed(2)} metros`;
+      
+      if (sol.seg_idx === 4) {
+        document.getElementById("guideBackDist").textContent = `${sol.distPaToY.toFixed(2)} metros`;
+        document.getElementById("guideBackDistRem").textContent = `${sol.distYtoPb.toFixed(2)} metros`;
+      } else {
+        document.getElementById("guideBackDist").textContent = `${sol.distPaToY.toFixed(2)} metros de P${sol.seg_idx}`;
+        document.getElementById("guideBackDistRem").textContent = `${sol.distYtoPb.toFixed(2)} metros de P${sol.seg_idx+1}`;
+      }
+      
+      document.getElementById("guideFenceLen").textContent = `${sol.lenDivisoria.toFixed(2)} metros`;
+
+      // Update coordinate tables
+      updateTechnicalTables(sol);
+      
+      // Update 3D scene in real-time if active
+      if (is3D && threeInitialized) {
+        updateThreeScene(sol);
+      }
+    }
+
+    // Centroid calculation for labeling inside polygon
+    function centroid(pts) {
+      let eSum = 0;
+      let nSum = 0;
+      pts.forEach(p => {
+        eSum += p.E;
+        nSum += p.N;
+      });
+      return { E: eSum / pts.length, N: nSum / pts.length };
+    }
+
+    // Technical table populations
+    function updateTechnicalTables(sol) {
+      // Lote A Table
+      const tbodyA = document.getElementById("tbodyLoteA");
+      tbodyA.innerHTML = "";
+      sol.loteA.forEach((v, i) => {
+        let label = `P${i}`;
+        // Map vertices back to original labels if they correspond
+        if (v === P7) label = "P7 (Esquina)";
+        else if (v === P6) label = "P6 (Esquina)";
+        else if (v === P5) label = "P5 (Esquina)";
+        else if (v === P4) label = "P4 (Esquina)";
+        else if (v === P3) label = "P3 (Esquina)";
+        else if (v === P2) label = "P2 (Esquina)";
+        else if (v === P1) label = "P1 (Esquina)";
+        else if (i === 1) label = "Varilla Frente (X)";
+        else if (i === 2) label = "Varilla Fondo (Y)";
+        
+        tbodyA.innerHTML += `
+          <tr>
+            <td><strong>${label}</strong></td>
+            <td class="code-font">${v.N.toFixed(3)}</td>
+            <td class="code-font">${v.E.toFixed(3)}</td>
+          </tr>
+        `;
+      });
+
+      // Lote B Table
+      const tbodyB = document.getElementById("tbodyLoteB");
+      tbodyB.innerHTML = "";
+      sol.loteB.forEach((v, i) => {
+        let label = `P${i}`;
+        if (v === P7) label = "P7 (Esquina)";
+        else if (v === P6) label = "P6 (Esquina)";
+        else if (v === P5) label = "P5 (Esquina)";
+        else if (v === P4) label = "P4 (Esquina)";
+        else if (v === P3) label = "P3 (Esquina)";
+        else if (v === P2) label = "P2 (Esquina)";
+        else if (v === P1) label = "P1 (Esquina)";
+        else if (i === 0) label = "Varilla Frente (X)";
+        else if (i === sol.loteB.length - 1) label = "Varilla Fondo (Y)";
+
+        tbodyB.innerHTML += `
+          <tr>
+            <td><strong>${label}</strong></td>
+            <td class="code-font">${v.N.toFixed(3)}</td>
+            <td class="code-font">${v.E.toFixed(3)}</td>
+          </tr>
+        `;
+      });
+    }
+
+    // Tabs switching
+    function switchTab(evt, tabId) {
+      const contents = document.querySelectorAll(".tab-content");
+      contents.forEach(c => c.classList.remove("active"));
+      
+      const tabBtns = document.querySelectorAll(".tab-btn");
+      tabBtns.forEach(b => b.classList.remove("active"));
+      
+      document.getElementById(tabId).classList.add("active");
+      evt.currentTarget.classList.add("active");
+    }
+
+    // Copying table helper
+    function copyCoords(tableId) {
+      const table = document.getElementById(tableId);
+      let text = "Vértice\tNorte\tEste\n";
+      const rows = table.querySelectorAll("tbody tr");
+      rows.forEach(r => {
+        const cols = r.querySelectorAll("td");
+        text += `${cols[0].textContent}\t${cols[1].textContent}\t${cols[2].textContent}\n`;
+      });
+      
+      navigator.clipboard.writeText(text).then(() => {
+        alert("¡Coordenadas copiadas al portapapeles con éxito!");
+      }, () => {
+        alert("Ocurrió un error al copiar las coordenadas.");
+      });
+    }
+
+    // Event Listeners for Slider
+    const slider = document.getElementById("splitSlider");
+    const sliderDisplay = document.getElementById("sliderValueDisplay");
+    
+    function handleSliderInput() {
+      const val = parseInt(slider.value);
+      sliderDisplay.textContent = `${val}% / ${100-val}%`;
+      
+      // Calculate split for selected percentage
+      const sol = findDForAreaPercent(val);
+      updateDashboard(sol, val);
+    }
+    
+    slider.addEventListener("input", handleSliderInput);
+
+    // Reset button snaps back to 50/50 exact solved
+    document.getElementById("btnReset").addEventListener("click", () => {
+      slider.value = 50;
+      sliderDisplay.textContent = "50% / 50%";
+      const sol = solveSplit(d_exact_50);
+      updateDashboard(sol, 50);
+    });
+
+    // Initial load
+    drawSvgGrid();
+    drawVerticesLabels();
+    
+    // Set 50/50 subdivision initially
+    const sol_initial = solveSplit(d_exact_50);
+    updateDashboard(sol_initial, 50);
+
+    // 3D Interactive WebGL and Three.js Engine
+    let is3D = false;
+    let autoRotate = true; // Auto-rotate active by default
+    let threeInitialized = false;
+    let scene, camera, renderer, controls, animationId;
+    let meshLoteA, meshLoteB, edgesA, edgesB;
+    let wallMesh, pinX, pinY, sphereX, sphereY;
+    let lineP3Helper;
+    let vertexSpheres = [];
+    
+    const svgMap = document.getElementById("svgMap");
+    const btn3D = document.getElementById("btn3D");
+    const view3DHint = document.getElementById("view3DHint");
+
+    function initThree() {
+      // 1. Rigorous CDN and WebGL availability checks
+      if (typeof THREE === 'undefined') {
+        throw new Error("La biblioteca Three.js (3D) no se pudo cargar desde el servidor CDN. Por favor, verifica tu conexión a internet.");
+      }
+      if (typeof THREE.OrbitControls === 'undefined') {
+        throw new Error("El componente de control de cámara (OrbitControls) no se pudo cargar desde el servidor CDN.");
+      }
+      if (!isWebGLAvailable()) {
+        throw new Error("Tu navegador o dispositivo no admite WebGL (aceleración 3D en la tarjeta de video) o lo tiene desactivado.");
+      }
+
+      const container = document.querySelector(".map-container");
+      const canvas = document.getElementById("threeCanvas");
+      
+      const width = container.clientWidth || 600;
+      const height = container.clientHeight || 500;
+      
+      // Create Scene
+      scene = new THREE.Scene();
+      
+      // Create Camera
+      camera = new THREE.PerspectiveCamera(40, width / height, 1, 1000);
+      camera.position.set(0, 100, 140);
+      
+      // Create Renderer
+      try {
+        renderer = new THREE.WebGLRenderer({
+          canvas: canvas,
+          antialias: true,
+          alpha: true
+        });
+      } catch (rendererError) {
+        throw new Error("No se pudo crear el renderizador WebGL: " + rendererError.message);
+      }
+      renderer.setSize(width, height);
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+      renderer.shadowMap.enabled = true;
+      
+      controls = new THREE.OrbitControls(camera, renderer.domElement);
+      controls.enableDamping = true;
+      controls.dampingFactor = 0.05;
+      controls.maxPolarAngle = Math.PI / 2 - 0.02; // prevent going below ground
+      controls.minDistance = 30;
+      controls.maxDistance = 300;
+      controls.target.set(0, 0, 0);
+      controls.autoRotate = autoRotate;
+      controls.autoRotateSpeed = 2.0;
+      
+      // Ambient Light
+      const ambientLight = new THREE.AmbientLight(0x1e293b, 1.6);
+      scene.add(ambientLight);
+      
+      // Directional Golden Sun Light
+      const dirLight1 = new THREE.DirectionalLight(0xf59e0b, 1.8);
+      dirLight1.position.set(50, 120, 50);
+      scene.add(dirLight1);
+      
+      // Directional Blue Soft Fill Light
+      const dirLight2 = new THREE.DirectionalLight(0x3b82f6, 1.2);
+      dirLight2.position.set(-50, 80, -50);
+      scene.add(dirLight2);
+      
+      // Grid helper on ground
+      const gridHelper = new THREE.GridHelper(300, 30, 0x334155, 0x1e293b);
+      gridHelper.position.y = -0.15;
+      scene.add(gridHelper);
+      
+      const E_center = (minE + maxE) / 2;
+      const N_center = (minN + maxN) / 2;
+
+      // Premium Dark Ground Plane
+      const groundGeom = new THREE.PlaneGeometry(600, 600);
+      const groundMat = new THREE.MeshStandardMaterial({
+        color: 0x090d16,
+        roughness: 0.95,
+        metalness: 0.05
+      });
+      const ground = new THREE.Mesh(groundGeom, groundMat);
+      ground.rotation.x = -Math.PI / 2;
+      ground.position.y = -0.2;
+      scene.add(ground);
+
+      // Create Street/Access (Calle) representation based on boundary 7 -> 1
+      const x7 = P7.E - E_center;
+      const z7 = -(P7.N - N_center);
+      const x1 = P1.E - E_center;
+      const z1 = -(P1.N - N_center);
+      
+      const mx = (x7 + x1) / 2;
+      const mz = (z7 + z1) / 2;
+      
+      // u vector along road (7 -> 1)
+      const r_dx = x1 - x7;
+      const r_dz = z1 - z7;
+      const r_len = Math.hypot(r_dx, r_dz);
+      const r_ux = r_dx / r_len;
+      const r_uz = r_dz / r_len;
+      
+      // Outward normal in 3D: (r_uz, -r_ux) -> points away from property (toward road)
+      const nx_3d = r_uz;
+      const nz_3d = -r_ux;
+      
+      // Position road slightly offset from boundary
+      const roadOffsetDist = 6; 
+      const rx = mx + nx_3d * roadOffsetDist;
+      const rz = mz + nz_3d * roadOffsetDist;
+      
+      const roadLength = r_len + 150;
+      const roadWidth = 12;
+      
+      // Road asphalt slab
+      const roadGeom = new THREE.PlaneGeometry(roadLength, roadWidth);
+      const roadMat = new THREE.MeshStandardMaterial({
+        color: 0x1e293b, // dark slate
+        roughness: 0.85,
+        metalness: 0.1
+      });
+      const road = new THREE.Mesh(roadGeom, roadMat);
+      road.rotation.x = -Math.PI / 2;
+      const roadAngle = Math.atan2(-r_dz, r_dx);
+      road.rotation.z = roadAngle;
+      road.position.set(rx, -0.08, rz);
+      scene.add(road);
+      
+      // Yellow dashed center divider line
+      const lineGeom = new THREE.PlaneGeometry(roadLength, 0.25);
+      const lineMat = new THREE.MeshBasicMaterial({
+        color: 0xf59e0b,
+        side: THREE.DoubleSide
+      });
+      const centerLine = new THREE.Mesh(lineGeom, lineMat);
+      centerLine.rotation.x = -Math.PI / 2;
+      centerLine.rotation.z = roadAngle;
+      centerLine.position.set(rx, -0.06, rz);
+      scene.add(centerLine);
+      
+      // Draw static corner spheres (catastral markers)
+      const sphereGeom = new THREE.SphereGeometry(1.2, 16, 16);
+      const sphereMat = new THREE.MeshStandardMaterial({
+        color: 0xe2e8f0,
+        roughness: 0.1,
+        metalness: 0.9,
+        emissive: 0x94a3b8,
+        emissiveIntensity: 0.1
+      });
+      
+      vertices.forEach((v) => {
+        const sphere = new THREE.Mesh(sphereGeom, sphereMat);
+        sphere.position.set(v.E - E_center, 0, -(v.N - N_center));
+        scene.add(sphere);
+        vertexSpheres.push(sphere);
+      });
+      
+      threeInitialized = true;
+    }
+
+    function updateThreeScene(sol) {
+      if (!threeInitialized || !sol) return;
+      
+      const E_center = (minE + maxE) / 2;
+      const N_center = (minN + maxN) / 2;
+      
+      // Clean up old dynamic meshes
+      if (meshLoteA) scene.remove(meshLoteA);
+      if (meshLoteB) scene.remove(meshLoteB);
+      if (edgesA) scene.remove(edgesA);
+      if (edgesB) scene.remove(edgesB);
+      if (wallMesh) scene.remove(wallMesh);
+      if (pinX) scene.remove(pinX);
+      if (pinY) scene.remove(pinY);
+      if (sphereX) scene.remove(sphereX);
+      if (sphereY) scene.remove(sphereY);
+      if (lineP3Helper) scene.remove(lineP3Helper);
+      
+      // Architectural Extrude settings
+      const extrudeSettings = {
+        depth: 4, // 4 meters thickness
+        bevelEnabled: true,
+        bevelSegments: 3,
+        steps: 1,
+        bevelSize: 0.3,
+        bevelThickness: 0.3
+      };
+      
+      // Create Lote A 2D Shape (XZ space mapped to 2D shape coordinates)
+      const shapeA = new THREE.Shape();
+      shapeA.moveTo(sol.loteA[0].E - E_center, sol.loteA[0].N - N_center);
+      for (let i = 1; i < sol.loteA.length; i++) {
+        shapeA.lineTo(sol.loteA[i].E - E_center, sol.loteA[i].N - N_center);
+      }
+      shapeA.closePath();
+      
+      const geomA = new THREE.ExtrudeGeometry(shapeA, extrudeSettings);
+      const matA = new THREE.MeshStandardMaterial({
+        color: 0x10b981,
+        roughness: 0.25,
+        metalness: 0.15,
+        transparent: true,
+        opacity: 0.45,
+        side: THREE.DoubleSide
+      });
+      meshLoteA = new THREE.Mesh(geomA, matA);
+      meshLoteA.rotation.x = -Math.PI / 2; // Lay flat
+      scene.add(meshLoteA);
+      
+      // Edges outline
+      const edgesGeomA = new THREE.EdgesGeometry(geomA);
+      edgesA = new THREE.LineSegments(edgesGeomA, new THREE.LineBasicMaterial({ color: 0x10b981, linewidth: 2 }));
+      edgesA.rotation.x = -Math.PI / 2;
+      scene.add(edgesA);
+      
+      // Create Lote B Shape
+      const shapeB = new THREE.Shape();
+      shapeB.moveTo(sol.loteB[0].E - E_center, sol.loteB[0].N - N_center);
+      for (let i = 1; i < sol.loteB.length; i++) {
+        shapeB.lineTo(sol.loteB[i].E - E_center, sol.loteB[i].N - N_center);
+      }
+      shapeB.closePath();
+      
+      const geomB = new THREE.ExtrudeGeometry(shapeB, extrudeSettings);
+      const matB = new THREE.MeshStandardMaterial({
+        color: 0x3b82f6,
+        roughness: 0.25,
+        metalness: 0.15,
+        transparent: true,
+        opacity: 0.45,
+        side: THREE.DoubleSide
+      });
+      meshLoteB = new THREE.Mesh(geomB, matB);
+      meshLoteB.rotation.x = -Math.PI / 2; // Lay flat
+      scene.add(meshLoteB);
+      
+      // Edges outline
+      const edgesGeomB = new THREE.EdgesGeometry(geomB);
+      edgesB = new THREE.LineSegments(edgesGeomB, new THREE.LineBasicMaterial({ color: 0x3b82f6, linewidth: 2 }));
+      edgesB.rotation.x = -Math.PI / 2;
+      scene.add(edgesB);
+      
+      // 3. Glowing Partition Laser Wall
+      const x1 = sol.X.E - E_center;
+      const z1 = -(sol.X.N - N_center);
+      const x2 = sol.Y.E - E_center;
+      const z2 = -(sol.Y.N - N_center);
+      
+      const wallGeom = new THREE.BufferGeometry();
+      const wallVertices = new Float32Array([
+        x1, 0, z1,   // Bottom X
+        x2, 0, z2,   // Bottom Y
+        x2, 8, z2,   // Top Y (8m high)
+        x1, 8, z1    // Top X
+      ]);
+      const wallIndices = [
+        0, 1, 2,     // face 1
+        0, 2, 3,     // face 2
+        2, 1, 0,     // face 1 double
+        3, 2, 0      // face 2 double
+      ];
+      wallGeom.setAttribute('position', new THREE.BufferAttribute(wallVertices, 3));
+      wallGeom.setIndex(wallIndices);
+      wallGeom.computeVertexNormals();
+      
+      const wallMat = new THREE.MeshStandardMaterial({
+        color: 0xf59e0b,
+        emissive: 0xf59e0b,
+        emissiveIntensity: 0.6,
+        transparent: true,
+        opacity: 0.65,
+        side: THREE.DoubleSide
+      });
+      wallMesh = new THREE.Mesh(wallGeom, wallMat);
+      scene.add(wallMesh);
+      
+      // 4. Cylindrical Metal Stakes
+      const pinGeom = new THREE.CylinderGeometry(0.35, 0.35, 10, 8);
+      const pinMat = new THREE.MeshStandardMaterial({
+        color: 0xf59e0b,
+        emissive: 0xf59e0b,
+        emissiveIntensity: 0.3,
+        metalness: 0.8,
+        roughness: 0.2
+      });
+      
+      pinX = new THREE.Mesh(pinGeom, pinMat);
+      pinX.position.set(x1, 5, z1);
+      scene.add(pinX);
+      
+      pinY = new THREE.Mesh(pinGeom, pinMat);
+      pinY.position.set(x2, 5, z2);
+      scene.add(pinY);
+      
+      // Top Spheres for Stakes
+      const topSphereGeom = new THREE.SphereGeometry(0.7, 16, 16);
+      const topSphereMat = new THREE.MeshBasicMaterial({ color: 0xffffff });
+      
+      sphereX = new THREE.Mesh(topSphereGeom, topSphereMat);
+      sphereX.position.set(x1, 10, z1);
+      scene.add(sphereX);
+      
+      sphereY = new THREE.Mesh(topSphereGeom, topSphereMat);
+      sphereY.position.set(x2, 10, z2);
+      scene.add(sphereY);
+      
+      // 5. Create 3D dotted line from P3 to the division line projection
+      const t_proj = (P3.E - sol.X.E) * wx + (P3.N - sol.X.N) * wy;
+      const P3_proj = { E: sol.X.E + t_proj * wx, N: sol.X.N + t_proj * wy };
+      const xP3 = P3.E - E_center;
+      const zP3 = -(P3.N - N_center);
+      const xProj = P3_proj.E - E_center;
+      const zProj = -(P3_proj.N - N_center);
+      
+      const lineGeom = new THREE.BufferGeometry().setFromPoints([
+        new THREE.Vector3(xP3, 0.2, zP3),
+        new THREE.Vector3(xProj, 0.2, zProj)
+      ]);
+      const lineMat = new THREE.LineDashedMaterial({
+        color: 0xf59e0b,
+        dashSize: 2,
+        gapSize: 1.5,
+        linewidth: 2
+      });
+      lineP3Helper = new THREE.Line(lineGeom, lineMat);
+      lineP3Helper.computeLineDistances();
+      scene.add(lineP3Helper);
+      
+      // 6. Generate screen space overlay labels
+      buildThreeLabels(sol);
+    }
+
+    function buildThreeLabels(sol) {
+      const container = document.getElementById("threeLabels");
+      container.innerHTML = "";
+      
+      // Property corners
+      vertices.forEach((v, i) => {
+        container.innerHTML += `
+          <div id="lbl3d-P${i+1}" class="lbl3d-point">
+            P${i+1}
+          </div>
+        `;
+      });
+      
+      // Pin X
+      container.innerHTML += `
+        <div id="lbl3d-VarillaX" class="lbl3d-stake">
+          Varilla Frente (X)<br>
+          <span class="lbl3d-stake-sub">A ${sol.d.toFixed(2)}m de P7</span>
+        </div>
+      `;
+      
+      // Pin Y
+      let backRefName = sol.seg_idx === 4 ? "P4" : `P${sol.seg_idx}`;
+      let backOffset = sol.distPaToY;
+      container.innerHTML += `
+        <div id="lbl3d-VarillaY" class="lbl3d-stake">
+          Varilla Fondo (Y)<br>
+          <span class="lbl3d-stake-sub">A ${backOffset.toFixed(2)}m de ${backRefName}</span>
+        </div>
+      `;
+      
+      // Lote A glass badge
+      container.innerHTML += `
+        <div id="lbl3d-AreaA" class="lbl3d-area area-a">
+          LOTE A (CLIENTE)<br>
+          <span class="lbl3d-area-val">${sol.areaA.toFixed(2)} m²</span>
+        </div>
+      `;
+      
+      // Lote B glass badge
+      container.innerHTML += `
+        <div id="lbl3d-AreaB" class="lbl3d-area area-b">
+          LOTE B (COMPRADOR)<br>
+          <span class="lbl3d-area-val">${sol.areaB.toFixed(2)} m²</span>
+        </div>
+      `;
+
+      // P3 to Divisoria projection label
+      const t_proj = (P3.E - sol.X.E) * wx + (P3.N - sol.X.N) * wy;
+      const P3_proj = { E: sol.X.E + t_proj * wx, N: sol.X.N + t_proj * wy };
+      const dist_P3_to_div = Math.hypot(P3.E - P3_proj.E, P3.N - P3_proj.N);
+      container.innerHTML += `
+        <div id="lbl3d-DistP3" class="lbl3d-point" style="background: rgba(245, 158, 11, 0.95); border: 1px solid #f8fafc; color: #0f172a; font-weight: 800; border-radius: 6px; box-shadow: 0 4px 12px rgba(245, 158, 11, 0.4); text-align: center; padding: 4px 8px;">
+          P3 ↔ Divisoria<br>${dist_P3_to_div.toFixed(2)} m
+        </div>
+      `;
+    }
+
+    function projectAllLabels(sol) {
+      if (!threeInitialized || !sol) return;
+      
+      const E_center = (minE + maxE) / 2;
+      const N_center = (minN + maxN) / 2;
+      
+      const container = document.getElementById("threeLabels");
+      const rect = container.getBoundingClientRect();
+      const width = rect.width;
+      const height = rect.height;
+      
+      // Project P1-P7
+      vertices.forEach((v, i) => {
+        projectLabel(v.E - E_center, 2, -(v.N - N_center), `lbl3d-P${i+1}`, width, height);
+      });
+      
+      // Project Stakes
+      const x1 = sol.X.E - E_center;
+      const z1 = -(sol.X.N - N_center);
+      const x2 = sol.Y.E - E_center;
+      const z2 = -(sol.Y.N - N_center);
+      
+      projectLabel(x1, 10, z1, "lbl3d-VarillaX", width, height);
+      projectLabel(x2, 10, z2, "lbl3d-VarillaY", width, height);
+      
+      // Project Lot centroids
+      const avgA = centroid(sol.loteA);
+      projectLabel(avgA.E - E_center, 6, -(avgA.N - N_center), "lbl3d-AreaA", width, height);
+      
+      const avgB = centroid(sol.loteB);
+      projectLabel(avgB.E - E_center, 6, -(avgB.N - N_center), "lbl3d-AreaB", width, height);
+
+      // Project P3 to Divisoria label at the midpoint of projection
+      const t_proj = (P3.E - sol.X.E) * wx + (P3.N - sol.X.N) * wy;
+      const P3_proj = { E: sol.X.E + t_proj * wx, N: sol.X.N + t_proj * wy };
+      const midE = (P3.E + P3_proj.E) / 2;
+      const midN = (P3.N + P3_proj.N) / 2;
+      projectLabel(midE - E_center, 0.5, -(midN - N_center), "lbl3d-DistP3", width, height);
+    }
+
+    let tempV3d = null;
+    function projectLabel(x3d, y3d, z3d, elementId, w, h) {
+      const el = document.getElementById(elementId);
+      if (!el) return;
+      
+      if (!tempV3d && typeof THREE !== 'undefined') {
+        tempV3d = new THREE.Vector3();
+      }
+      if (!tempV3d) return;
+      
+      tempV3d.set(x3d, y3d, z3d);
+      tempV3d.project(camera);
+      
+      // If behind the camera (z > 1), hide it
+      if (tempV3d.z > 1) {
+        el.style.display = "none";
+        return;
+      }
+      
+      const x = (tempV3d.x * 0.5 + 0.5) * w;
+      const y = (tempV3d.y * -0.5 + 0.5) * h;
+      
+      // Check boundaries to hide if out of viewport
+      if (x < 0 || x > w || y < 0 || y > h) {
+        el.style.display = "none";
+        return;
+      }
+      
+      el.style.display = "block";
+      el.style.left = `${x}px`;
+      el.style.top = `${y}px`;
+    }
+
+    function animateThree() {
+      if (!is3D) return;
+      animationId = requestAnimationFrame(animateThree);
+      
+      if (controls) {
+        controls.autoRotate = autoRotate;
+        controls.update();
+      }
+      
+      if (renderer && scene && camera) {
+        renderer.render(scene, camera);
+      }
+      
+      if (currentSol) {
+        projectAllLabels(currentSol);
+      }
+    }
+
+    let threeControlsBound = false;
+    function setupThreeControls() {
+      if (threeControlsBound) return;
+      
+      const btnAR = document.getElementById("btnAutoRotate");
+      btnAR.addEventListener("click", () => {
+        autoRotate = !autoRotate;
+        if (autoRotate) {
+          btnAR.innerHTML = '<i data-lucide="rotate-cw" style="width: 12px; height: 12px;"></i> <span class="btn-3d-text">Auto-Rotar: ON</span>';
+          btnAR.style.color = "var(--color-primary)";
+          btnAR.style.borderColor = "var(--color-primary)";
+        } else {
+          btnAR.innerHTML = '<i data-lucide="rotate-cw" style="width: 12px; height: 12px;"></i> <span class="btn-3d-text">Auto-Rotar: OFF</span>';
+          btnAR.style.color = "var(--text-muted)";
+          btnAR.style.borderColor = "var(--border-light)";
+        }
+        safeCreateIcons();
+      });
+      
+      document.getElementById("btnViewTop").addEventListener("click", () => {
+        autoRotate = false;
+        btnAR.innerHTML = '<i data-lucide="rotate-cw" style="width: 12px; height: 12px;"></i> <span class="btn-3d-text">Auto-Rotar: OFF</span>';
+        btnAR.style.color = "var(--text-muted)";
+        btnAR.style.borderColor = "var(--border-light)";
+        
+        camera.position.set(0, 150, 0.01); 
+        controls.target.set(0, 0, 0);
+        controls.update();
+        safeCreateIcons();
+      });
+      
+      document.getElementById("btnViewPerspective").addEventListener("click", () => {
+        camera.position.set(0, 100, 140);
+        controls.target.set(0, 0, 0);
+        controls.update();
+      });
+      
+      document.getElementById("btnReset3D").addEventListener("click", () => {
+        camera.position.set(0, 100, 140);
+        controls.target.set(0, 0, 0);
+        autoRotate = true;
+        btnAR.innerHTML = '<i data-lucide="rotate-cw" style="width: 12px; height: 12px;"></i> <span class="btn-3d-text">Auto-Rotar: ON</span>';
+        btnAR.style.color = "var(--color-primary)";
+        btnAR.style.borderColor = "var(--color-primary)";
+        controls.update();
+        safeCreateIcons();
+      });
+      
+      threeControlsBound = true;
+    }
+
+    // Helper to gracefully restore 2D View state if 3D initialization fails or is disabled
+    function restore2DView() {
+      const canvas = document.getElementById("threeCanvas");
+      const labels = document.getElementById("threeLabels");
+      const svgMap = document.getElementById("svgMap");
+      const threeControls = document.getElementById("threeControls");
+      const view3DHint = document.getElementById("view3DHint");
+
+      btn3D.innerHTML = '<i data-lucide="orbit"></i> Vista 3D';
+      btn3D.classList.add("btn-success");
+      btn3D.style.borderColor = "var(--color-success)";
+      btn3D.style.color = "var(--color-success)";
+      btn3D.style.backgroundColor = "rgba(16, 185, 129, 0.1)";
+      view3DHint.classList.remove("active");
+      
+      svgMap.style.display = "block";
+      canvas.style.display = "none";
+      labels.style.display = "none";
+      threeControls.style.display = "none";
+      
+      if (animationId) {
+        cancelAnimationFrame(animationId);
+      }
+      safeCreateIcons();
+    }
+
+    // Toggle 3D mode on and off
+    btn3D.addEventListener("click", () => {
+      is3D = !is3D;
+      
+      if (is3D) {
+        btn3D.innerHTML = '<i data-lucide="video-off"></i> Vista 2D';
+        btn3D.classList.remove("btn-success");
+        btn3D.style.borderColor = "var(--color-danger)";
+        btn3D.style.color = "var(--color-danger)";
+        btn3D.style.backgroundColor = "rgba(239, 68, 68, 0.1)";
+        view3DHint.innerHTML = '<i data-lucide="hand"></i> Arrastra para rotar | Rueda para zoom en 3D';
+        view3DHint.classList.add("active");
+        
+        const canvas = document.getElementById("threeCanvas");
+        const labels = document.getElementById("threeLabels");
+        const svgMap = document.getElementById("svgMap");
+        const threeControls = document.getElementById("threeControls");
+
+        svgMap.style.display = "none";
+        canvas.style.display = "block";
+        labels.style.display = "block";
+        threeControls.style.display = "flex";
+        
+        try {
+          if (!threeInitialized) {
+            initThree();
+          }
+          
+          setupThreeControls();
+          
+          // Reset autoRotate to true when entering 3D to showcase rotation
+          autoRotate = true;
+          const btnAR = document.getElementById("btnAutoRotate");
+          if (btnAR) {
+            btnAR.innerHTML = '<i data-lucide="rotate-cw" style="width: 12px; height: 12px;"></i> <span class="btn-3d-text">Auto-Rotar: ON</span>';
+            btnAR.style.color = "var(--color-primary)";
+            btnAR.style.borderColor = "var(--color-primary)";
+          }
+          
+          updateThreeScene(currentSol);
+          animateThree();
+        } catch (threeError) {
+          console.error("Fallo al inicializar o actualizar la Vista 3D:", threeError);
+          showToast("Error en Vista 3D", threeError.message);
+          is3D = false;
+          threeInitialized = false;
+          restore2DView();
+          return;
+        }
+        
+      } else {
+        restore2DView();
+      }
+      safeCreateIcons();
+    });
+
+    // Resize handler
+    window.addEventListener("resize", () => {
+      if (threeInitialized) {
+        const container = document.querySelector(".map-container");
+        const width = container.clientWidth;
+        const height = container.clientHeight;
+        
+        camera.aspect = width / height;
+        camera.updateProjectionMatrix();
+        
+        renderer.setSize(width, height);
+      }
+    });
+
+  </script>
+</body>
+</html>

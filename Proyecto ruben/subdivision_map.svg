@@ -1,0 +1,143 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 800" width="100%" height="100%" style="background-color: #0f172a; font-family: 'Outfit', sans-serif;">
+  <defs>
+    <!-- Gradients -->
+    <linearGradient id="gradLoteA" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#10b981" stop-opacity="0.2" />
+      <stop offset="100%" stop-color="#047857" stop-opacity="0.05" />
+    </linearGradient>
+    <linearGradient id="gradLoteB" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#3b82f6" stop-opacity="0.2" />
+      <stop offset="100%" stop-color="#1d4ed8" stop-opacity="0.05" />
+    </linearGradient>
+    
+    <!-- Shadow filters for premium glow effect -->
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="6" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+    <filter id="pinGlow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="4" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+  </defs>
+
+  <!-- Grid Background -->
+  <g stroke="#334155" stroke-width="0.5" opacity="0.3">
+    <line x1="0" y1="0" x2="0" y2="800" /><line x1="50" y1="0" x2="50" y2="800" /><line x1="100" y1="0" x2="100" y2="800" /><line x1="150" y1="0" x2="150" y2="800" /><line x1="200" y1="0" x2="200" y2="800" /><line x1="250" y1="0" x2="250" y2="800" /><line x1="300" y1="0" x2="300" y2="800" /><line x1="350" y1="0" x2="350" y2="800" /><line x1="400" y1="0" x2="400" y2="800" /><line x1="450" y1="0" x2="450" y2="800" /><line x1="500" y1="0" x2="500" y2="800" /><line x1="550" y1="0" x2="550" y2="800" /><line x1="600" y1="0" x2="600" y2="800" /><line x1="650" y1="0" x2="650" y2="800" /><line x1="700" y1="0" x2="700" y2="800" /><line x1="750" y1="0" x2="750" y2="800" /><line x1="800" y1="0" x2="800" y2="800" /><line x1="850" y1="0" x2="850" y2="800" />
+    <line x1="0" y1="0" x2="900" y2="0" /><line x1="0" y1="50" x2="900" y2="50" /><line x1="0" y1="100" x2="900" y2="100" /><line x1="0" y1="150" x2="900" y2="150" /><line x1="0" y1="200" x2="900" y2="200" /><line x1="0" y1="250" x2="900" y2="250" /><line x1="0" y1="300" x2="900" y2="300" /><line x1="0" y1="350" x2="900" y2="350" /><line x1="0" y1="400" x2="900" y2="400" /><line x1="0" y1="450" x2="900" y2="450" /><line x1="0" y1="500" x2="900" y2="500" /><line x1="0" y1="550" x2="900" y2="550" /><line x1="0" y1="600" x2="900" y2="600" /><line x1="0" y1="650" x2="900" y2="650" /><line x1="0" y1="700" x2="900" y2="700" /><line x1="0" y1="750" x2="900" y2="750" />
+  </g>
+
+  <!-- Title & Info -->
+  <text x="40" y="50" fill="#f8fafc" font-size="22" font-weight="700" letter-spacing="1">PROPUESTA DE SUBDIVISIÓN 50 / 50</text>
+  <text x="40" y="75" fill="#94a3b8" font-size="14">Ubicación: Panamá | Área Total: 5033.79 m²</text>
+
+  <!-- Lot Polygons -->
+  <!-- Lote A (Izquierda - Cliente) -->
+  <polygon points="102.3182672675934,544.1843396258662 286.8329964966746,650.8921022813731 577.3301087544802,148.5762943561631 383.5728811714935,104.2582909814397 359.2304183292386,100.0" fill="url(#gradLoteA)" stroke="#10b981" stroke-width="2.5" style="transition: all 0.3s;" />
+  <!-- Lote B (Derecha - Comprador) -->
+  <polygon points="286.8329964966746,650.8921022813731 371.74837870620604,700.0 462.2451133740817,494.3034739686656 640.6555244923934,595.9237293695586 797.6817327324065,198.97722208667994 577.3301087544802,148.5762943561631" fill="url(#gradLoteB)" stroke="#3b82f6" stroke-width="2.5" style="transition: all 0.3s;" />
+
+  <!-- Dividing Perpendicular Line -->
+  <line x1="286.8329964966746" y1="650.8921022813731" x2="577.3301087544802" y2="148.5762943561631" stroke="#f59e0b" stroke-width="3" stroke-dasharray="8 6" filter="url(#glow)" />
+
+  <!-- Boundary Vertices (P1 to P7) -->
+  
+  <circle cx="102.3182672675934" cy="544.1843396258662" r="6" fill="#f8fafc" stroke="#1e293b" stroke-width="2" />
+  <text x="117.3182672675934" y="564.1843396258662" fill="#cbd5e1" font-size="14" font-weight="700">P1</text>
+  
+  <circle cx="371.74837870620604" cy="700.0" r="6" fill="#f8fafc" stroke="#1e293b" stroke-width="2" />
+  <text x="353.74837870620604" y="690.0" fill="#cbd5e1" font-size="14" font-weight="700">P2</text>
+  
+  <circle cx="462.2451133740817" cy="494.3034739686656" r="6" fill="#f8fafc" stroke="#1e293b" stroke-width="2" />
+  <text x="477.2451133740817" y="514.3034739686657" fill="#cbd5e1" font-size="14" font-weight="700">P3</text>
+  
+  <circle cx="640.6555244923934" cy="595.9237293695586" r="6" fill="#f8fafc" stroke="#1e293b" stroke-width="2" />
+  <text x="655.6555244923934" y="580.9237293695586" fill="#cbd5e1" font-size="14" font-weight="700">P4</text>
+  
+  <circle cx="797.6817327324065" cy="198.97722208667994" r="6" fill="#f8fafc" stroke="#1e293b" stroke-width="2" />
+  <text x="807.6817327324065" y="178.97722208667994" fill="#cbd5e1" font-size="14" font-weight="700">P5</text>
+  
+  <circle cx="383.5728811714935" cy="104.2582909814397" r="6" fill="#f8fafc" stroke="#1e293b" stroke-width="2" />
+  <text x="363.5728811714935" y="89.2582909814397" fill="#cbd5e1" font-size="14" font-weight="700">P6</text>
+  
+  <circle cx="359.2304183292386" cy="100.0" r="6" fill="#f8fafc" stroke="#1e293b" stroke-width="2" />
+  <text x="339.2304183292386" y="120.0" fill="#cbd5e1" font-size="14" font-weight="700">P7</text>
+  
+  <!-- Varilla Frente X -->
+  <g filter="url(#pinGlow)">
+    <circle cx="286.8329964966746" cy="650.8921022813731" r="8" fill="#f59e0b" stroke="#f8fafc" stroke-width="2" />
+    <circle cx="286.8329964966746" cy="650.8921022813731" r="3" fill="#f8fafc" />
+  </g>
+  <text x="206.83299649667458" y="680.8921022813731" fill="#f59e0b" font-size="13" font-weight="700">VARILLA FRENTE (X)</text>
+  <text x="206.83299649667458" y="695.8921022813731" fill="#94a3b8" font-size="11">A 31.31m de P7</text>
+  
+  <!-- Dimension Line P7 to X -->
+  <path d="M 359.2304183292386 112.0 L 286.8329964966746 662.8921022813731" stroke="#f59e0b" stroke-width="1.5" stroke-dasharray="3 3" />
+  <text x="323.0317074129566" y="400.44605114068656" fill="#f59e0b" font-size="12" font-weight="700" text-anchor="middle">31.31 m</text>
+  
+  <!-- Dimension Line X to P1 -->
+  <text x="194.575631882134" y="622.5382209536197" fill="#cbd5e1" font-size="11" text-anchor="middle">14.41 m</text>
+  
+  <!-- Varilla Fondo Y -->
+  <g filter="url(#pinGlow)">
+    <circle cx="577.3301087544802" cy="148.5762943561631" r="8" fill="#f59e0b" stroke="#f8fafc" stroke-width="2" />
+    <circle cx="577.3301087544802" cy="148.5762943561631" r="3" fill="#f8fafc" />
+  </g>
+  <text x="547.3301087544802" y="118.57629435616309" fill="#f59e0b" font-size="13" font-weight="700">VARILLA FONDO (Y)</text>
+  <text x="547.3301087544802" y="133.5762943561631" fill="#94a3b8" font-size="11">A 33.20m de P4</text>
+  
+  <!-- Dimension Line P4 to Y -->
+  <path d="M 640.6555244923934 583.9237293695586 L 577.3301087544802 136.5762943561631" stroke="#f59e0b" stroke-width="1.5" stroke-dasharray="3 3" />
+  <text x="608.9928166234367" y="352.25001186286084" fill="#f59e0b" font-size="12" font-weight="700" text-anchor="middle">33.20 m</text>
+  
+  <!-- Linea central annotacion -->
+  <g transform="translate(447.0815526255774, 399.7341983187681)">
+    <text x="0" y="0" fill="#f59e0b" font-size="13" font-weight="700" transform="rotate(-59.9585315077351)">LÍNEA DIVISORIA: 85.24 m</text>
+  </g>
+
+  <!-- Lot Areas labels inside polygons -->
+  <!-- Lote A (Left) -->
+  <g transform="translate(401.7416011879717, 250.93167190474398)">
+    <rect x="-90" y="-30" width="180" height="60" rx="10" fill="#0f172a" fill-opacity="0.85" stroke="#10b981" stroke-width="1.5" />
+    <text x="0" y="-5" fill="#10b981" font-size="16" font-weight="700" text-anchor="middle">LOTE A (CLIENTE)</text>
+    <text x="0" y="15" fill="#f8fafc" font-size="14" font-weight="700" text-anchor="middle">2516.90 m²</text>
+  </g>
+  
+  <!-- Lote B (Right) -->
+  <!-- We approximate the center of Lote B by taking average of P1, P2, P3, P4, X, Y -->
+  <g transform="translate(413.87640207704465, 466.7759879203253)">
+    <rect x="-90" y="-30" width="180" height="60" rx="10" fill="#0f172a" fill-opacity="0.85" stroke="#3b82f6" stroke-width="1.5" />
+    <text x="0" y="-5" fill="#3b82f6" font-size="16" font-weight="700" text-anchor="middle">LOTE B (COMPRADOR)</text>
+    <text x="0" y="15" fill="#f8fafc" font-size="14" font-weight="700" text-anchor="middle">2516.90 m²</text>
+  </g>
+
+  <!-- Legend -->
+  <g transform="translate(680, 50)">
+    <!-- Glass panel for legend -->
+    <rect x="0" y="0" width="180" height="150" rx="12" fill="#1e293b" fill-opacity="0.9" stroke="#334155" stroke-width="1" />
+    
+    <text x="15" y="25" fill="#f8fafc" font-size="13" font-weight="700">REFERENCIA</text>
+    
+    <rect x="15" y="45" width="15" height="15" rx="3" fill="#10b981" fill-opacity="0.2" stroke="#10b981" stroke-width="1.5" />
+    <text x="40" y="57" fill="#cbd5e1" font-size="12">Lote A (Izquierdo)</text>
+    
+    <rect x="15" y="70" width="15" height="15" rx="3" fill="#3b82f6" fill-opacity="0.2" stroke="#3b82f6" stroke-width="1.5" />
+    <text x="40" y="82" fill="#cbd5e1" font-size="12">Lote B (Derecho)</text>
+    
+    <line x1="15" y1="105" x2="30" y2="105" stroke="#f59e0b" stroke-width="2" stroke-dasharray="4 3" />
+    <text x="40" y="109" fill="#cbd5e1" font-size="12">Divisoria Perpendicular</text>
+    
+    <circle cx="22" cy="130" r="5" fill="#f59e0b" stroke="#f8fafc" stroke-width="1" />
+    <text x="40" y="134" fill="#cbd5e1" font-size="12">Pines (Varillas)</text>
+  </g>
+
+  <!-- Compass Rose -->
+  <g transform="translate(810, 710)">
+    <circle cx="0" cy="0" r="25" fill="#1e293b" stroke="#334155" stroke-width="1.5" />
+    <!-- North Arrow -->
+    <polygon points="0,-22 6,-4 0,-8 -6,-4" fill="#ef4444" />
+    <!-- South Arrow -->
+    <polygon points="0,22 6,4 0,8 -6,4" fill="#94a3b8" />
+    <text x="-4" y="-26" fill="#ef4444" font-size="10" font-weight="900">N</text>
+  </g>
+</svg>
