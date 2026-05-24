@@ -66,10 +66,10 @@ test.describe('Casa Mahana Landing & Showcase E2E Tests', () => {
     await expect(page.locator('text=Amenities designed for your absolute relaxation')).toBeVisible();
     
     // Facilities cards
-    await expect(page.locator('text=🌊 Tropical Pool')).toBeVisible();
+    await expect(page.locator('text=Tropical Pool')).toBeVisible();
     await expect(page.locator('text=A crystal-clear pool surrounded by lush vegetation, lounge chairs, and great ambient music.')).toBeVisible();
-    await expect(page.locator('text=🌴 Easy Beach Access')).toBeVisible();
-    await expect(page.locator('text=⛱️ Lounge & Rest Areas')).toBeVisible();
+    await expect(page.locator('text=Surf Shack · Beach Club')).toBeVisible();
+    await expect(page.locator('text=Lounge & Rest Areas')).toBeVisible();
   });
 
   test('4. Should display restaurant section details and dish descriptions in English', async ({ page }) => {
@@ -79,10 +79,10 @@ test.describe('Casa Mahana Landing & Showcase E2E Tests', () => {
     await expect(page.locator('text=A tropical journey of flavors with sea breeze')).toBeVisible();
     
     // Dishes details
-    await expect(page.locator('text=🍕 Wood-fired Pizzas')).toBeVisible();
+    await expect(page.locator('text=Wood-fired Pizzas')).toBeVisible();
     await expect(page.locator('text=Delicious artisanal pizzas baked fresh in our oven with top-quality ingredients.')).toBeVisible();
-    await expect(page.locator('text=🐟 Fresh Seafood')).toBeVisible();
-    await expect(page.locator('text=🍔 Gourmet Burgers')).toBeVisible();
+    await expect(page.locator('text=Fresh Seafood')).toBeVisible();
+    await expect(page.locator('text=Gourmet Burgers')).toBeVisible();
   });
 
   test('5. Should display reviews section title and aggregate ratings in English', async ({ page }) => {
@@ -129,10 +129,10 @@ test.describe('Casa Mahana Landing & Showcase E2E Tests', () => {
     await expect(page.locator('text=Amenidades diseñadas para tu descanso absoluto')).toBeVisible();
     
     // Facilities cards
-    await expect(page.locator('text=🌊 Piscina Tropical')).toBeVisible();
+    await expect(page.locator('text=Piscina Tropical')).toBeVisible();
     await expect(page.locator('text=Una piscina cristalina rodeada de vegetación, camastros y excelente música ambiental.')).toBeVisible();
-    await expect(page.locator('text=🌴 Acceso Cercano a Playa')).toBeVisible();
-    await expect(page.locator('text=⛱️ Áreas de Descanso')).toBeVisible();
+    await expect(page.locator('text=Surf Shack · Club de Playa')).toBeVisible();
+    await expect(page.locator('text=Áreas de Descanso')).toBeVisible();
   });
 
   test('9. Should display restaurant section details and dish descriptions in Spanish', async ({ page }) => {
@@ -142,10 +142,10 @@ test.describe('Casa Mahana Landing & Showcase E2E Tests', () => {
     await expect(page.locator('text=Un viaje de sabores tropicales frente a la brisa marina')).toBeVisible();
     
     // Dishes details
-    await expect(page.locator('text=🍕 Pizzas a la Leña')).toBeVisible();
+    await expect(page.locator('text=Pizzas a la Leña')).toBeVisible();
     await expect(page.locator('text=Deliciosas pizzas artesanales horneadas al momento con ingredientes frescos.')).toBeVisible();
-    await expect(page.locator('text=🐟 Mariscos Frescos')).toBeVisible();
-    await expect(page.locator('text=🍔 Hamburguesas Gourmet')).toBeVisible();
+    await expect(page.locator('text=Mariscos Frescos')).toBeVisible();
+    await expect(page.locator('text=Hamburguesas Gourmet')).toBeVisible();
   });
 
   test('10. Should display reviews section title and aggregate ratings in Spanish', async ({ page }) => {
@@ -188,28 +188,28 @@ test.describe('Casa Mahana Landing & Showcase E2E Tests', () => {
 
   test('13. Should dynamically toggle Facilities cards text on language switch', async ({ page }) => {
     await switchToSpanish(page);
-    await expect(page.locator('text=🌊 Piscina Tropical')).toBeVisible();
+    await expect(page.locator('text=Piscina Tropical')).toBeVisible();
     
     // Switch to EN
     await page.locator('button[aria-label="Switch Language"]').first().click();
-    await expect(page.locator('text=🌊 Tropical Pool')).toBeVisible();
+    await expect(page.locator('text=Tropical Pool')).toBeVisible();
     
     // Switch back
     await page.locator('button[aria-label="Switch Language"]').first().click();
-    await expect(page.locator('text=🌊 Piscina Tropical')).toBeVisible();
+    await expect(page.locator('text=Piscina Tropical')).toBeVisible();
   });
 
   test('14. Should dynamically toggle Restaurant dishes details on language switch', async ({ page }) => {
     await switchToSpanish(page);
-    await expect(page.locator('text=🍕 Pizzas a la Leña')).toBeVisible();
+    await expect(page.locator('text=Pizzas a la Leña')).toBeVisible();
     
     // Switch to EN
     await page.locator('button[aria-label="Switch Language"]').first().click();
-    await expect(page.locator('text=🍕 Wood-fired Pizzas')).toBeVisible();
+    await expect(page.locator('text=Wood-fired Pizzas')).toBeVisible();
     
     // Switch back
     await page.locator('button[aria-label="Switch Language"]').first().click();
-    await expect(page.locator('text=🍕 Pizzas a la Leña')).toBeVisible();
+    await expect(page.locator('text=Pizzas a la Leña')).toBeVisible();
   });
 
   test('15. Should dynamically toggle Reviews list and details on language switch', async ({ page }) => {
