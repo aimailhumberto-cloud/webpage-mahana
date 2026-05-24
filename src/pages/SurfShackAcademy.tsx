@@ -39,6 +39,7 @@ export const SurfShackAcademy: React.FC = () => {
       tag: language === 'es' ? '¡Reserva ya!' : 'Book Now!'
     },
     {
+      id: 'surf-kids',
       title: language === 'es' ? 'Surf Camp Kids' : 'Surf Camp Kids',
       desc: language === 'es'
         ? 'Un día completo de diversión playera, dinámicas y clases de surf adaptadas para niños y jóvenes de 6 años en adelante con instructores especializados.'
@@ -57,17 +58,18 @@ export const SurfShackAcademy: React.FC = () => {
           src="/images/surf-shack-hero-v2.jpg" 
           alt="Surf Shack Beach Club Playa Caracol" 
           className="w-full h-full object-cover"
+          loading="lazy"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-mahana-dark/95 via-mahana-dark/50 to-transparent" />
         
-        <div className="absolute bottom-12 left-0 right-0 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-4">
+        <div className="absolute bottom-6 sm:bottom-12 left-0 right-0 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-2 sm:space-y-4">
           <span className="px-3.5 py-1.5 bg-turquoise-700/80 backdrop-blur-xs text-sand-100 text-xs font-bold uppercase tracking-wider rounded-xl border border-turquoise-500/20">
             {language === 'es' ? 'Club de Playa Exclusivo' : 'Exclusive Beach Club'}
           </span>
-          <h1 className="text-3xl sm:text-6xl font-black text-white tracking-tight">
+          <h1 className="text-2xl sm:text-6xl font-black text-white tracking-tight">
             Surf Shack Beach Club
           </h1>
-          <p className="text-sand-100/90 text-sm sm:text-lg max-w-3xl font-medium leading-relaxed">
+          <p className="text-sand-100/90 text-xs sm:text-lg max-w-3xl font-medium leading-relaxed">
             {language === 'es'
               ? 'Nuestro exclusivo club de playa en Playa Caracol, Chame. Disfruta de la arena fina, cómodos camastros, cócteles tropicales frente al mar y la mejor vibra costera del Pacífico panameño. ¡Acceso incluido para todos los huéspedes de Casa Mahana!'
               : 'Our exclusive beach club in Playa Caracol, Chame. Enjoy soft sand, cozy sun loungers, oceanfront tropical cocktails, and the best coastal vibe on the Panamanian Pacific. Access included for all Casa Mahana guests!'}
@@ -80,8 +82,8 @@ export const SurfShackAcademy: React.FC = () => {
       </section>
 
       {/* Beach Club Amenities Checklist */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-8 relative z-10">
-        <div className="bg-white rounded-[32px] border border-sand-200/80 p-8 shadow-premium grid grid-cols-1 md:grid-cols-3 gap-8 text-left">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-4 sm:-mt-8 relative z-10">
+        <div className="bg-white rounded-[32px] border border-sand-200/80 p-5 sm:p-8 shadow-premium grid grid-cols-1 md:grid-cols-3 gap-8 text-left">
           <div className="flex items-start space-x-4">
             <div className="p-3 bg-turquoise-50 text-turquoise-700 rounded-2xl">
               <Sunset className="h-6 w-6" />
@@ -144,12 +146,12 @@ export const SurfShackAcademy: React.FC = () => {
                 className="bg-white rounded-[32px] overflow-hidden border border-sand-200 shadow-glass hover:shadow-premium transition-all duration-300 grid grid-cols-1 sm:grid-cols-5"
               >
                 <div className="relative h-48 sm:h-full sm:col-span-2 overflow-hidden">
-                  <img src={item.img} alt={item.title} className="w-full h-full object-cover" />
+                  <img src={item.img} alt={item.title} className="w-full h-full object-cover" loading="lazy" />
                   <span className="absolute top-4 left-4 px-3 py-1 bg-turquoise-900/90 text-sand-100 text-[10px] font-bold uppercase tracking-wider rounded-md">
                     {item.tag}
                   </span>
                 </div>
-                <div className="p-8 sm:col-span-3 flex flex-col justify-between space-y-4">
+                <div className="p-5 sm:p-8 sm:col-span-3 flex flex-col justify-between space-y-4">
                   <div className="space-y-2">
                     <div className="flex justify-between items-baseline gap-2">
                       <h3 className="font-extrabold text-turquoise-950 text-lg leading-tight">{item.title}</h3>
@@ -172,7 +174,7 @@ export const SurfShackAcademy: React.FC = () => {
 
         {/* 3. Academia Nacional de Surf Section */}
         <section className="space-y-12">
-          <div className="bg-gradient-to-r from-turquoise-900 to-turquoise-950 rounded-[40px] p-8 md:p-12 shadow-premium text-white border border-turquoise-800/40 relative overflow-hidden">
+          <div className="bg-gradient-to-r from-turquoise-900 to-turquoise-950 rounded-[40px] p-5 sm:p-12 shadow-premium text-white border border-turquoise-800/40 relative overflow-hidden">
             <div className="absolute top-0 right-0 w-80 h-80 bg-turquoise-700/20 rounded-full blur-3xl pointer-events-none" />
             
             <div className="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
@@ -185,6 +187,7 @@ export const SurfShackAcademy: React.FC = () => {
                     src="/images/logo-ans.png" 
                     alt="ANS Logo" 
                     className="h-16 w-16 object-contain bg-white/95 p-2 rounded-2xl shadow-md border border-white/10 shrink-0 self-start sm:self-center" 
+                    loading="lazy"
                   />
                   <h2 className="text-3xl sm:text-5xl font-black tracking-tight leading-tight">
                     {language === 'es' ? 'Academia Nacional de Surf' : 'National Surf Academy'}
@@ -219,6 +222,7 @@ export const SurfShackAcademy: React.FC = () => {
                   src="https://images.unsplash.com/photo-1502680390469-be75c86b636f?auto=format&fit=crop&w=800&q=80" 
                   alt="Surf Coaching" 
                   className="w-full h-full object-cover"
+                  loading="lazy"
                 />
               </div>
             </div>
@@ -233,7 +237,7 @@ export const SurfShackAcademy: React.FC = () => {
               >
                 <div>
                   <div className="relative h-56 overflow-hidden">
-                    <img src={lesson.img} alt={lesson.title} className="w-full h-full object-cover" />
+                    <img src={lesson.img} alt={lesson.title} className="w-full h-full object-cover" loading="lazy" />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
                     <span className="absolute top-4 left-4 px-3.5 py-1 bg-amber-600/90 text-white text-[10px] font-black uppercase tracking-widest rounded-full shadow-md border border-amber-500/20">
                       {lesson.tag}
@@ -242,12 +246,12 @@ export const SurfShackAcademy: React.FC = () => {
                       {lesson.price}
                     </span>
                   </div>
-                  <div className="p-8 space-y-3">
+                  <div className="p-5 sm:p-8 space-y-3">
                     <h3 className="font-extrabold text-turquoise-950 text-xl leading-tight">{lesson.title}</h3>
                     <p className="text-xs text-mahana-dark/70 leading-relaxed">{lesson.desc}</p>
                   </div>
                 </div>
-                <div className="px-8 pb-8 pt-2">
+                <div className="px-5 pb-5 pt-2 sm:px-8 sm:pb-8">
                   <button 
                     onClick={() => navigate('/reservar')}
                     className="w-full py-3.5 bg-turquoise-700 hover:bg-turquoise-900 text-white rounded-xl text-xs font-bold transition-all shadow-sm flex items-center justify-center space-x-1.5"

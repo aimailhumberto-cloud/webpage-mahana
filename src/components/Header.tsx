@@ -35,7 +35,7 @@ export const Header: React.FC = () => {
         <div className="flex justify-between items-center h-20">
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-2.5 group shrink-0">
-            <div className="h-12 w-12 sm:h-14 sm:w-14 bg-white rounded-xl overflow-hidden p-1 shadow-sm group-hover:shadow-md transition-shadow">
+            <div className="h-10 w-10 sm:h-14 sm:w-14 bg-white rounded-xl overflow-hidden p-1 shadow-sm group-hover:shadow-md transition-shadow">
               <img 
                 src="/images/logo-casa-mahana.png?v=2" 
                 alt="Casa Mahana Logo" 
@@ -43,7 +43,7 @@ export const Header: React.FC = () => {
               />
             </div>
             <div>
-              <span className="text-xl sm:text-2xl font-black tracking-tight text-turquoise-900 block leading-none">
+              <span className="text-lg sm:text-2xl font-black tracking-tight text-turquoise-900 block leading-none">
                 CASA MAHANA
               </span>
               <span className="text-[10px] uppercase tracking-widest text-mahana-accent block font-extrabold mt-0.5">
@@ -180,7 +180,7 @@ export const Header: React.FC = () => {
 
       {/* Mobile Navigation Menu */}
       {isOpen && (
-        <div className="lg:hidden bg-mahana-light border-b border-sand-200 py-4 px-6 space-y-4 animate-fade-in shadow-lg max-h-[80vh] overflow-y-auto">
+        <div className="absolute top-full left-0 w-full lg:hidden bg-mahana-light border-b border-sand-200 py-4 px-6 space-y-4 animate-fade-in shadow-lg max-h-[80vh] overflow-y-auto">
           <div className="flex flex-col space-y-2">
             <Link
               to="/"

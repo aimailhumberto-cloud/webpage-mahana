@@ -48,3 +48,48 @@ Integrity mode: `development`
 - [ ] Single and multi-room checkout flows successfully submit payloads to `/api/v1/public/reservar` or `/api/v1/public/reservas/multi`.
 - [ ] Successfully submitted bookings generate records in the `reservas_hotel` and `folio_hotel` tables of the SQLite database with correct totals, status set to "Pendiente", and correct room IDs mapped.
 - [ ] Shows a beautiful confirmation page with the generated reservation ID/group code, pricing details, and suggested deposit calculation.
+
+## Follow-up — 2026-05-24T18:27:08Z
+
+# Teamwork Project Prompt
+
+An automated mobile visual audit and performance optimization project for the **Casa Mahana** guest website. The goal is to clean up mobile-specific visual alignment issues, particularly on price grids and rates sections, and optimize mobile load times without impacting the desktop design.
+
+Working directory: `c:\Users\Usuario\OneDrive\Documentos\WebPage Casa Mahana`
+Integrity mode: `development`
+
+---
+
+## Requirements
+
+### R1. Complete Mobile Visual & Alignment Audit
+- Audit and resolve all mobile-specific visual issues across all public-facing pages:
+  - Home (`LandingPage.tsx`)
+  - Stays Hub (`EstadiasHub.tsx`) & Landing Pages (`MahanaExperienceLanding.tsx`, `EstadiaAllInclusiveLanding.tsx`)
+  - Day Passes Hub (`PasadiasHub.tsx`) & Landing Pages (`PoolDayLanding.tsx`, `PasadyaAllInclusiveLanding.tsx`)
+  - Restaurant (`RestaurantePublico.tsx`)
+  - Tours (`MahanaTours.tsx`)
+  - Surf Shack (`SurfShackAcademy.tsx`)
+  - Events (`EventosBodas.tsx`)
+  - Booking Wizard (`BookingWizard.tsx`)
+- **Strict Visual Focus**: Fix the price grids ("cuadros de tarifas" showing adult, child, and weekday/weekend rates) on the landing pages `/pasadias/todo-incluido` (`PasadyaAllInclusiveLanding.tsx`) and `/estadias/mahana-experience` (`MahanaExperienceLanding.tsx`). Ensure they flow naturally, do not wrap text awkwardly, have clean margins, and prevent container clipping on small viewport widths (down to 320px).
+- **Strict Desktop Integrity Constraint**: **All modifications must be strictly scoped to mobile screen sizes** (using Tailwind's mobile utility suffixes or responsive breakpoints like `md:`/`max-md:`). Under no circumstances should the layout, alignment, font sizes, or padding of the desktop version (`>= 1024px`) be modified or negatively affected.
+
+### R2. Mobile Load Speed & Performance Optimizations
+- Implement modern lazy-loading (`loading="lazy"`) for all images across public-facing components and pages to decrease initial page weight.
+- Audit the font imports, asset loading, and bundle-blocking scripts to ensure optimal mobile rendering speeds.
+- Verify that the production build remains clean and optimized.
+
+---
+
+## Acceptance Criteria
+
+### Mobile Responsive Layouts
+- [ ] No horizontal scrolling on mobile viewports (widths 320px to 480px) on any public pages.
+- [ ] Rate tables and pricing grids on the *Pasadía Todo Incluido* and *Mahana Experience* landing pages are fully readable, with zero text overlaps, clean text wrapping, and realistic padding on small phone viewports.
+- [ ] Mobile navigation header drawer behaves smoothly, is clean, and collapses correctly without layout shifts.
+- [ ] **Desktop Visual Zero-Regression**: The desktop presentation of the rate grids, pricing cards, and general page layouts looks identical to its pre-optimization state with zero regressions.
+
+### Performance & Build Verification
+- [ ] All dynamic `<img />` tags for large photos (e.g. heroes, galleries, cards) use native `loading="lazy"` attribute.
+- [ ] Running `npm run build` compiles 100% successfully in under 3 seconds with zero TypeScript errors or bundler discrepancies.

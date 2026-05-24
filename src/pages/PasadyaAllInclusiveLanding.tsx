@@ -57,15 +57,16 @@ export const PasadyaAllInclusiveLanding: React.FC = () => {
           src="/images/hero-pool-drone.jpg?v=2" 
           alt="Pasadía Todo Incluido" 
           className="w-full h-full object-cover"
+          loading="lazy"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-mahana-dark/90 via-mahana-dark/45 to-transparent" />
         
-        <div className="absolute bottom-10 left-0 right-0 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-3">
+        <div className="absolute bottom-5 sm:bottom-10 left-0 right-0 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-1.5 sm:space-y-3">
           <span className="px-3 py-1 bg-amber-600 text-sand-100 text-xs font-bold uppercase tracking-wider rounded-md border border-amber-500/25">
             ✨ {language === 'es' ? 'Pasadía VIP Premium' : 'VIP Day Pass Premium'}
           </span>
-          <h1 className="text-3xl sm:text-5xl font-black text-white tracking-tight">Pasadía Todo Incluido</h1>
-          <p className="text-sand-100/90 text-sm sm:text-lg max-w-2xl font-medium">
+          <h1 className="text-2xl sm:text-5xl font-black text-white tracking-tight">Pasadía Todo Incluido</h1>
+          <p className="text-sand-100/90 text-xs sm:text-lg max-w-2xl font-medium">
             {language === 'es' 
               ? 'Disfruta un día espectacular en Chame con almuerzo a la carta, open bar nacional controlado de 12 tragos y bebidas sin alcohol ilimitadas.'
               : 'Enjoy a spectacular day in Chame with an a-la-carte lunch, a controlled 12-drink national open bar, and unlimited soft drinks.'}
@@ -80,7 +81,7 @@ export const PasadyaAllInclusiveLanding: React.FC = () => {
             <h2 className="text-2xl font-extrabold text-turquoise-950">
               {language === 'es' ? 'La máxima desconexión diurna en Chame' : 'The ultimate daytime escape in Chame'}
             </h2>
-            <p className="text-mahana-dark/85 leading-relaxed">
+            <p className="text-mahana-dark/85 leading-relaxed text-sm">
               {language === 'es'
                 ? 'Con nuestro pasadía Todo Incluido, experimenta el servicio premium de Casa Mahana durante el día de 9:00 AM a 5:00 PM. Relájate frente a la piscina tropical con una cerveza fría en mano, disfruta de tu almuerzo seleccionando tu proteína favorita y refréscate con nuestra barra libre nacional controlada de hasta 12 tragos. Todo diseñado para un día inolvidable.'
                 : 'With our All-Inclusive Day Pass, experience the premium service of Casa Mahana during the daytime from 9:00 AM to 5:00 PM. Relax in front of the tropical pool with a cold beer in hand, enjoy a delicious lunch choosing your favorite protein, and stay refreshed with our controlled 12-drink national open bar.'}
@@ -93,37 +94,39 @@ export const PasadyaAllInclusiveLanding: React.FC = () => {
               {language === 'es' ? 'Tarifas por Persona (Impuesto de Turismo 10% no incluido)' : 'Rates per Person (10% Tourism Tax not included)'}
             </h3>
             <div className="bg-white rounded-3xl border border-sand-200 shadow-glass overflow-hidden text-sm">
-              <table className="w-full text-left border-collapse">
-                <thead>
-                  <tr className="bg-sand-50 border-b border-sand-200 text-xs font-bold text-turquoise-950 uppercase tracking-wider">
-                    <th className="py-4 px-6">{language === 'es' ? 'Categoría' : 'Category'}</th>
-                    <th className="py-4 px-6">{language === 'es' ? 'Lunes a Jueves' : 'Monday to Thursday'}</th>
-                    <th className="py-4 px-6">{language === 'es' ? 'Viernes a Domingo' : 'Friday to Sunday'}</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-sand-100 font-medium text-mahana-dark/95">
-                  <tr className="hover:bg-sand-50/20 transition-colors">
-                    <td className="py-4.5 px-6 font-bold text-turquoise-950">{language === 'es' ? 'Adulto (13+ años)' : 'Adult (13+ years)'}</td>
-                    <td className="py-4.5 px-6 font-extrabold text-turquoise-900">B/. 35.00</td>
-                    <td className="py-4.5 px-6 font-extrabold text-turquoise-900">B/. 44.00</td>
-                  </tr>
-                  <tr className="hover:bg-sand-50/20 transition-colors">
-                    <td className="py-4.5 px-6 font-bold text-turquoise-950">{language === 'es' ? 'Niño Grande (6 a 17 años)' : 'Older Child (6 to 17 years)'}</td>
-                    <td className="py-4.5 px-6 font-extrabold text-turquoise-900">B/. 20.00</td>
-                    <td className="py-4.5 px-6 font-extrabold text-turquoise-900">B/. 20.00</td>
-                  </tr>
-                  <tr className="hover:bg-sand-50/20 transition-colors">
-                    <td className="py-4.5 px-6 font-bold text-turquoise-950">{language === 'es' ? 'Niño Pequeño (2 a 5 años)' : 'Younger Child (2 to 5 years)'}</td>
-                    <td className="py-4.5 px-6 font-extrabold text-turquoise-900">B/. 10.00</td>
-                    <td className="py-4.5 px-6 font-extrabold text-turquoise-900">B/. 10.00</td>
-                  </tr>
-                  <tr className="hover:bg-sand-50/20 transition-colors">
-                    <td className="py-4.5 px-6 font-bold text-turquoise-950">{language === 'es' ? 'Bebé (0 a 1 año)' : 'Infant (0 to 1 year)'}</td>
-                    <td className="py-4.5 px-6 text-emerald-600 font-bold">{language === 'es' ? 'Gratis' : 'Free'}</td>
-                    <td className="py-4.5 px-6 text-emerald-600 font-bold">{language === 'es' ? 'Gratis' : 'Free'}</td>
-                  </tr>
-                </tbody>
-              </table>
+              <div className="overflow-x-auto w-full scrollbar-thin">
+                <table className="w-full min-w-[480px] sm:min-w-0 text-left border-collapse text-sm">
+                  <thead>
+                    <tr className="bg-sand-50 border-b border-sand-200 text-[10px] sm:text-xs font-bold text-turquoise-950 uppercase tracking-wider">
+                      <th className="py-3 px-3 sm:py-4 sm:px-6">{language === 'es' ? 'Categoría' : 'Category'}</th>
+                      <th className="py-3 px-3 sm:py-4 sm:px-6">{language === 'es' ? 'Lunes a Jueves' : 'Monday to Thursday'}</th>
+                      <th className="py-3 px-3 sm:py-4 sm:px-6">{language === 'es' ? 'Viernes a Domingo' : 'Friday to Sunday'}</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-sand-100 font-medium text-mahana-dark/95">
+                    <tr className="hover:bg-sand-50/20 transition-colors text-xs sm:text-sm">
+                      <td className="py-3 px-3 sm:py-4.5 sm:px-6 font-bold text-turquoise-950">{language === 'es' ? 'Adulto (13+ años)' : 'Adult (13+ years)'}</td>
+                      <td className="py-3 px-3 sm:py-4.5 sm:px-6 font-extrabold text-turquoise-900">B/. 35.00</td>
+                      <td className="py-3 px-3 sm:py-4.5 sm:px-6 font-extrabold text-turquoise-900">B/. 44.00</td>
+                    </tr>
+                    <tr className="hover:bg-sand-50/20 transition-colors text-xs sm:text-sm">
+                      <td className="py-3 px-3 sm:py-4.5 sm:px-6 font-bold text-turquoise-950">{language === 'es' ? 'Niño Grande (6 a 17 años)' : 'Older Child (6 to 17 years)'}</td>
+                      <td className="py-3 px-3 sm:py-4.5 sm:px-6 font-extrabold text-turquoise-900">B/. 20.00</td>
+                      <td className="py-3 px-3 sm:py-4.5 sm:px-6 font-extrabold text-turquoise-900">B/. 20.00</td>
+                    </tr>
+                    <tr className="hover:bg-sand-50/20 transition-colors text-xs sm:text-sm">
+                      <td className="py-3 px-3 sm:py-4.5 sm:px-6 font-bold text-turquoise-950">{language === 'es' ? 'Niño Pequeño (2 a 5 años)' : 'Younger Child (2 to 5 years)'}</td>
+                      <td className="py-3 px-3 sm:py-4.5 sm:px-6 font-extrabold text-turquoise-900">B/. 10.00</td>
+                      <td className="py-3 px-3 sm:py-4.5 sm:px-6 font-extrabold text-turquoise-900">B/. 10.00</td>
+                    </tr>
+                    <tr className="hover:bg-sand-50/20 transition-colors text-xs sm:text-sm">
+                      <td className="py-3 px-3 sm:py-4.5 sm:px-6 font-bold text-turquoise-950">{language === 'es' ? 'Bebé (0 a 1 año)' : 'Infant (0 to 1 year)'}</td>
+                      <td className="py-3 px-3 sm:py-4.5 sm:px-6 text-emerald-600 font-bold">{language === 'es' ? 'Gratis' : 'Free'}</td>
+                      <td className="py-3 px-3 sm:py-4.5 sm:px-6 text-emerald-600 font-bold">{language === 'es' ? 'Gratis' : 'Free'}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
             </div>
           </div>
 
@@ -152,7 +155,7 @@ export const PasadyaAllInclusiveLanding: React.FC = () => {
           </div>
 
           {/* Contact Details Card */}
-          <div className="bg-white rounded-3xl border border-sand-200/80 p-8 space-y-6 shadow-glass text-sm">
+          <div className="bg-white rounded-3xl border border-sand-200/80 p-5 sm:p-8 space-y-6 shadow-glass text-sm">
             <h3 className="font-extrabold text-turquoise-950 text-base">
               {language === 'es' ? 'Información y Ubicación del Lodge' : 'Information & Lodge Location'}
             </h3>
@@ -185,7 +188,7 @@ export const PasadyaAllInclusiveLanding: React.FC = () => {
         </div>
 
         {/* Right booking box */}
-        <div className="bg-white rounded-[32px] border border-sand-200 p-8 shadow-premium h-fit space-y-6 lg:sticky lg:top-24">
+        <div className="bg-white rounded-[32px] border border-sand-200 p-5 sm:p-8 shadow-premium h-fit space-y-6 lg:sticky lg:top-24">
           <div className="space-y-1.5">
             <span className="text-xs uppercase tracking-wider text-mahana-dark/60 font-bold block">
               {language === 'es' ? 'Tarifa VIP por persona desde' : 'VIP Rate per person from'}
@@ -201,21 +204,21 @@ export const PasadyaAllInclusiveLanding: React.FC = () => {
           </div>
 
           <div className="border-t border-sand-100 pt-6 space-y-4 text-xs font-bold text-mahana-dark/75">
-            <div className="flex justify-between items-center">
+            <div className="flex flex-col sm:flex-row gap-1 sm:gap-0 justify-between items-start sm:items-center">
               <span>{language === 'es' ? 'Horario' : 'Hours'}</span>
-              <span>9:00 AM - 5:00 PM</span>
+              <span className="text-right sm:text-left">9:00 AM - 5:00 PM</span>
             </div>
-            <div className="flex justify-between items-center">
+            <div className="flex flex-col sm:flex-row gap-1 sm:gap-0 justify-between items-start sm:items-center">
               <span>{language === 'es' ? 'Impuesto de Turismo' : 'Tourism Tax'}</span>
-              <span className="text-turquoise-800">10% ({language === 'es' ? 'no incluido' : 'not included'})</span>
+              <span className="text-turquoise-800 text-right sm:text-left">10% ({language === 'es' ? 'no incluido' : 'not included'})</span>
             </div>
-            <div className="flex justify-between items-center">
+            <div className="flex flex-col sm:flex-row gap-1 sm:gap-0 justify-between items-start sm:items-center">
               <span>{language === 'es' ? 'Servicios' : 'Services'}</span>
-              <span>{language === 'es' ? 'Toallas y camastros incluidos' : 'Towels and loungers included'}</span>
+              <span className="text-right sm:text-left">{language === 'es' ? 'Toallas y camastros incluidos' : 'Towels and loungers included'}</span>
             </div>
-            <div className="flex justify-between items-center">
+            <div className="flex flex-col sm:flex-row gap-1 sm:gap-0 justify-between items-start sm:items-center">
               <span>{language === 'es' ? 'Mascotas' : 'Pets'}</span>
-              <span>{language === 'es' ? 'Permitido (áreas exteriores)' : 'Allowed (outdoor areas)'}</span>
+              <span className="text-right sm:text-left">{language === 'es' ? 'Permitido (áreas exteriores)' : 'Allowed (outdoor areas)'}</span>
             </div>
           </div>
 

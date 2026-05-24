@@ -763,14 +763,14 @@ export const BookingWizard: FC = () => {
             )}
 
             {/* Guests */}
-            <div className="grid grid-cols-3 gap-4 mb-6">
+            <div className="grid grid-cols-3 gap-2 sm:gap-4 mb-6">
               <div>
                 <label className="block text-xs font-bold text-turquoise-900 uppercase tracking-wide mb-1.5 flex items-center gap-1">
                   <Users className="w-3.5 h-3.5" />
                   <span>{t('common.adults')}</span>
                 </label>
                 <select value={adultos} onChange={e => setAdultos(+e.target.value)} 
-                  className="w-full px-3 py-3 rounded-xl border border-sand-200 bg-sand-50/20 focus:ring-2 focus:ring-turquoise-400 text-turquoise-900 text-xs sm:text-sm font-medium">
+                  className="w-full px-2 py-2.5 sm:px-3 sm:py-3 rounded-xl border border-sand-200 bg-sand-50/20 focus:ring-2 focus:ring-turquoise-400 text-turquoise-900 text-[11px] sm:text-sm font-medium">
                   {Array.from({ length: 30 }, (_, i) => i + 1).map(n => 
                     <option key={n} value={n}>{n} {n > 1 ? t('common.adults').toLowerCase() : (language === 'es' ? 'adulto' : 'adult')}</option>
                   )}
@@ -781,7 +781,7 @@ export const BookingWizard: FC = () => {
                   {t('common.minors')}
                 </label>
                 <select value={menores} onChange={e => setMenores(+e.target.value)} 
-                  className="w-full px-3 py-3 rounded-xl border border-sand-200 bg-sand-50/20 focus:ring-2 focus:ring-turquoise-400 text-turquoise-900 text-xs sm:text-sm font-medium">
+                  className="w-full px-2 py-2.5 sm:px-3 sm:py-3 rounded-xl border border-sand-200 bg-sand-50/20 focus:ring-2 focus:ring-turquoise-400 text-turquoise-900 text-[11px] sm:text-sm font-medium">
                   {Array.from({ length: 16 }, (_, i) => i).map(n => 
                     <option key={n} value={n}>{n} {n === 1 ? (language === 'es' ? 'menor' : 'child') : t('common.minors').toLowerCase()}</option>
                   )}
@@ -792,7 +792,7 @@ export const BookingWizard: FC = () => {
                   {t('common.pets')}
                 </label>
                 <select value={mascotas} onChange={e => setMascotas(+e.target.value)} 
-                  className="w-full px-3 py-3 rounded-xl border border-sand-200 bg-sand-50/20 focus:ring-2 focus:ring-turquoise-400 text-turquoise-900 text-xs sm:text-sm font-medium">
+                  className="w-full px-2 py-2.5 sm:px-3 sm:py-3 rounded-xl border border-sand-200 bg-sand-50/20 focus:ring-2 focus:ring-turquoise-400 text-turquoise-900 text-[11px] sm:text-sm font-medium">
                   {Array.from({ length: 11 }, (_, i) => i).map(n => 
                     <option key={n} value={n}>{n} {n === 1 ? (language === 'es' ? 'mascota' : 'pet') : t('common.pets').toLowerCase()}</option>
                   )}
@@ -956,7 +956,7 @@ export const BookingWizard: FC = () => {
                         className="w-full rounded-2xl border border-sand-200 hover:border-turquoise-300 hover:shadow-md transition-all duration-200 text-left overflow-hidden bg-white">
                         <div className="flex flex-col sm:flex-row">
                           <div className="sm:w-44 h-32 sm:h-auto overflow-hidden shrink-0">
-                            <img src={img} alt={rt.tipo} className="w-full h-full object-cover" />
+                            <img src={img} alt={rt.tipo} className="w-full h-full object-cover" loading="lazy" />
                           </div>
                           <div className="flex-1 p-4 sm:p-5 flex flex-col justify-between">
                             <div>
@@ -1080,7 +1080,7 @@ export const BookingWizard: FC = () => {
                       </div>
 
                       {/* Guest Adjusters */}
-                      <div className="flex items-center gap-4 flex-wrap bg-white p-3 rounded-xl border border-sand-200">
+                      <div className="grid grid-cols-2 gap-x-2 gap-y-3 sm:flex sm:items-center sm:gap-4 bg-white p-3 rounded-xl border border-sand-200 w-full md:w-auto">
                         {/* Adults */}
                         <div className="flex flex-col items-center">
                           <span className="text-[9px] font-bold text-turquoise-900/50 uppercase mb-1">{t('common.adults')}</span>
@@ -1142,7 +1142,7 @@ export const BookingWizard: FC = () => {
                         </div>
 
                         {/* Room Price */}
-                        <div className="text-right pl-2 border-l border-sand-200 flex flex-col justify-center">
+                        <div className="text-right pl-0 sm:pl-2 sm:border-l sm:border-sand-200 flex flex-col justify-center">
                           <span className="text-[9px] text-turquoise-900/50 block font-semibold">{language === 'es' ? 'Hab. Total' : 'Room Total'}</span>
                           <span className="font-bold text-turquoise-900 text-sm">${item.monto_total.toFixed(2)}</span>
                         </div>
@@ -1239,7 +1239,7 @@ export const BookingWizard: FC = () => {
             <div className="bg-white rounded-3xl shadow-glass overflow-hidden border border-sand-200">
               {planImage && (
                 <div className="h-48 sm:h-56 overflow-hidden relative">
-                  <img src={planImage} alt="Casa Mahana" className="w-full h-full object-cover" />
+                  <img src={planImage} alt="Casa Mahana" className="w-full h-full object-cover" loading="lazy" />
                   <div className="absolute inset-0 bg-gradient-to-t from-turquoise-950/70 via-transparent to-transparent" />
                   <div className="absolute bottom-4 left-5 text-white">
                     <h3 className="text-lg sm:text-xl font-bold font-serif">{t('wizard.summary_title')}</h3>
@@ -1366,7 +1366,7 @@ export const BookingWizard: FC = () => {
           <div className="bg-white rounded-3xl shadow-glass overflow-hidden border border-sand-200 animate-fade-in">
             {planImage && (
               <div className="h-32 overflow-hidden relative">
-                <img src={planImage} alt="Casa Mahana" className="w-full h-full object-cover brightness-[0.65]" />
+                <img src={planImage} alt="Casa Mahana" className="w-full h-full object-cover brightness-[0.65]" loading="lazy" />
                 <div className="absolute inset-0 flex items-center justify-center">
                   <div className="text-center text-white">
                     <p className="text-xs sm:text-sm opacity-80">{pagoTipo === 'total' ? t('common.full_payment') : t('common.deposit')}</p>
@@ -1383,11 +1383,11 @@ export const BookingWizard: FC = () => {
               )}
 
               {/* Segmented Tab Control */}
-              <div className="flex bg-sand-100 p-1.5 rounded-2xl border border-sand-200 mb-6 gap-2">
+              <div className="flex flex-col sm:flex-row bg-sand-100 p-1.5 rounded-2xl border border-sand-200 mb-6 gap-2">
                 <button
                   type="button"
                   onClick={() => { setPaymentMethod('paypal'); setError(''); }}
-                  className={`flex-1 py-3 text-xs sm:text-sm font-semibold rounded-xl transition flex items-center justify-center gap-2 ${
+                  className={`w-full sm:flex-1 py-3 text-xs sm:text-sm font-semibold rounded-xl transition flex items-center justify-center gap-2 ${
                     paymentMethod === 'paypal'
                       ? 'bg-turquoise-700 text-white shadow-md'
                       : 'text-turquoise-900 hover:bg-sand-200/30'
@@ -1399,7 +1399,7 @@ export const BookingWizard: FC = () => {
                 <button
                   type="button"
                   onClick={() => { setPaymentMethod('transferencia'); setError(''); }}
-                  className={`flex-1 py-3 text-xs sm:text-sm font-semibold rounded-xl transition flex items-center justify-center gap-2 ${
+                  className={`w-full sm:flex-1 py-3 text-xs sm:text-sm font-semibold rounded-xl transition flex items-center justify-center gap-2 ${
                     paymentMethod !== 'paypal'
                       ? 'bg-turquoise-700 text-white shadow-md'
                       : 'text-turquoise-900 hover:bg-sand-200/30'
@@ -1621,7 +1621,7 @@ export const BookingWizard: FC = () => {
                         <div className="flex flex-col items-center w-full space-y-3 z-20">
                           {previewUrl ? (
                             <div className="relative w-24 h-24 rounded-lg overflow-hidden border border-sand-200 bg-white shadow-sm">
-                              <img src={previewUrl} alt="Comprobante" className="w-full h-full object-cover" />
+                              <img src={previewUrl} alt="Comprobante" className="w-full h-full object-cover" loading="lazy" />
                             </div>
                           ) : (
                             <div className="w-12 h-12 rounded-xl bg-white border border-sand-200 flex items-center justify-center text-turquoise-900 shadow-sm font-bold text-xs uppercase">

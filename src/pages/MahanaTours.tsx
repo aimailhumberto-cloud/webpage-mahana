@@ -70,7 +70,7 @@ export const MahanaTours: React.FC = () => {
       durationES: '1 hora',
       durationEN: '1 hour',
       maxPax: 2,
-      descES: 'Siente la adrenalina y la libertad sobre las olas del Pacífico. Jet skis Yamaha de última generación equipados con sistemas de seguridad para recorrer la costa.',
+      descES: 'Sierte la adrenalina y la libertad sobre las olas del Pacífico. Jet skis Yamaha de última generación equipados con sistemas de seguridad para recorrer la costa.',
       descEN: 'Feel the adrenaline and freedom over the Pacific waves. Latest generation Yamaha jet skis equipped with safety systems to tour the beautiful coastline.',
       img: 'https://d2xsxph8kpxj0f.cloudfront.net/310419663032346231/UGpVxqvFa4a6FTLL6XQrah/jet-ski_3f990f74.jpg',
       highlightsES: ['Motos Yamaha último modelo', 'Chalecos de seguridad', '1 o 2 personas por moto'],
@@ -174,17 +174,18 @@ export const MahanaTours: React.FC = () => {
           src="/images/tours-hero-ocean-v2.jpg" 
           alt="Mahana Tours Ocean Drone View" 
           className="w-full h-full object-cover"
+          loading="lazy"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-mahana-dark/95 via-mahana-dark/50 to-transparent" />
         
-        <div className="absolute bottom-12 left-0 right-0 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-4">
+        <div className="absolute bottom-6 sm:bottom-12 left-0 right-0 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-2 sm:space-y-4">
           <span className="px-3.5 py-1.5 bg-amber-600 text-sand-100 text-xs font-black uppercase tracking-widest rounded-xl border border-amber-500/25">
             {language === 'es' ? '✨ Aventura & Naturaleza' : '✨ Adventure & Nature'}
           </span>
-          <h1 className="text-3xl sm:text-6xl font-black text-white tracking-tight" style={{ textShadow: '0 2px 8px rgba(0,0,0,0.3)' }}>
+          <h1 className="text-2xl sm:text-6xl font-black text-white tracking-tight" style={{ textShadow: '0 2px 8px rgba(0,0,0,0.3)' }}>
             Mahana Tours
           </h1>
-          <p className="text-sand-100/90 text-sm sm:text-lg max-w-3xl font-medium leading-relaxed">
+          <p className="text-sand-100/90 text-xs sm:text-lg max-w-3xl font-medium leading-relaxed">
             {language === 'es'
               ? 'Nuestra agencia oficial de aventuras. Explora el majestuoso Cerro Chame, las cascadas ocultas en la jungla, báñate en cañones esculpidos por la corriente, explora las islas vírgenes de Otoque y Boná o navega en un yate de lujo con todas las comodidades.'
               : 'Our official adventure agency. Hike majestic Cerro Chame, discover tropical jungle waterfalls, swim in smooth rock canyons, visit the pristine sands of Otoque and Boná islands, or charter a luxury yacht with full board amenities.'}
@@ -228,7 +229,7 @@ export const MahanaTours: React.FC = () => {
               <div>
                 {/* Image & Price */}
                 <div className="relative h-60 w-full overflow-hidden">
-                  <img src={tour.img} alt={language === 'es' ? tour.nameES : tour.nameEN} className="w-full h-full object-cover" />
+                  <img src={tour.img} alt={language === 'es' ? tour.nameES : tour.nameEN} className="w-full h-full object-cover" loading="lazy" />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
                   
                   <span className="absolute top-4 left-4 px-3.5 py-1 bg-turquoise-900/90 text-sand-100 text-[10px] font-black uppercase tracking-widest rounded-full border border-turquoise-700/20 shadow-md">
@@ -245,7 +246,7 @@ export const MahanaTours: React.FC = () => {
                 </div>
 
                 {/* Info Text */}
-                <div className="p-6 md:p-8 space-y-4">
+                <div className="p-5 sm:p-8 space-y-4">
                   <div className="space-y-2">
                     <h3 className="text-lg font-black text-turquoise-950 leading-tight">
                       {language === 'es' ? tour.nameES : tour.nameEN}
@@ -279,7 +280,7 @@ export const MahanaTours: React.FC = () => {
               </div>
 
               {/* Action Booking Card Footer */}
-              <div className="px-6 md:px-8 pb-6 pt-2 border-t border-sand-100 bg-sand-50/20">
+              <div className="px-5 pb-5 pt-2 sm:px-8 sm:pb-6 border-t border-sand-100 bg-sand-50/20">
                 <button
                   onClick={() => handleWhatsAppClick(language === 'es' ? tour.nameES : tour.nameEN)}
                   className="w-full py-3 bg-turquoise-700 hover:bg-turquoise-900 text-white rounded-xl text-xs font-bold transition-all shadow-sm flex items-center justify-center space-x-1.5 hover:scale-[1.01] active:scale-[0.99]"
@@ -293,7 +294,7 @@ export const MahanaTours: React.FC = () => {
         </div>
 
         {/* Custom Tours banner */}
-        <div className="bg-gradient-to-r from-turquoise-900 to-turquoise-950 rounded-[40px] p-8 md:p-12 shadow-premium text-white border border-turquoise-800/40 relative overflow-hidden text-center max-w-4xl mx-auto space-y-6">
+        <div className="bg-gradient-to-r from-turquoise-900 to-turquoise-950 rounded-[40px] p-5 sm:p-12 shadow-premium text-white border border-turquoise-800/40 relative overflow-hidden text-center max-w-4xl mx-auto space-y-6">
           <div className="absolute top-0 right-0 w-80 h-80 bg-turquoise-700/20 rounded-full blur-3xl pointer-events-none" />
           <div className="absolute bottom-0 left-0 w-72 h-72 bg-amber-50/10 rounded-full blur-3xl pointer-events-none" />
 

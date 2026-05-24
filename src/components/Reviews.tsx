@@ -42,7 +42,7 @@ export const Reviews: React.FC = () => {
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-12 items-center">
           
           {/* Aggregate Google badge */}
-          <div className="lg:col-span-2 space-y-6 text-center lg:text-left bg-turquoise-950/40 p-8 md:p-10 rounded-3xl border border-turquoise-700/40 backdrop-blur-md shadow-glass">
+          <div className="lg:col-span-2 space-y-6 text-center lg:text-left bg-turquoise-950/40 p-5 sm:p-8 md:p-10 rounded-3xl border border-turquoise-700/40 backdrop-blur-md shadow-glass">
             <div className="inline-flex items-center space-x-2 px-3 py-1 bg-sand-500/10 border border-sand-500/20 text-sand-300 rounded-full text-xs font-semibold uppercase tracking-wider">
               Google Business
             </div>
@@ -78,7 +78,7 @@ export const Reviews: React.FC = () => {
             </div>
 
             <div className="min-h-[140px] flex items-center">
-              <blockquote className="text-xl sm:text-2xl font-medium font-serif italic text-sand-100 leading-relaxed transition-all duration-300">
+              <blockquote className="text-lg sm:text-xl md:text-2xl font-medium font-serif italic text-sand-100 leading-relaxed transition-all duration-300">
                 {reviewsList[activeIndex].text}
               </blockquote>
             </div>

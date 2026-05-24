@@ -89,12 +89,12 @@ export const Hero: React.FC = () => {
           </div>
 
           {/* Trust badges */}
-          <div className="flex items-center gap-6 pt-2 text-sand-200/60 text-xs font-semibold">
+          <div className="flex flex-wrap items-center gap-x-4 gap-y-2 pt-2 text-sand-200/60 text-[11px] sm:text-xs font-semibold">
             <span className="flex items-center gap-1.5">⭐ 4.1 Google</span>
-            <span className="hidden sm:inline">•</span>
-            <span className="hidden sm:flex items-center gap-1.5">🐾 Pet Friendly</span>
-            <span className="hidden sm:inline">•</span>
-            <span className="hidden sm:flex items-center gap-1.5">🏊 3 Piscinas</span>
+            <span className="text-sand-200/40">•</span>
+            <span className="flex items-center gap-1.5">🐾 Pet Friendly</span>
+            <span className="text-sand-200/40">•</span>
+            <span className="flex items-center gap-1.5">🏊 3 Piscinas</span>
           </div>
         </div>
       </div>

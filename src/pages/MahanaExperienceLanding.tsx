@@ -33,15 +33,16 @@ export const MahanaExperienceLanding: React.FC = () => {
           src="/images/hero-pool-drone.jpg?v=2" 
           alt="Mahana Experience" 
           className="w-full h-full object-cover"
+          loading="lazy"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-mahana-dark via-mahana-dark/30 to-transparent" />
         
-        <div className="absolute bottom-12 left-0 right-0 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-4">
+        <div className="absolute bottom-6 sm:bottom-12 left-0 right-0 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-2 sm:space-y-4">
           <span className="px-3.5 py-1.5 bg-turquoise-700/90 text-sand-100 text-xs font-bold uppercase tracking-widest rounded-lg border border-turquoise-500/20">
             {language === 'es' ? 'Hospedaje Preferido' : 'Preferred Lodging'}
           </span>
-          <h1 className="text-4xl sm:text-6xl font-black text-white tracking-tight">Mahana Experience</h1>
-          <p className="text-sand-100/95 text-base sm:text-xl max-w-3xl font-medium leading-relaxed">
+          <h1 className="text-3xl sm:text-6xl font-black text-white tracking-tight">Mahana Experience</h1>
+          <p className="text-sand-100/95 text-xs sm:text-xl max-w-3xl font-medium leading-relaxed">
             {language === 'es'
               ? 'Disfruta una escapada completa en Casa Mahana con estadía premium, pensión completa y acceso libre a nuestras áreas sociales e instalaciones.'
               : 'Enjoy a complete getaway at Casa Mahana with premium lodging, full board meals, and unlimited access to our social areas and facilities.'}
@@ -72,32 +73,34 @@ export const MahanaExperienceLanding: React.FC = () => {
             </h3>
             
             <div className="bg-white rounded-3xl border border-sand-200 shadow-glass overflow-hidden">
-              <table className="w-full text-left border-collapse text-sm">
-                <thead>
-                  <tr className="bg-sand-50/70 border-b border-sand-200 text-xs font-bold text-turquoise-950 uppercase tracking-wider">
-                    <th className="py-4 px-6">{language === 'es' ? 'Categoría' : 'Category'}</th>
-                    <th className="py-4 px-6">{language === 'es' ? 'Domingo a Jueves' : 'Sunday to Thursday'}</th>
-                    <th className="py-4 px-6">{language === 'es' ? 'Viernes y Sábado' : 'Friday and Saturday'}</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-sand-100 font-medium text-mahana-dark/95">
-                  <tr className="hover:bg-sand-50/20 transition-colors">
-                    <td className="py-4.5 px-6 font-bold text-turquoise-950">{language === 'es' ? 'Adulto (13+ años)' : 'Adult (13+ years)'}</td>
-                    <td className="py-4.5 px-6 font-extrabold text-turquoise-900">B/. 49.50</td>
-                    <td className="py-4.5 px-6 font-extrabold text-turquoise-900">B/. 60.50</td>
-                  </tr>
-                  <tr className="hover:bg-sand-50/20 transition-colors">
-                    <td className="py-4.5 px-6 font-bold text-turquoise-950">{language === 'es' ? 'Niño (2 a 12 años)' : 'Child (2 to 12 years)'}</td>
-                    <td className="py-4.5 px-6 font-extrabold text-turquoise-900">B/. 38.50</td>
-                    <td className="py-4.5 px-6 font-extrabold text-turquoise-900">B/. 38.50</td>
-                  </tr>
-                  <tr className="hover:bg-sand-50/20 transition-colors">
-                    <td className="py-4.5 px-6 font-bold text-turquoise-950">{language === 'es' ? 'Bebé (0 a 1 año)' : 'Infant (0 to 1 year)'}</td>
-                    <td className="py-4.5 px-6 text-emerald-600 font-bold">{language === 'es' ? 'Gratis' : 'Free'}</td>
-                    <td className="py-4.5 px-6 text-emerald-600 font-bold">{language === 'es' ? 'Gratis' : 'Free'}</td>
-                  </tr>
-                </tbody>
-              </table>
+              <div className="overflow-x-auto w-full scrollbar-thin">
+                <table className="w-full min-w-[480px] sm:min-w-0 text-left border-collapse text-sm">
+                  <thead>
+                    <tr className="bg-sand-50/70 border-b border-sand-200 text-[10px] sm:text-xs font-bold text-turquoise-950 uppercase tracking-wider">
+                      <th className="py-3 px-3 sm:py-4 sm:px-6">{language === 'es' ? 'Categoría' : 'Category'}</th>
+                      <th className="py-3 px-3 sm:py-4 sm:px-6">{language === 'es' ? 'Domingo a Jueves' : 'Sunday to Thursday'}</th>
+                      <th className="py-3 px-3 sm:py-4 sm:px-6">{language === 'es' ? 'Viernes y Sábado' : 'Friday and Saturday'}</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-sand-100 font-medium text-mahana-dark/95">
+                    <tr className="hover:bg-sand-50/20 transition-colors text-xs sm:text-sm">
+                      <td className="py-3 px-3 sm:py-4.5 sm:px-6 font-bold text-turquoise-950">{language === 'es' ? 'Adulto (13+ años)' : 'Adult (13+ years)'}</td>
+                      <td className="py-3 px-3 sm:py-4.5 sm:px-6 font-extrabold text-turquoise-900">B/. 49.50</td>
+                      <td className="py-3 px-3 sm:py-4.5 sm:px-6 font-extrabold text-turquoise-900">B/. 60.50</td>
+                    </tr>
+                    <tr className="hover:bg-sand-50/20 transition-colors text-xs sm:text-sm">
+                      <td className="py-3 px-3 sm:py-4.5 sm:px-6 font-bold text-turquoise-950">{language === 'es' ? 'Niño (2 a 12 años)' : 'Child (2 to 12 years)'}</td>
+                      <td className="py-3 px-3 sm:py-4.5 sm:px-6 font-extrabold text-turquoise-900">B/. 38.50</td>
+                      <td className="py-3 px-3 sm:py-4.5 sm:px-6 font-extrabold text-turquoise-900">B/. 38.50</td>
+                    </tr>
+                    <tr className="hover:bg-sand-50/20 transition-colors text-xs sm:text-sm">
+                      <td className="py-3 px-3 sm:py-4.5 sm:px-6 font-bold text-turquoise-950">{language === 'es' ? 'Bebé (0 a 1 año)' : 'Infant (0 to 1 year)'}</td>
+                      <td className="py-3 px-3 sm:py-4.5 sm:px-6 text-emerald-600 font-bold">{language === 'es' ? 'Gratis' : 'Free'}</td>
+                      <td className="py-3 px-3 sm:py-4.5 sm:px-6 text-emerald-600 font-bold">{language === 'es' ? 'Gratis' : 'Free'}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
             </div>
           </div>
 
@@ -114,6 +117,7 @@ export const MahanaExperienceLanding: React.FC = () => {
                     src={photo.src} 
                     alt={language === 'es' ? photo.titleEs : photo.titleEn}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    loading="lazy"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-turquoise-950/80 via-transparent to-transparent flex flex-col justify-end p-4 pointer-events-none" />
                   <span className="absolute bottom-4 left-4 right-4 text-white text-xs font-bold leading-snug drop-shadow-md pointer-events-none">
@@ -130,7 +134,7 @@ export const MahanaExperienceLanding: React.FC = () => {
               {language === 'es' ? 'Detalles de Inclusiones del Plan' : 'Plan Inclusions Details'}
             </h3>
             
-            <div className="bg-white rounded-3xl border border-sand-200 shadow-glass p-8 space-y-4">
+            <div className="bg-white rounded-3xl border border-sand-200 shadow-glass p-5 sm:p-8 space-y-4">
               {inclusions.map((inc, i) => (
                 <div key={i} className="flex items-start space-x-3.5">
                   <Check className="h-5 w-5 text-turquoise-700 shrink-0 mt-0.5" />
@@ -146,7 +150,7 @@ export const MahanaExperienceLanding: React.FC = () => {
               {language === 'es' ? 'Opciones Adicionales & Logística' : 'Additional Options & Logistics'}
             </h3>
             
-            <div className="bg-white rounded-3xl border border-sand-200 shadow-glass p-8 space-y-6">
+            <div className="bg-white rounded-3xl border border-sand-200 shadow-glass p-5 sm:p-8 space-y-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm font-semibold text-mahana-dark/80">
                 <div className="space-y-2">
                   <h4 className="font-bold text-turquoise-950">{language === 'es' ? 'Late Check-Out' : 'Late Check-Out'}</h4>
@@ -181,7 +185,7 @@ export const MahanaExperienceLanding: React.FC = () => {
         </div>
 
         {/* Right Side: Elegant Sidebar booking box */}
-        <div className="bg-white rounded-[32px] border border-sand-200 p-8 shadow-premium h-fit space-y-6 lg:sticky lg:top-24">
+        <div className="bg-white rounded-[32px] border border-sand-200 p-5 sm:p-8 shadow-premium h-fit space-y-6 lg:sticky lg:top-24">
           <div className="space-y-2">
             <span className="text-xs uppercase tracking-widest text-mahana-dark/60 font-bold block">
               {language === 'es' ? 'Tarifa por adulto desde' : 'Adult rate per night from'}
@@ -197,21 +201,21 @@ export const MahanaExperienceLanding: React.FC = () => {
           </div>
 
           <div className="border-t border-sand-100 pt-6 space-y-4 text-xs font-bold text-mahana-dark/75">
-            <div className="flex justify-between items-center">
+            <div className="flex flex-col sm:flex-row gap-1 sm:gap-0 justify-between items-start sm:items-center">
               <span>{language === 'es' ? 'Régimen Alimenticio' : 'Meal Plan'}</span>
-              <span className="text-turquoise-800">{language === 'es' ? 'Pensión Completa' : 'Full Board'}</span>
+              <span className="text-turquoise-800 text-right sm:text-left">{language === 'es' ? 'Pensión Completa' : 'Full Board'}</span>
             </div>
-            <div className="flex justify-between items-center">
+            <div className="flex flex-col sm:flex-row gap-1 sm:gap-0 justify-between items-start sm:items-center">
               <span>{language === 'es' ? 'Impuestos de Alojamiento' : 'Lodging Taxes'}</span>
-              <span className="text-emerald-600 uppercase">{language === 'es' ? 'Incluidos' : 'Included'}</span>
+              <span className="text-emerald-600 uppercase text-right sm:text-left">{language === 'es' ? 'Incluidos' : 'Included'}</span>
             </div>
-            <div className="flex justify-between items-center">
+            <div className="flex flex-col sm:flex-row gap-1 sm:gap-0 justify-between items-start sm:items-center">
               <span>{language === 'es' ? 'Mascotas Admitidas' : 'Pet-Friendly'}</span>
-              <span>{language === 'es' ? 'Sí (sujeto a cargo adicional)' : 'Yes (additional fee applies)'}</span>
+              <span className="text-right sm:text-left">{language === 'es' ? 'Sí (sujeto a cargo adicional)' : 'Yes (additional fee applies)'}</span>
             </div>
-            <div className="flex justify-between items-center">
+            <div className="flex flex-col sm:flex-row gap-1 sm:gap-0 justify-between items-start sm:items-center">
               <span>{language === 'es' ? 'Capacidad Máxima' : 'Max Capacity'}</span>
-              <span>{language === 'es' ? 'Hasta 6 personas (Hab. Familiar)' : 'Up to 6 guests (Family Room)'}</span>
+              <span className="text-right sm:text-left">{language === 'es' ? 'Hasta 6 personas (Hab. Familiar)' : 'Up to 6 guests (Family Room)'}</span>
             </div>
           </div>
 

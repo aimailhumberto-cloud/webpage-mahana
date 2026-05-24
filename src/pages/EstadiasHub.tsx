@@ -96,7 +96,7 @@ export const EstadiasHub: React.FC = () => {
               <div>
                 {/* Image */}
                 <div className="relative h-64 w-full overflow-hidden">
-                  <img src={room.img} alt={t(room.titleKey)} className="w-full h-full object-cover" />
+                  <img src={room.img} alt={t(room.titleKey)} className="w-full h-full object-cover" loading="lazy" />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
                   
                   {/* Badge */}
@@ -116,14 +116,14 @@ export const EstadiasHub: React.FC = () => {
                 </div>
 
                 {/* Content */}
-                <div className="p-8 space-y-6">
+                <div className="p-5 sm:p-8 space-y-6">
                   <div>
                     <h2 className="text-2xl font-black text-turquoise-950 tracking-tight">{t(room.titleKey)}</h2>
                     <p className="text-sm text-mahana-dark/75 mt-2 leading-relaxed">{t(room.descKey)}</p>
                   </div>
 
                   {/* Features */}
-                  <div className="bg-sand-50 p-5 rounded-2xl border border-sand-100 space-y-3.5">
+                  <div className="bg-sand-50 p-4 sm:p-5 rounded-2xl border border-sand-100 space-y-3.5">
                     <div className="flex items-center space-x-3 text-sm text-turquoise-950 font-semibold">
                       <Users className="h-4.5 w-4.5 text-turquoise-700 shrink-0" />
                       <span>{t(room.capacityKey)}</span>
@@ -146,7 +146,7 @@ export const EstadiasHub: React.FC = () => {
               </div>
 
               {/* Action */}
-              <div className="px-8 pb-8 pt-4 border-t border-sand-100 bg-sand-50/20 rounded-b-[32px] flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+              <div className="px-5 pb-6 pt-4 sm:px-8 sm:pb-8 border-t border-sand-100 bg-sand-50/20 rounded-b-[32px] flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                 <div>
                   <span className="text-xs uppercase tracking-wider text-mahana-dark/60 font-bold block">
                     {language === 'es' ? 'Tarifas sugeridas desde' : 'Suggested rates from'}
@@ -194,6 +194,7 @@ export const EstadiasHub: React.FC = () => {
                   src={img.src} 
                   alt={language === 'es' ? img.titleEs : img.titleEn} 
                   className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                  loading="lazy"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-turquoise-950/85 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-4 text-left pointer-events-none" />
                 <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
@@ -210,51 +211,51 @@ export const EstadiasHub: React.FC = () => {
         </div>
 
         {/* Comparison Table */}
-        <div className="bg-white rounded-[32px] border border-sand-200 shadow-glass overflow-hidden p-8 space-y-6">
+        <div className="bg-white rounded-[32px] border border-sand-200 shadow-glass overflow-hidden p-4 sm:p-8 space-y-6">
           <div className="flex items-center space-x-3">
             <Table className="h-6 w-6 text-turquoise-700" />
             <h2 className="text-xl font-bold text-turquoise-950">{t('rooms.comparison_title')}</h2>
           </div>
 
-          <div className="overflow-x-auto">
+          <div className="overflow-x-auto w-full scrollbar-thin">
             <table className="w-full border-collapse text-left text-sm text-mahana-dark">
               <thead>
                 <tr className="border-b border-sand-200 text-xs uppercase tracking-wider font-extrabold text-turquoise-900 bg-sand-50/50">
-                  <th className="py-4 px-4">{t('rooms.headers.category')}</th>
-                  <th className="py-4 px-4">{t('rooms.headers.capacity')}</th>
-                  <th className="py-4 px-4">{t('rooms.headers.beds')}</th>
-                  <th className="py-4 px-4">{t('rooms.headers.pets')}</th>
-                  <th className="py-4 px-4">{t('rooms.headers.features')}</th>
+                  <th className="py-4 px-2 sm:px-4">{t('rooms.headers.category')}</th>
+                  <th className="py-4 px-2 sm:px-4">{t('rooms.headers.capacity')}</th>
+                  <th className="py-4 px-2 sm:px-4">{t('rooms.headers.beds')}</th>
+                  <th className="py-4 px-2 sm:px-4">{t('rooms.headers.pets')}</th>
+                  <th className="py-4 px-2 sm:px-4">{t('rooms.headers.features')}</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-sand-100 font-medium">
                 <tr className="hover:bg-sand-50/30 transition-colors">
-                  <td className="py-4 px-4 font-bold text-turquoise-950">{t('rooms.estandar_title')}</td>
-                  <td className="py-4 px-4">{language === 'es' ? '2 a 3 Huéspedes' : '2 to 3 Guests'}</td>
-                  <td className="py-4 px-4">{language === 'es' ? '1 Cama Doble + 1 Sencilla' : '1 Double + 1 Single'}</td>
-                  <td className="py-4 px-4 text-emerald-600 font-bold">✔️ {language === 'es' ? 'Sí' : 'Yes'}</td>
-                  <td className="py-4 px-4 text-xs">{language === 'es' ? 'Ventanas de brisa, Agua caliente, Smart TV con Netflix, WiFi' : 'Breezy Windows, Hot Water, Smart TV with Netflix, WiFi'}</td>
+                  <td className="py-4 px-2 sm:px-4 font-bold text-turquoise-950">{t('rooms.estandar_title')}</td>
+                  <td className="py-4 px-2 sm:px-4">{language === 'es' ? '2 a 3 Huéspedes' : '2 to 3 Guests'}</td>
+                  <td className="py-4 px-2 sm:px-4">{language === 'es' ? '1 Cama Doble + 1 Sencilla' : '1 Double + 1 Single'}</td>
+                  <td className="py-4 px-2 sm:px-4 text-emerald-600 font-bold">✔️ {language === 'es' ? 'Sí' : 'Yes'}</td>
+                  <td className="py-4 px-2 sm:px-4 text-xs">{language === 'es' ? 'Ventanas de brisa, Agua caliente, Smart TV con Netflix, WiFi' : 'Breezy Windows, Hot Water, Smart TV with Netflix, WiFi'}</td>
                 </tr>
                 <tr className="hover:bg-sand-50/30 transition-colors">
-                  <td className="py-4 px-4 font-bold text-turquoise-950">{t('rooms.doble_title')}</td>
-                  <td className="py-4 px-4">4 {language === 'es' ? 'Huéspedes' : 'Guests'}</td>
-                  <td className="py-4 px-4">{language === 'es' ? '2 Camas Dobles' : '2 Double Beds'}</td>
-                  <td className="py-4 px-4 text-emerald-600 font-bold">✔️ {language === 'es' ? 'Sí' : 'Yes'}</td>
-                  <td className="py-4 px-4 text-xs">{language === 'es' ? 'Terracita con Hamaca, A/C, Smart TV, WiFi (Sin Nevera)' : 'Terrace with Hammock, A/C, Smart TV, WiFi (No Fridge)'}</td>
+                  <td className="py-4 px-2 sm:px-4 font-bold text-turquoise-950">{t('rooms.doble_title')}</td>
+                  <td className="py-4 px-2 sm:px-4">4 {language === 'es' ? 'Huéspedes' : 'Guests'}</td>
+                  <td className="py-4 px-2 sm:px-4">{language === 'es' ? '2 Camas Dobles' : '2 Double Beds'}</td>
+                  <td className="py-4 px-2 sm:px-4 text-emerald-600 font-bold">✔️ {language === 'es' ? 'Sí' : 'Yes'}</td>
+                  <td className="py-4 px-2 sm:px-4 text-xs">{language === 'es' ? 'Terracita con Hamaca, A/C, Smart TV, WiFi (Sin Nevera)' : 'Terrace with Hammock, A/C, Smart TV, WiFi (No Fridge)'}</td>
                 </tr>
                 <tr className="hover:bg-sand-50/30 transition-colors">
-                  <td className="py-4 px-4 font-bold text-turquoise-950">{t('rooms.familiar_title')}</td>
-                  <td className="py-4 px-4">6 {language === 'es' ? 'Huéspedes' : 'Guests'}</td>
-                  <td className="py-4 px-4">{language === 'es' ? '1 Cama Doble + 4 Sencillas' : '1 Double + 4 Single Beds'}</td>
-                  <td className="py-4 px-4 text-emerald-600 font-bold">✔️ {language === 'es' ? 'Sí' : 'Yes'}</td>
-                  <td className="py-4 px-4 text-xs">{language === 'es' ? 'Área de Estar, Baño Doble, A/C, Máximo Espacio' : 'Sitting Lounge, Double Bath, A/C, Maximum Space'}</td>
+                  <td className="py-4 px-2 sm:px-4 font-bold text-turquoise-950">{t('rooms.familiar_title')}</td>
+                  <td className="py-4 px-2 sm:px-4">6 {language === 'es' ? 'Huéspedes' : 'Guests'}</td>
+                  <td className="py-4 px-2 sm:px-4">{language === 'es' ? '1 Cama Doble + 4 Sencillas' : '1 Double + 4 Single Beds'}</td>
+                  <td className="py-4 px-2 sm:px-4 text-emerald-600 font-bold">✔️ {language === 'es' ? 'Sí' : 'Yes'}</td>
+                  <td className="py-4 px-2 sm:px-4 text-xs">{language === 'es' ? 'Área de Estar, Baño Doble, A/C, Máximo Espacio' : 'Sitting Lounge, Double Bath, A/C, Maximum Space'}</td>
                 </tr>
                 <tr className="hover:bg-sand-50/30 transition-colors">
-                  <td className="py-4 px-4 font-bold text-turquoise-950">{t('rooms.camping_title')}</td>
-                  <td className="py-4 px-4">{language === 'es' ? '1 a 2 Huéspedes' : '1 to 2 Guests'}</td>
-                  <td className="py-4 px-4">{language === 'es' ? '1 Colchón Doble (Sábanas)' : '1 Double Mattress (Linens)'}</td>
-                  <td className="py-4 px-4 text-rose-500 font-bold">❌ {language === 'es' ? 'No' : 'No'}</td>
-                  <td className="py-4 px-4 text-xs">{language === 'es' ? 'Bajo Sombra, Baños compartidos, Áreas del Lodge (Sin ventilador)' : 'Pitched Under Shade, Shared Bathrooms, Lodge Areas (No fan)'}</td>
+                  <td className="py-4 px-2 sm:px-4 font-bold text-turquoise-950">{t('rooms.camping_title')}</td>
+                  <td className="py-4 px-2 sm:px-4">{language === 'es' ? '1 a 2 Huéspedes' : '1 to 2 Guests'}</td>
+                  <td className="py-4 px-2 sm:px-4">{language === 'es' ? '1 Colchón Doble (Sábanas)' : '1 Double Mattress (Linens)'}</td>
+                  <td className="py-4 px-2 sm:px-4 text-rose-500 font-bold">❌ {language === 'es' ? 'No' : 'No'}</td>
+                  <td className="py-4 px-2 sm:px-4 text-xs">{language === 'es' ? 'Bajo Sombra, Baños compartidos, Áreas del Lodge (Sin ventilador)' : 'Pitched Under Shade, Shared Bathrooms, Lodge Areas (No fan)'}</td>
                 </tr>
               </tbody>
             </table>
@@ -281,6 +282,7 @@ export const EstadiasHub: React.FC = () => {
                 src={activeImage} 
                 alt="Room detail high-res view" 
                 className="max-w-full max-h-[85vh] object-contain rounded-2xl"
+                loading="lazy"
               />
               <div className="absolute bottom-4 left-4 text-white/80 text-xs font-semibold bg-turquoise-950/70 px-3 py-1.5 rounded-lg backdrop-blur-sm pointer-events-none">
                 {language === 'es' ? 'Presiona fuera de la imagen o la X para cerrar' : 'Click outside or X to close'}

@@ -77,7 +77,7 @@ export const PasadiasHub: React.FC = () => {
               <div>
                 {/* Image */}
                 <div className="relative h-64 w-full overflow-hidden">
-                  <img src={pass.img} alt={pass.title} className="w-full h-full object-cover" />
+                  <img src={pass.img} alt={pass.title} className="w-full h-full object-cover" loading="lazy" />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/55 to-transparent" />
                   
                   {/* Badge */}
@@ -96,7 +96,7 @@ export const PasadiasHub: React.FC = () => {
                 </div>
 
                 {/* Content */}
-                <div className="p-8 space-y-6">
+                <div className="p-5 sm:p-8 space-y-6">
                   <div>
                     <h2 className="text-2xl font-extrabold text-turquoise-950 tracking-tight leading-snug">{pass.title}</h2>
                     <p className="text-sm text-mahana-dark/75 mt-2 leading-relaxed min-h-[48px]">{pass.desc}</p>
@@ -122,7 +122,7 @@ export const PasadiasHub: React.FC = () => {
               </div>
 
               {/* Action block */}
-              <div className="px-8 pb-8 pt-4 border-t border-sand-100 bg-sand-50/20 rounded-b-[32px] space-y-4">
+              <div className="px-5 pb-6 pt-4 sm:px-8 sm:pb-8 border-t border-sand-100 bg-sand-50/20 rounded-b-[32px] space-y-4">
                 <div className="flex items-center space-x-2 text-xs text-mahana-dark/60 font-semibold">
                   <Clock className="h-4 w-4 text-turquoise-700" />
                   <span>{language === 'es' ? 'Horario: 9:00 AM - 5:00 PM' : 'Schedule: 9:00 AM - 5:00 PM'}</span>
@@ -150,7 +150,7 @@ export const PasadiasHub: React.FC = () => {
         </div>
 
         {/* Guidelines */}
-        <div className="mt-16 bg-amber-50/50 p-8 rounded-[32px] border border-sand-200/80 text-center max-w-2xl mx-auto space-y-4">
+        <div className="mt-16 bg-amber-50/50 p-5 sm:p-8 rounded-[32px] border border-sand-200/80 text-center max-w-2xl mx-auto space-y-4">
           <ShieldAlert className="h-8 w-8 text-turquoise-700 mx-auto" />
           <h3 className="font-bold text-turquoise-950 text-lg">
             {language === 'es' ? 'Información importante de pasadías' : 'Important day pass guidelines'}

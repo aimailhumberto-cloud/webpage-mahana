@@ -87,14 +87,14 @@ export const EventosBodas: React.FC = () => {
             >
               <div>
                 <div className="relative h-60 w-full overflow-hidden">
-                  <img src={showcase.img} alt={t(showcase.titleKey)} className="w-full h-full object-cover" />
+                  <img src={showcase.img} alt={t(showcase.titleKey)} className="w-full h-full object-cover" loading="lazy" />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
                   <span className="absolute top-4 left-4 px-3 py-1.5 bg-turquoise-900/90 text-sand-100 text-xs font-bold uppercase tracking-wider rounded-xl">
                     {showcase.badge}
                   </span>
                 </div>
 
-                <div className="p-8 space-y-4">
+                <div className="p-5 sm:p-8 space-y-4">
                   <div className="flex items-center space-x-3">
                     <div className="p-2.5 bg-sand-100/60 rounded-2xl shrink-0">
                       {showcase.icon}
@@ -109,7 +109,7 @@ export const EventosBodas: React.FC = () => {
                 </div>
               </div>
 
-              <div className="px-8 pb-8 pt-4 border-t border-sand-100 bg-sand-50/20 font-bold text-turquoise-900 text-sm flex items-center space-x-2">
+              <div className="px-5 pb-5 pt-4 sm:px-8 sm:pb-8 border-t border-sand-100 bg-sand-50/20 font-bold text-turquoise-900 text-sm flex items-center space-x-2">
                 <span>{showcase.capacity}</span>
               </div>
             </div>
@@ -140,6 +140,7 @@ export const EventosBodas: React.FC = () => {
                     src={img.src} 
                     alt={img.alt} 
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" 
+                    loading="lazy"
                   />
                   <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
                     <div className="p-3 bg-white/20 backdrop-blur-md rounded-full text-white border border-white/30 transform scale-90 group-hover:scale-100 transition-all duration-300">
@@ -159,7 +160,7 @@ export const EventosBodas: React.FC = () => {
         <div className="bg-white rounded-[40px] border border-sand-200 max-w-4xl mx-auto shadow-premium overflow-hidden grid grid-cols-1 md:grid-cols-5">
           
           {/* Info Panel */}
-          <div className="bg-turquoise-900 p-8 sm:p-12 text-sand-100 md:col-span-2 flex flex-col justify-between space-y-8">
+          <div className="bg-turquoise-900 p-5 sm:p-12 text-sand-100 md:col-span-2 flex flex-col justify-between space-y-8">
             <div className="space-y-4">
               <span className="text-xxs uppercase tracking-widest text-mahana-accent font-bold">
                 {language === 'es' ? 'Ubicación Oasís' : 'Oasis Location'}
@@ -199,7 +200,7 @@ export const EventosBodas: React.FC = () => {
           </div>
 
           {/* Form Area */}
-          <div className="p-8 sm:p-12 md:col-span-3">
+          <div className="p-5 sm:p-12 md:col-span-3">
             {submitted ? (
               <div className="h-full flex flex-col justify-center items-center text-center space-y-4 py-8 animate-fade-in">
                 <div className="p-4 bg-emerald-50 text-emerald-600 rounded-full shadow-md border border-emerald-100">
@@ -394,7 +395,7 @@ export const EventosBodas: React.FC = () => {
           <div className="absolute top-4 right-4 z-[70]">
             <button
               onClick={() => setSelectedImg(null)}
-              className="bg-white/10 hover:bg-white/20 text-white backdrop-blur-md p-3 rounded-full border border-white/20 transition-all"
+              className="bg-white/10 hover:bg-white/20 text-white backdrop-blur-md p-3 rounded-full border border-white/20 transition-all cursor-pointer"
               aria-label="Close image"
             >
               <X className="h-5 w-5" />
@@ -406,6 +407,7 @@ export const EventosBodas: React.FC = () => {
               src={selectedImg} 
               alt="Casa Mahana Event" 
               className="max-h-[80vh] w-auto object-contain mx-auto rounded-lg" 
+              loading="lazy"
             />
           </div>
         </div>

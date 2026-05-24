@@ -77,7 +77,7 @@ export const RestaurantePublico: React.FC = () => {
               {t('restaurant_menu.desc')}
             </p>
 
-            <div className="bg-white/80 backdrop-blur-md p-6 rounded-[24px] border border-sand-200 shadow-glass space-y-4">
+            <div className="bg-white/80 backdrop-blur-md p-4 sm:p-6 rounded-[24px] border border-sand-200 shadow-glass space-y-4">
               <div className="flex items-center space-x-3 text-sm text-turquoise-950 font-bold">
                 <Clock className="h-5 w-5 text-turquoise-700 shrink-0" />
                 <span>
@@ -111,13 +111,14 @@ export const RestaurantePublico: React.FC = () => {
             </div>
           </div>
 
-          <div className="relative h-[480px] rounded-[40px] overflow-hidden shadow-premium border border-sand-200 group">
+          <div className="relative h-[280px] sm:h-[480px] rounded-[24px] sm:rounded-[40px] overflow-hidden shadow-premium border border-sand-200 group">
             <img 
               src="/images/food-pizza-oven-v2.jpg" 
               alt="Casa Mahana Restaurant" 
               className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+              loading="lazy"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/55 to-transparent" />
             <div className="absolute bottom-6 left-6 bg-white/95 backdrop-blur-xs px-5 py-3 rounded-2xl flex items-center space-x-3 shadow-lg border border-sand-200">
               <Flame className="h-6 w-6 text-amber-600 animate-bounce" />
               <div>
@@ -151,6 +152,7 @@ export const RestaurantePublico: React.FC = () => {
                     src={img.src} 
                     alt={img.alt} 
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" 
+                    loading="lazy"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
                     <span className="text-white font-bold text-lg">{img.title}</span>
@@ -165,7 +167,7 @@ export const RestaurantePublico: React.FC = () => {
         </div>
 
         {/* Digital Menu Text Display */}
-        <div className="bg-white rounded-[40px] border border-sand-200 p-8 sm:p-12 shadow-premium space-y-12 mb-16">
+        <div className="bg-white rounded-[40px] border border-sand-200 p-5 sm:p-12 shadow-premium space-y-12 mb-16">
           <div className="text-center max-w-lg mx-auto space-y-3">
             <UtensilsCrossed className="h-8 w-8 text-turquoise-700 mx-auto" />
             <h2 className="text-3xl font-black text-turquoise-950">{t('restaurant_menu.menu_title')}</h2>
@@ -201,7 +203,7 @@ export const RestaurantePublico: React.FC = () => {
           </div>
 
           {/* Book Daypass helper */}
-          <div className="bg-sand-100/70 p-8 rounded-[32px] border border-sand-200/80 text-center max-w-2xl mx-auto space-y-4">
+          <div className="bg-sand-100/70 p-5 sm:p-8 rounded-[32px] border border-sand-200/80 text-center max-w-2xl mx-auto space-y-4">
             <Pizza className="h-8 w-8 text-turquoise-700 mx-auto" />
             <h3 className="font-extrabold text-turquoise-950 text-lg">
               {language === 'es' ? '¿Quieres disfrutar de la piscina mientras comes?' : 'Want to enjoy the pool while dining?'}
@@ -225,7 +227,7 @@ export const RestaurantePublico: React.FC = () => {
 
       {/* Menu Image Lightbox Modal Overlay */}
       {isMenuOpen && (
-        <div className="fixed inset-0 z-55 bg-black/85 backdrop-blur-md flex flex-col justify-center items-center p-4 animate-fade-in">
+        <div className="fixed inset-0 z-55 bg-black/85 backdrop-blur-md flex flex-col justify-center items-center p-4 animate-fade-in text-center">
           <div className="absolute top-4 right-4 flex space-x-3 z-50">
             <a 
               href="/CASA MAHANA MENU.pdf" 
@@ -237,7 +239,7 @@ export const RestaurantePublico: React.FC = () => {
             </a>
             <button
               onClick={() => setIsMenuOpen(false)}
-              className="bg-white/10 hover:bg-white/20 text-white backdrop-blur-md p-3 rounded-full border border-white/20 transition-all"
+              className="bg-white/10 hover:bg-white/20 text-white backdrop-blur-md p-3 rounded-full border border-white/20 transition-all cursor-pointer"
               aria-label="Close menu"
             >
               <X className="h-5 w-5" />
@@ -249,6 +251,7 @@ export const RestaurantePublico: React.FC = () => {
               src="/images/restaurant-menu-sheet.jpg?v=2" 
               alt="Casa Mahana printed menu" 
               className="max-h-[80vh] w-auto object-contain mx-auto" 
+              loading="lazy"
             />
           </div>
 
