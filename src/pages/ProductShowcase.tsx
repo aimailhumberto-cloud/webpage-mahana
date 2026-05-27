@@ -20,7 +20,7 @@ export const ProductShowcase: React.FC = () => {
     {
       key: 'pool_day' as const,
       img: 'https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=800&q=80',
-      price: '$35',
+      price: '$38.50',
       priceUnit: t('common.adults').toLowerCase(),
       category: 'Pasadía' as const,
       planCode: 'pasadia_comidas',

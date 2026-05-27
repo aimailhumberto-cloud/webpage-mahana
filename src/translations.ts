@@ -63,7 +63,7 @@ export const translations = {
       subtitle: "Más de 590+ opiniones respaldan nuestra calificación en Google Business",
       rating_label: "Excelente 4.1 de 5 estrellas",
       rev1: "«¡Un lugar hermoso! La pizza a la leña es la mejor del área y el servicio es super atento. Ideal para ir en familia y con mascotas.» — Sofía R.",
-      rev2: "«El pasadía es increíble por $35, comida deliciosa y las bebidas ilimitadas muy buenas. Volveré sin duda.» — Carlos M.",
+      rev2: "«El pasadía es increíble por $38.50, comida deliciosa y las bebidas ilimitadas muy buenas. Volveré sin duda.» — Carlos M.",
       rev3: "«Habitaciones sumamente limpias, ambiente tranquilo frente a la piscina. Perfecto para desconectarse de la ciudad.» — John D."
     },
     products: {
@@ -299,7 +299,7 @@ export const translations = {
       subtitle: "Over 590+ reviews back our Google Business rating",
       rating_label: "Excellent 4.1 out of 5 stars",
       rev1: "«A beautiful place! The wood-fired pizza is the best in the area and the service is super friendly. Pet and family friendly.» — Sofia R.",
-      rev2: "«The day pass is incredible for $35, delicious food and great semi-open bar. I will definitely come back.» — Carlos M.",
+      rev2: "«The day pass is incredible for $38.50, delicious food and great semi-open bar. I will definitely come back.» — Carlos M.",
       rev3: "«Extremely clean rooms, peaceful pool area. Perfect to disconnect from the busy city.» — John D."
     },
     products: {

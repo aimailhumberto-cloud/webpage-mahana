@@ -78,7 +78,7 @@ export const LodgingPackages: React.FC = () => {
     {
       title: language === 'es' ? 'Pasadía Todo Incluido' : 'All-Inclusive Day Pass',
       badge: language === 'es' ? 'Día de Sol VIP' : 'VIP Day Pass',
-      price: '$35',
+      price: '$38.50',
       priceSuffix: language === 'es' ? '/ persona' : '/ person',
       desc: language === 'es'
         ? 'Un día espectacular de piscina con un delicioso almuerzo a la carta, open bar nacional y snacks ilimitados.'

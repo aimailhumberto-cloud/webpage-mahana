@@ -106,7 +106,7 @@ export const PasadyaAllInclusiveLanding: React.FC = () => {
                   <tbody className="divide-y divide-sand-100 font-medium text-mahana-dark/95">
                     <tr className="hover:bg-sand-50/20 transition-colors text-xs sm:text-sm">
                       <td className="py-3 px-3 sm:py-4.5 sm:px-6 font-bold text-turquoise-950">{language === 'es' ? 'Adulto (13+ años)' : 'Adult (13+ years)'}</td>
-                      <td className="py-3 px-3 sm:py-4.5 sm:px-6 font-extrabold text-turquoise-900">B/. 35.00</td>
+                      <td className="py-3 px-3 sm:py-4.5 sm:px-6 font-extrabold text-turquoise-900">B/. 38.50</td>
                       <td className="py-3 px-3 sm:py-4.5 sm:px-6 font-extrabold text-turquoise-900">B/. 44.00</td>
                     </tr>
                     <tr className="hover:bg-sand-50/20 transition-colors text-xs sm:text-sm">
@@ -194,7 +194,7 @@ export const PasadyaAllInclusiveLanding: React.FC = () => {
               {language === 'es' ? 'Tarifa VIP por persona desde' : 'VIP Rate per person from'}
             </span>
             <div className="flex items-baseline space-x-1.5">
-              <span className="text-4xl font-black text-turquoise-950">$35</span>
+              <span className="text-4xl font-black text-turquoise-950">$38.50</span>
               <span className="text-sm text-mahana-dark/60 font-semibold">USD / {language === 'es' ? 'adulto' : 'adult'}</span>
             </div>
             <p className="text-xs text-amber-600 font-bold flex items-center space-x-1">

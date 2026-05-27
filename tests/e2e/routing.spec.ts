@@ -47,7 +47,7 @@ test.describe('Casa Mahana - Multi-Page & Weddings E2E Verification Suite', () =
     await expect(page.getByText('Nuestras Opciones de Pasadía en Chame')).toBeVisible();
     
     // Verify specific plan rates
-    await expect(page.getByText('$35')).toBeVisible();
+    await expect(page.getByText('$38.50')).toBeVisible();
     await expect(page.getByText('$15')).toBeVisible();
 
     // Clicking 'Reservar Pasadía' redirects to wizard with correct pre-filled plan

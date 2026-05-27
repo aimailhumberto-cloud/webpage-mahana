@@ -29,8 +29,8 @@ export const ProductsHook: React.FC = () => {
       title: language === 'es' ? 'Pasadías' : 'Day Passes',
       subtitle: language === 'es' ? 'Pool Day & Pasadía Todo Incluido' : 'Pool Day & All-Inclusive Day Pass',
       desc: language === 'es'
-        ? 'Un día completo de relajación en piscina con almuerzo, bebidas y buena vibra. Desde $35 por persona.'
-        : 'A full day of pool relaxation with lunch, drinks, and great vibes. From $35 per person.',
+        ? 'Un día completo de relajación en piscina con almuerzo, bebidas y buena vibra. Desde $38.50 por persona.'
+        : 'A full day of pool relaxation with lunch, drinks, and great vibes. From $38.50 per person.',
       gradient: 'from-amber-500 to-orange-600',
       bgImage: media.exp_daypass,
       badge: language === 'es' ? 'Día de Sol' : 'Day Use',

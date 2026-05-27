@@ -14,7 +14,7 @@ export const PasadiasHub: React.FC = () => {
       desc: language === 'es' 
         ? 'Disfruta de un día espectacular con almuerzo premium a la carta, open bar nacional (hasta 12 tragos) y snacks ilimitados de piscina.' 
         : 'Enjoy a spectacular day with premium a-la-carte lunch, local open bar (up to 12 drinks), and unlimited pool snacks.',
-      price: '$35',
+      price: '$38.50',
       priceUnit: language === 'es' ? 'adulto' : 'adult',
       planCode: 'pasadia_comidas',
       img: '/images/hero-pool-deck.jpg?v=2',
