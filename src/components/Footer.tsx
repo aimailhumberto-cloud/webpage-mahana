@@ -31,7 +31,7 @@ export const Footer: React.FC = () => {
             </p>
             <div className="flex space-x-4 pt-2">
               <a
-                href="https://instagram.com"
+                href="https://www.instagram.com/casamahanapanama"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="p-2 rounded-lg bg-turquoise-900/50 hover:bg-turquoise-900 hover:text-white transition-all"
@@ -39,7 +39,7 @@ export const Footer: React.FC = () => {
                 <Instagram className="h-5 w-5" />
               </a>
               <a
-                href="https://facebook.com"
+                href="https://www.facebook.com/casamahanapanama"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="p-2 rounded-lg bg-turquoise-900/50 hover:bg-turquoise-900 hover:text-white transition-all"
