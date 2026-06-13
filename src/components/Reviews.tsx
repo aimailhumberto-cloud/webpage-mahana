@@ -48,7 +48,7 @@ export const Reviews: React.FC = () => {
             </div>
             
             <div className="space-y-2">
-              <div className="text-5xl font-extrabold text-white tracking-tight">4.1</div>
+              <div className="text-5xl font-extrabold text-white tracking-tight">4.2</div>
               
               {/* Star Rating */}
               <div className="flex items-center justify-center lg:justify-start space-x-1">

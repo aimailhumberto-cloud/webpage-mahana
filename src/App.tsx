@@ -13,6 +13,7 @@ import { ProductShowcase } from './pages/ProductShowcase';
 import { EstadiasHub } from './pages/EstadiasHub';
 import { MahanaExperienceLanding } from './pages/MahanaExperienceLanding';
 import { EstadiaAllInclusiveLanding } from './pages/EstadiaAllInclusiveLanding';
+import { EscapeMahanaLanding } from './pages/EscapeMahanaLanding';
 
 import { PasadiasHub } from './pages/PasadiasHub';
 import { PoolDayLanding } from './pages/PoolDayLanding';
@@ -68,6 +69,7 @@ export const App: React.FC = () => {
                 <Route path="/estadias" element={<EstadiasHub />} />
                 <Route path="/estadias/mahana-experience" element={<MahanaExperienceLanding />} />
                 <Route path="/estadias/todo-incluido" element={<EstadiaAllInclusiveLanding />} />
+                <Route path="/estadias/escape-mahana" element={<EscapeMahanaLanding />} />
 
                 {/* Day Passes Hub */}
                 <Route path="/pasadias" element={<PasadiasHub />} />

@@ -9,6 +9,29 @@ export const LodgingPackages: React.FC = () => {
 
   const packages = [
     {
+      title: 'Escape Mahana',
+      badge: language === 'es' ? 'Promo Aniversario' : 'Anniversary Promo',
+      price: '$33',
+      priceSuffix: language === 'es' ? '/ pareja / noche' : '/ couple / night',
+      desc: language === 'es'
+        ? 'Escapada ideal de domingo a jueves por $33 (fines de semana $49.50) para dos personas con desayuno continental incluido.'
+        : 'Ideal getaway from Sunday to Thursday for $33 (weekends $49.50) for two people with continental breakfast included.',
+      img: '/images/escape-mahana-hero.jpg',
+      icon: <Coffee className="h-5 w-5 text-white" />,
+      accentBg: 'bg-mahana-accent text-white shadow-orange-200',
+      features: [
+        { text: language === 'es' ? 'Hospedaje para 2 personas' : 'Lodging for 2 people', included: true },
+        { text: language === 'es' ? 'Desayuno continental incluido' : 'Continental breakfast included', included: true },
+        { text: language === 'es' ? 'Acceso a nuestras 3 piscinas' : 'Access to our 3 swimming pools', included: true },
+        { text: language === 'es' ? 'Tarifa especial de domingo a jueves' : 'Special rate Sunday to Thursday', included: true },
+        { text: language === 'es' ? 'Cenas y bebidas no incluidas' : 'Dinners & drinks not included', included: false }
+      ],
+      link: '/estadias/escape-mahana',
+      cta: language === 'es' ? 'Ver Promo Escape' : 'View Escape Promo',
+      accent: 'border-sand-200/80 hover:border-mahana-accent/30',
+      limitedTime: true
+    },
+    {
       title: 'Mahana Experience',
       badge: language === 'es' ? 'Hospedaje Estándar' : 'Standard Lodging',
       price: '$49.50',
@@ -123,12 +146,17 @@ export const LodgingPackages: React.FC = () => {
         </div>
 
         {/* Packages Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 items-stretch">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-5 items-stretch">
           {packages.map((pkg, idx) => (
             <div key={idx} className="relative flex flex-col h-full pt-4">
               {pkg.featured && (
                 <div className="absolute top-0 left-1/2 -translate-x-1/2 bg-amber-600 text-white text-[9px] uppercase tracking-widest font-black px-4 py-1 rounded-full shadow-md border border-amber-500/30 z-20">
                   {language === 'es' ? '🔥 El Más Elegido' : '🔥 Most Popular'}
+                </div>
+              )}
+              {pkg.limitedTime && (
+                <div className="absolute top-0 left-1/2 -translate-x-1/2 bg-rose-600 text-white text-[9px] uppercase tracking-widest font-black px-4 py-1 rounded-full shadow-md border border-rose-500/30 z-20 animate-pulse">
+                  {language === 'es' ? '⏳ Tiempo Limitado' : '⏳ Limited Time'}
                 </div>
               )}
 
