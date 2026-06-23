@@ -24,6 +24,7 @@ import { SurfShackAcademy } from './pages/SurfShackAcademy';
 import { EventosBodas } from './pages/EventosBodas';
 import { MediaAdmin } from './pages/MediaAdmin';
 import { MahanaTours } from './pages/MahanaTours';
+import { PromoHabitacionGratis } from './pages/PromoHabitacionGratis';
 
 const ScrollToTop: React.FC = () => {
   const { pathname } = useLocation();
@@ -35,9 +36,11 @@ const ScrollToTop: React.FC = () => {
 };
 
 const RedirectToPMS: React.FC = () => {
+  const location = useLocation();
   React.useEffect(() => {
-    window.location.replace('https://casa-mahana-pms.onrender.com/reservar');
-  }, []);
+    const search = location.search || '';
+    window.location.replace(`https://casa-mahana-pms.onrender.com/reservar${search}`);
+  }, [location]);
 
   return (
     <div className="flex items-center justify-center min-h-[60vh] bg-mahana-light">
@@ -50,45 +53,66 @@ const RedirectToPMS: React.FC = () => {
   );
 };
 
+const AppContent: React.FC = () => {
+  const location = useLocation();
+  const isPromoPage = location.pathname === '/promo-habitacion-gratis';
+
+  return (
+    <div className="flex flex-col min-h-screen bg-mahana-light text-mahana-dark selection:bg-turquoise-100 selection:text-turquoise-900">
+      {!isPromoPage && <Header />}
+      {isPromoPage && (
+        <header className="absolute top-0 left-0 right-0 z-50 py-6 px-6 flex justify-center items-center pointer-events-none">
+          <img 
+            src="/images/logo-casa-mahana.png" 
+            alt="Casa Mahana Logo" 
+            className="h-16 w-auto object-contain pointer-events-auto filter drop-shadow-md"
+          />
+        </header>
+      )}
+      <main className="flex-grow">
+        <Routes>
+          {/* Home & Core */}
+          <Route path="/" element={<LandingPage />} />
+          <Route path="/experiencias" element={<ProductShowcase />} />
+          <Route path="/reservar" element={<RedirectToPMS />} />
+
+          {/* Lodging & Stays Hub */}
+          <Route path="/estadias" element={<EstadiasHub />} />
+          <Route path="/estadias/mahana-experience" element={<MahanaExperienceLanding />} />
+          <Route path="/estadias/todo-incluido" element={<EstadiaAllInclusiveLanding />} />
+          <Route path="/estadias/escape-mahana" element={<EscapeMahanaLanding />} />
+
+          {/* Day Passes Hub */}
+          <Route path="/pasadias" element={<PasadiasHub />} />
+          <Route path="/pasadias/pool-day" element={<PoolDayLanding />} />
+          <Route path="/pasadias/todo-incluido" element={<PasadyaAllInclusiveLanding />} />
+
+          {/* Public Restaurant, Surf Shack & Events */}
+          <Route path="/restaurante" element={<RestaurantePublico />} />
+          <Route path="/surf-shack" element={<SurfShackAcademy />} />
+          <Route path="/eventos" element={<EventosBodas />} />
+          <Route path="/mahana-tours" element={<MahanaTours />} />
+
+          {/* Hidden Promo Landing Page */}
+          <Route path="/promo-habitacion-gratis" element={<PromoHabitacionGratis />} />
+
+          {/* Photo & Media Administration Portal */}
+          <Route path="/admin/medios" element={<MediaAdmin />} />
+          <Route path="/gestor-fotos" element={<MediaAdmin />} />
+        </Routes>
+      </main>
+      {!isPromoPage && <Footer />}
+    </div>
+  );
+};
+
 export const App: React.FC = () => {
   return (
     <LanguageProvider>
       <MediaProvider>
         <Router>
           <ScrollToTop />
-          <div className="flex flex-col min-h-screen bg-mahana-light text-mahana-dark selection:bg-turquoise-100 selection:text-turquoise-900">
-            <Header />
-            <main className="flex-grow">
-              <Routes>
-                {/* Home & Core */}
-                <Route path="/" element={<LandingPage />} />
-                <Route path="/experiencias" element={<ProductShowcase />} />
-                <Route path="/reservar" element={<RedirectToPMS />} />
-
-                {/* Lodging & Stays Hub */}
-                <Route path="/estadias" element={<EstadiasHub />} />
-                <Route path="/estadias/mahana-experience" element={<MahanaExperienceLanding />} />
-                <Route path="/estadias/todo-incluido" element={<EstadiaAllInclusiveLanding />} />
-                <Route path="/estadias/escape-mahana" element={<EscapeMahanaLanding />} />
-
-                {/* Day Passes Hub */}
-                <Route path="/pasadias" element={<PasadiasHub />} />
-                <Route path="/pasadias/pool-day" element={<PoolDayLanding />} />
-                <Route path="/pasadias/todo-incluido" element={<PasadyaAllInclusiveLanding />} />
-
-                {/* Public Restaurant, Surf Shack & Events */}
-                <Route path="/restaurante" element={<RestaurantePublico />} />
-                <Route path="/surf-shack" element={<SurfShackAcademy />} />
-                <Route path="/eventos" element={<EventosBodas />} />
-                <Route path="/mahana-tours" element={<MahanaTours />} />
-
-                {/* Photo & Media Administration Portal */}
-                <Route path="/admin/medios" element={<MediaAdmin />} />
-                <Route path="/gestor-fotos" element={<MediaAdmin />} />
-              </Routes>
-            </main>
-            <Footer />
-          </div>
+          <AppContent />
         </Router>
       </MediaProvider>
     </LanguageProvider>
