@@ -208,7 +208,7 @@ export const PromoHabitacionGratis: React.FC = () => {
     <div className="bg-mahana-light min-h-screen font-sans selection:bg-orange-100 pb-16">
       
       {/* ── SECTION 1: HIGH-ENERGY PROMOTIONAL HERO ── */}
-      <section className="relative min-h-screen flex items-center justify-center text-white py-24 px-4 overflow-hidden text-center">
+      <section className="relative min-h-screen flex flex-col justify-start md:justify-center items-center text-white pt-36 pb-20 md:py-24 px-4 overflow-hidden text-center">
         {/* Background Image with Dark Overlay */}
         <div className="absolute inset-0 z-0">
           <img 
@@ -219,8 +219,8 @@ export const PromoHabitacionGratis: React.FC = () => {
           <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-turquoise-950/80 to-turquoise-950 z-10" />
         </div>
         
-        {/* Top-Right Flashy Promo Code & Timer Widget */}
-        <div className="md:absolute md:top-28 md:right-12 bg-gradient-to-br from-yellow-400 to-orange-500 text-mahana-dark p-5 rounded-[2rem] border-4 border-yellow-300 shadow-2xl space-y-2.5 max-w-xs mx-auto z-30 transform hover:scale-105 transition-all duration-300 mb-8 md:mb-0 relative">
+        {/* Desktop Top-Right Flashy Promo Code & Timer Widget (Hidden on Mobile) */}
+        <div className="hidden md:block md:absolute md:top-28 md:right-12 bg-gradient-to-br from-yellow-400 to-orange-500 text-mahana-dark p-5 rounded-[2rem] border-4 border-yellow-300 shadow-2xl space-y-2.5 max-w-xs mx-auto z-30 transform hover:scale-105 transition-all duration-300">
           <div className="flex items-center gap-1.5 justify-center font-black text-[10px] uppercase tracking-widest bg-white/25 px-3 py-1 rounded-full text-mahana-dark">
             <Clock className="h-4 w-4 animate-pulse" /> {currentT.timerText}
           </div>
@@ -236,18 +236,18 @@ export const PromoHabitacionGratis: React.FC = () => {
           </div>
         </div>
 
-        <div className="max-w-4xl mx-auto space-y-8 relative z-20">
+        <div className="max-w-4xl mx-auto space-y-8 relative z-20 w-full">
           {/* Urgent Flash Promo Badge */}
           <span className="inline-flex items-center gap-1.5 px-4.5 py-1.5 bg-yellow-400 text-mahana-dark text-xs font-black uppercase tracking-widest rounded-full shadow-lg border border-yellow-250 animate-bounce" style={{ backgroundColor: '#fbbf24' }}>
             <Flame className="h-4 w-4 fill-current text-mahana-dark" /> {currentT.heroBadge}
           </span>
 
-          {/* Heading */}
-          <div className="space-y-2">
-            <h1 className="text-6xl sm:text-9xl font-black tracking-tight text-white uppercase drop-shadow-lg leading-none">
+          {/* Heading (Optimized Responsive Font Sizes for Mobile) */}
+          <div className="space-y-3">
+            <h1 className="text-4xl sm:text-6xl md:text-8xl lg:text-9xl font-black tracking-tight text-white uppercase drop-shadow-lg leading-none break-words">
               {currentT.heroTitle}
             </h1>
-            <p className="text-3xl sm:text-5xl font-black text-yellow-350 drop-shadow-sm uppercase">
+            <p className="text-lg sm:text-2xl md:text-3xl lg:text-5xl font-black text-yellow-350 drop-shadow-sm uppercase leading-tight">
               {currentT.heroSubtitle}
             </p>
           </div>
@@ -256,6 +256,23 @@ export const PromoHabitacionGratis: React.FC = () => {
           <p className="text-white/85 text-xs sm:text-sm max-w-md mx-auto font-bold bg-black/30 backdrop-blur-xs py-2 px-4 rounded-xl border border-white/10">
             {currentT.heroTagline}
           </p>
+
+          {/* Mobile-Only Flashy Widget (Flows inline below tagline, hidden on desktop) */}
+          <div className="block md:hidden bg-gradient-to-br from-yellow-400 to-orange-500 text-mahana-dark p-5 rounded-[2rem] border-4 border-yellow-300 shadow-2xl space-y-2.5 max-w-[280px] mx-auto z-30 relative">
+            <div className="flex items-center gap-1.5 justify-center font-black text-[10px] uppercase tracking-widest bg-white/25 px-3 py-1 rounded-full text-mahana-dark">
+              <Clock className="h-4 w-4 animate-pulse" /> {currentT.timerText}
+            </div>
+            <div className="text-2xl font-mono font-black text-center tracking-wider text-mahana-dark drop-shadow-sm">
+              {formatTime(timeLeft)}
+            </div>
+            <div className="border-t border-black/10 my-2" />
+            <div className="text-center space-y-1">
+              <span className="text-[10px] uppercase tracking-widest font-black block text-mahana-dark/80">{language === 'es' ? 'CÓDIGO PROMO:' : 'PROMO CODE:'}</span>
+              <span className="text-lg font-black bg-white px-2.5 py-1 rounded-xl text-orange-600 border-2 border-orange-200 inline-block font-mono tracking-widest shadow-inner">
+                GRATIS5
+              </span>
+            </div>
+          </div>
 
           {/* CTA & WhatsApp Buttons Container */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-4">
@@ -296,7 +313,7 @@ export const PromoHabitacionGratis: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {/* Step 1 */}
           <div 
-            className="relative rounded-3xl overflow-hidden h-72 shadow-lg group hover:shadow-xl transition-all duration-300 flex flex-col justify-end p-6 border border-sand-200"
+            className="relative rounded-3xl overflow-hidden h-60 sm:h-72 md:h-80 shadow-lg group hover:shadow-xl transition-all duration-300 flex flex-col justify-end p-6 border border-sand-200"
             style={{ backgroundImage: 'url("/images/room-doble.jpg")', backgroundSize: 'cover', backgroundPosition: 'center' }}
           >
             <div className="absolute inset-0 bg-black/65 group-hover:bg-black/60 transition-colors z-0" />
@@ -311,7 +328,7 @@ export const PromoHabitacionGratis: React.FC = () => {
 
           {/* Step 2 (Swapped to food-pizza.jpg showing consumable credit) */}
           <div 
-            className="relative rounded-3xl overflow-hidden h-72 shadow-lg group hover:shadow-xl transition-all duration-300 flex flex-col justify-end p-6 border border-sand-200"
+            className="relative rounded-3xl overflow-hidden h-60 sm:h-72 md:h-80 shadow-lg group hover:shadow-xl transition-all duration-300 flex flex-col justify-end p-6 border border-sand-200"
             style={{ backgroundImage: 'url("/images/food-pizza.jpg")', backgroundSize: 'cover', backgroundPosition: 'center' }}
           >
             <div className="absolute inset-0 bg-black/65 group-hover:bg-black/60 transition-colors z-0" />
@@ -326,7 +343,7 @@ export const PromoHabitacionGratis: React.FC = () => {
 
           {/* Step 3 */}
           <div 
-            className="relative rounded-3xl overflow-hidden h-72 shadow-lg group hover:shadow-xl transition-all duration-300 flex flex-col justify-end p-6 border border-sand-200"
+            className="relative rounded-3xl overflow-hidden h-60 sm:h-72 md:h-80 shadow-lg group hover:shadow-xl transition-all duration-300 flex flex-col justify-end p-6 border border-sand-200"
             style={{ backgroundImage: 'url("/images/food-cocktail.jpg")', backgroundSize: 'cover', backgroundPosition: 'center' }}
           >
             <div className="absolute inset-0 bg-black/65 group-hover:bg-black/60 transition-colors z-0" />
@@ -360,7 +377,7 @@ export const PromoHabitacionGratis: React.FC = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {/* Piscinas (Swapped from deck to clear pool view) */}
             <div 
-              className="relative rounded-3xl overflow-hidden h-80 shadow-md group hover:shadow-xl hover:scale-[1.02] transition-all duration-300 flex flex-col justify-end p-6 border border-sand-200/50"
+              className="relative rounded-3xl overflow-hidden h-64 sm:h-72 md:h-80 shadow-md group hover:shadow-xl hover:scale-[1.02] transition-all duration-300 flex flex-col justify-end p-6 border border-sand-200/50"
               style={{ backgroundImage: 'url("/images/hero-pool-aerial.jpg")', backgroundSize: 'cover', backgroundPosition: 'center' }}
             >
               <div className="absolute inset-0 bg-black/70 group-hover:bg-black/60 transition-colors z-0" />
@@ -375,7 +392,7 @@ export const PromoHabitacionGratis: React.FC = () => {
 
             {/* Cocina al Horno (Swapped to food-pizza-oven.jpg) */}
             <div 
-              className="relative rounded-3xl overflow-hidden h-80 shadow-md group hover:shadow-xl hover:scale-[1.02] transition-all duration-300 flex flex-col justify-end p-6 border border-sand-200/50"
+              className="relative rounded-3xl overflow-hidden h-64 sm:h-72 md:h-80 shadow-md group hover:shadow-xl hover:scale-[1.02] transition-all duration-300 flex flex-col justify-end p-6 border border-sand-200/50"
               style={{ backgroundImage: 'url("/images/food-pizza-oven.jpg")', backgroundSize: 'cover', backgroundPosition: 'center' }}
             >
               <div className="absolute inset-0 bg-black/70 group-hover:bg-black/60 transition-colors z-0" />
@@ -390,7 +407,7 @@ export const PromoHabitacionGratis: React.FC = () => {
 
             {/* Surf Shack */}
             <div 
-              className="relative rounded-3xl overflow-hidden h-80 shadow-md group hover:shadow-xl hover:scale-[1.02] transition-all duration-300 flex flex-col justify-end p-6 border border-sand-200/50"
+              className="relative rounded-3xl overflow-hidden h-64 sm:h-72 md:h-80 shadow-md group hover:shadow-xl hover:scale-[1.02] transition-all duration-300 flex flex-col justify-end p-6 border border-sand-200/50"
               style={{ backgroundImage: 'url("/images/surf-shack-hero-v2.jpg")', backgroundSize: 'cover', backgroundPosition: 'center' }}
             >
               <div className="absolute inset-0 bg-black/70 group-hover:bg-black/60 transition-colors z-0" />
@@ -405,7 +422,7 @@ export const PromoHabitacionGratis: React.FC = () => {
 
             {/* Buggies */}
             <div 
-              className="relative rounded-3xl overflow-hidden h-80 shadow-md group hover:shadow-xl hover:scale-[1.02] transition-all duration-300 flex flex-col justify-end p-6 border border-sand-200/50"
+              className="relative rounded-3xl overflow-hidden h-64 sm:h-72 md:h-80 shadow-md group hover:shadow-xl hover:scale-[1.02] transition-all duration-300 flex flex-col justify-end p-6 border border-sand-200/50"
               style={{ backgroundImage: 'url("/images/tours-mulitas-beach-v2.jpg")', backgroundSize: 'cover', backgroundPosition: 'center' }}
             >
               <div className="absolute inset-0 bg-black/70 group-hover:bg-black/60 transition-colors z-0" />
@@ -420,7 +437,7 @@ export const PromoHabitacionGratis: React.FC = () => {
 
             {/* Surf & Kitesurf */}
             <div 
-              className="relative rounded-3xl overflow-hidden h-80 shadow-md group hover:shadow-xl hover:scale-[1.02] transition-all duration-300 flex flex-col justify-end p-6 border border-sand-200/50"
+              className="relative rounded-3xl overflow-hidden h-64 sm:h-72 md:h-80 shadow-md group hover:shadow-xl hover:scale-[1.02] transition-all duration-300 flex flex-col justify-end p-6 border border-sand-200/50"
               style={{ backgroundImage: 'url("/images/surf-camp-kids-v2.jpg")', backgroundSize: 'cover', backgroundPosition: 'center' }}
             >
               <div className="absolute inset-0 bg-black/70 group-hover:bg-black/60 transition-colors z-0" />
@@ -435,7 +452,7 @@ export const PromoHabitacionGratis: React.FC = () => {
 
             {/* Pet-Friendly */}
             <div 
-              className="relative rounded-3xl overflow-hidden h-80 shadow-md group hover:shadow-xl hover:scale-[1.02] transition-all duration-300 flex flex-col justify-end p-6 border border-sand-200/50"
+              className="relative rounded-3xl overflow-hidden h-64 sm:h-72 md:h-80 shadow-md group hover:shadow-xl hover:scale-[1.02] transition-all duration-300 flex flex-col justify-end p-6 border border-sand-200/50"
               style={{ backgroundImage: 'url("/images/pet-friendly.jpg")', backgroundSize: 'cover', backgroundPosition: 'center' }}
             >
               <div className="absolute inset-0 bg-black/70 group-hover:bg-black/60 transition-colors z-0" />

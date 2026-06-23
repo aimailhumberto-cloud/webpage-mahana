@@ -1,9 +1,10 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
-import { LanguageProvider } from './context/LanguageContext';
+import { LanguageProvider, useLanguage } from './context/LanguageContext';
 import { MediaProvider } from './context/MediaContext';
 import { Header } from './components/Header';
 import { Footer } from './components/Footer';
+import { Globe } from 'lucide-react';
 
 // Existing Pages
 import { LandingPage } from './pages/LandingPage';
@@ -56,17 +57,25 @@ const RedirectToPMS: React.FC = () => {
 const AppContent: React.FC = () => {
   const location = useLocation();
   const isPromoPage = location.pathname === '/promo-habitacion-gratis';
+  const { language, setLanguage } = useLanguage();
 
   return (
     <div className="flex flex-col min-h-screen bg-mahana-light text-mahana-dark selection:bg-turquoise-100 selection:text-turquoise-900">
       {!isPromoPage && <Header />}
       {isPromoPage && (
-        <header className="absolute top-0 left-0 right-0 z-50 py-8 px-8 md:px-16 flex justify-start items-center pointer-events-none">
+        <header className="absolute top-0 left-0 right-0 z-50 py-8 px-8 md:px-16 flex justify-between items-center pointer-events-none">
           <img 
             src="/images/logo-casa-mahana.png" 
             alt="Casa Mahana Logo" 
             className="h-20 md:h-24 w-auto object-contain pointer-events-auto filter drop-shadow-lg opacity-100 transition-transform duration-300 hover:scale-105"
           />
+          <button
+            onClick={() => setLanguage(language === 'es' ? 'en' : 'es')}
+            className="pointer-events-auto bg-white/20 backdrop-blur-md hover:bg-white/35 active:scale-95 transition-all text-white border border-white/20 px-3.5 py-2 sm:px-4.5 sm:py-2.5 rounded-full flex items-center gap-1.5 sm:gap-2 shadow-lg text-xs sm:text-sm font-black uppercase tracking-wider"
+          >
+            <Globe className="h-4 w-4" />
+            <span>{language === 'es' ? 'EN' : 'ES'}</span>
+          </button>
         </header>
       )}
       <main className="flex-grow">
