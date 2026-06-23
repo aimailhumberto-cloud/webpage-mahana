@@ -43,7 +43,7 @@ export const PromoHabitacionGratis: React.FC = () => {
     es: {
       heroBadge: "🔥 ¡OFERTA RELÁMPAGO POR TIEMPO LIMITADO!",
       heroTitle: "¡Habitación Gratis!",
-      heroSubtitle: "Hospedaje B/. 0.00",
+      heroSubtitle: "Hospedaje B/. 0.00 • ¡Con Desayuno Incluido! 🍳",
       heroTagline: "Sin trucos ni condiciones. Tu consumo se acredita completo para usar en el restaurante.",
       heroCta: "¡Asegurar Mi Habitación Gratis Ahora!",
       timerText: "Reserva en:",
@@ -120,7 +120,7 @@ export const PromoHabitacionGratis: React.FC = () => {
     en: {
       heroBadge: "🔥 LIMITED TIME FLASH PROMOTION!",
       heroTitle: "Free Room Stay!",
-      heroSubtitle: "Lodging B/. 0.00",
+      heroSubtitle: "Lodging B/. 0.00 • Complimentary Breakfast Included! 🍳",
       heroTagline: "No strings attached. Your credit is fully usable at the restaurant.",
       heroCta: "Claim My Free Room Now!",
       timerText: "Book within:",
