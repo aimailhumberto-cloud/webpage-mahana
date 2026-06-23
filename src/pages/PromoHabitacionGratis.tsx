@@ -598,7 +598,7 @@ export const PromoHabitacionGratis: React.FC = () => {
           {/* Policy Note Callout (Fine Print) */}
           <div className="bg-amber-50/60 border border-amber-250/50 rounded-2xl p-4 text-xs text-amber-800 space-y-1.5 text-left font-medium">
             <span className="font-extrabold uppercase tracking-wide block text-[10px] text-amber-900">
-              ⚠️ {language === 'es' ? 'CONDICIONES DE LA RESERVA (LETRA CHIQUITA):' : 'BOOKING POLICIES (FINE PRINT):'}
+              ⚠️ {language === 'es' ? 'CONDICIONES DE LA RESERVA:' : 'BOOKING TERMS & CONDITIONS:'}
             </span>
             <p className="leading-relaxed">
               {currentT.ratePolicyNote}
