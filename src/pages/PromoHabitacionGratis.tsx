@@ -236,7 +236,7 @@ export const PromoHabitacionGratis: React.FC = () => {
           </div>
         </div>
 
-        <div className="max-w-4xl mx-auto space-y-8 relative z-20 w-full">
+        <div className="max-w-4xl mx-auto space-y-6 md:space-y-8 relative z-20 w-full">
           {/* Urgent Flash Promo Badge */}
           <span className="inline-flex items-center gap-1.5 px-4.5 py-1.5 bg-yellow-400 text-mahana-dark text-xs font-black uppercase tracking-widest rounded-full shadow-lg border border-yellow-250 animate-bounce" style={{ backgroundColor: '#fbbf24' }}>
             <Flame className="h-4 w-4 fill-current text-mahana-dark" /> {currentT.heroBadge}
@@ -244,10 +244,10 @@ export const PromoHabitacionGratis: React.FC = () => {
 
           {/* Heading (Optimized Responsive Font Sizes for Mobile) */}
           <div className="space-y-3">
-            <h1 className="text-4xl sm:text-6xl md:text-8xl lg:text-9xl font-black tracking-tight text-white uppercase drop-shadow-lg leading-none break-words">
+            <h1 className="text-[2.65rem] sm:text-6xl md:text-8xl lg:text-9xl font-black tracking-tight text-white uppercase drop-shadow-lg leading-none break-words">
               {currentT.heroTitle}
             </h1>
-            <p className="text-lg sm:text-2xl md:text-3xl lg:text-5xl font-black text-yellow-350 drop-shadow-sm uppercase leading-tight">
+            <p className="text-[15px] sm:text-2xl md:text-3xl lg:text-5xl font-black text-yellow-350 drop-shadow-sm uppercase leading-tight">
               {currentT.heroSubtitle}
             </p>
           </div>
@@ -257,32 +257,31 @@ export const PromoHabitacionGratis: React.FC = () => {
             {currentT.heroTagline}
           </p>
 
-          {/* Mobile-Only Flashy Widget (Flows inline below tagline, hidden on desktop) */}
-          <div className="block md:hidden bg-gradient-to-br from-yellow-400 to-orange-500 text-mahana-dark p-5 rounded-[2rem] border-4 border-yellow-300 shadow-2xl space-y-2.5 max-w-[280px] mx-auto z-30 relative">
-            <div className="flex items-center gap-1.5 justify-center font-black text-[10px] uppercase tracking-widest bg-white/25 px-3 py-1 rounded-full text-mahana-dark">
-              <Clock className="h-4 w-4 animate-pulse" /> {currentT.timerText}
+          {/* Sleek, Premium Mobile Urgent Indicator (Bypasses the giant box) */}
+          <div className="block md:hidden flex items-center justify-center gap-3.5 py-3 px-5 bg-black/40 backdrop-blur-md rounded-full border border-white/15 max-w-[310px] mx-auto z-30 relative shadow-lg">
+            <div className="flex items-center gap-1.5 text-xs font-black text-yellow-350">
+              <Clock className="h-4 w-4 animate-pulse text-yellow-350 shrink-0" />
+              <span className="uppercase tracking-widest text-[9px] text-yellow-350/90">{currentT.timerText}</span>
+              <span className="font-mono text-white text-xs tracking-wider font-extrabold">{formatTime(timeLeft)}</span>
             </div>
-            <div className="text-2xl font-mono font-black text-center tracking-wider text-mahana-dark drop-shadow-sm">
-              {formatTime(timeLeft)}
-            </div>
-            <div className="border-t border-black/10 my-2" />
-            <div className="text-center space-y-1">
-              <span className="text-[10px] uppercase tracking-widest font-black block text-mahana-dark/80">{language === 'es' ? 'CÓDIGO PROMO:' : 'PROMO CODE:'}</span>
-              <span className="text-lg font-black bg-white px-2.5 py-1 rounded-xl text-orange-600 border-2 border-orange-200 inline-block font-mono tracking-widest shadow-inner">
+            <div className="w-px h-4 bg-white/20" />
+            <div className="text-[9px] font-black text-white flex items-center gap-1.5">
+              <span className="uppercase tracking-widest text-white/90">{language === 'es' ? 'CÓDIGO:' : 'CODE:'}</span>
+              <span className="font-mono bg-orange-500 text-white px-2 py-0.5 rounded-md text-[9px] tracking-widest font-black shadow-sm border border-orange-400/20">
                 GRATIS5
               </span>
             </div>
           </div>
 
           {/* CTA & WhatsApp Buttons Container */}
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-4">
+          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-2">
             {/* Booking Link */}
             <a 
               href="/reservar?plan=promo_hab_gratis"
-              className="w-full sm:w-auto px-8 py-5 bg-orange-500 hover:bg-orange-400 text-white font-black rounded-2xl shadow-xl hover:shadow-2xl hover:scale-105 active:scale-95 transition-all duration-300 inline-flex items-center justify-center gap-2 text-lg border-b-4 border-orange-700 uppercase tracking-wide"
+              className="w-full sm:w-auto px-6 sm:px-8 py-4 sm:py-5 bg-orange-500 hover:bg-orange-400 text-white font-black rounded-2xl shadow-xl hover:shadow-2xl hover:scale-105 active:scale-95 transition-all duration-300 inline-flex items-center justify-center gap-2 text-base sm:text-lg border-b-4 border-orange-700 uppercase tracking-wide"
             >
               <span>{currentT.heroCta}</span>
-              <ChevronRight className="h-6 w-6 stroke-[3px]" />
+              <ChevronRight className="h-5 w-5 sm:h-6 sm:w-6 stroke-[3px]" />
             </a>
 
             {/* WhatsApp Link */}
@@ -290,7 +289,7 @@ export const PromoHabitacionGratis: React.FC = () => {
               href="https://wa.me/50762906800"
               target="_blank"
               rel="noopener noreferrer"
-              className="w-full sm:w-auto px-8 py-5 bg-emerald-600 hover:bg-emerald-500 text-white font-black rounded-2xl shadow-xl hover:shadow-2xl hover:scale-105 active:scale-95 transition-all duration-300 inline-flex items-center justify-center gap-2.5 text-lg border-b-4 border-emerald-800 uppercase tracking-wide"
+              className="w-full sm:w-auto px-6 sm:px-8 py-4 sm:py-5 bg-emerald-600 hover:bg-emerald-500 text-white font-black rounded-2xl shadow-xl hover:shadow-2xl hover:scale-105 active:scale-95 transition-all duration-300 inline-flex items-center justify-center gap-2.5 text-base sm:text-lg border-b-4 border-emerald-800 uppercase tracking-wide"
             >
               <svg className="h-6 w-6 fill-current text-white shrink-0" viewBox="0 0 24 24">
                 <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.513 2.262 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.724-1.458L0 24zm6.59-4.846c1.6.95 3.188 1.449 4.825 1.451 5.436 0 9.86-4.42 9.864-9.864.002-2.637-1.03-5.114-2.905-6.99C16.257 1.875 13.777.844 11.14.844 5.704.844 1.28 5.263 1.277 10.699c-.001 1.637.452 3.231 1.312 4.631l-.993 3.626 3.714-.974.747.443zM17.18 14.39c-.3-.15-1.782-.88-2.057-.98-.275-.1-.475-.15-.675.15-.2.3-.775.98-.95 1.18-.175.2-.35.225-.65.075-.3-.15-1.264-.467-2.408-1.488-.888-.793-1.488-1.77-1.663-2.07-.175-.3-.019-.462.13-.61.135-.133.3-.35.45-.525.15-.175.2-.3.3-.5s.05-.375-.025-.525C9.53 9.4 8.93 7.93 8.68 7.33c-.244-.586-.492-.576-.675-.585-.175-.009-.375-.01-.575-.01-.2 0-.525.075-.8.375-.275.3-1.05 1.025-1.05 2.5s1.075 2.9 1.225 3.1c.15.2 2.115 3.23 5.125 4.53.715.31 1.273.495 1.708.635.714.227 1.365.195 1.88.118.571-.085 1.782-.73 2.032-1.435.25-.7.25-1.3.175-1.43-.075-.13-.275-.2-.575-.35z"/>
