@@ -64,7 +64,9 @@ export const PromoHabitacionGratis: React.FC = () => {
       incBeach: "Pase al club de playa Surf Shack en la hermosa Playa Caracol.",
       incWifi: "WiFi de alta velocidad y estacionamiento gratuito en el lodge.",
       
-      ratesTitle: "Abonos de Garantía (100% Acreditados a tu consumo)",
+      ratesTitle: "Tarifas & Condiciones de la Promoción",
+      rateConsumableHeader: "Abonos Reembolsables (100% Crédito en Comida/Bebida)",
+      rateAddonsHeader: "Costos Extra por Huéspedes Adicionales (No Consumibles)",
       rateWeekday: "Domingo a Jueves (Entre Semana)",
       rateWeekdayVal: "B/. 30.00 total por pareja / noche",
       rateWeekend: "Viernes y Sábado (Fin de Semana)",
@@ -141,7 +143,9 @@ export const PromoHabitacionGratis: React.FC = () => {
       incBeach: "Access pass to our Surf Shack beach club in Playa Caracol.",
       incWifi: "High-speed WiFi and secure parking on the house.",
       
-      ratesTitle: "Deposits (100% Credited to your tab)",
+      ratesTitle: "Promotion Rates & Terms",
+      rateConsumableHeader: "Refundable Deposits (100% Food/Beverage Credit)",
+      rateAddonsHeader: "Extra Guest Costs (Non-Consumable)",
       rateWeekday: "Sunday to Thursday (Weekdays)",
       rateWeekdayVal: "B/. 30.00 total per couple / night",
       rateWeekend: "Friday and Saturday (Weekends)",
@@ -550,6 +554,12 @@ export const PromoHabitacionGratis: React.FC = () => {
           <div className="overflow-hidden border border-sand-100 rounded-2xl">
             <table className="w-full text-left border-collapse text-xs sm:text-sm">
               <tbody className="divide-y divide-sand-100 font-medium text-mahana-dark/95">
+                {/* Consumable Section */}
+                <tr className="bg-turquoise-50/50 font-black text-turquoise-900">
+                  <td colSpan={2} className="py-2 px-4 text-left uppercase tracking-wider text-[10px] bg-turquoise-50/50">
+                    {currentT.rateConsumableHeader}
+                  </td>
+                </tr>
                 <tr className="hover:bg-sand-50/20">
                   <td className="py-3.5 px-4 font-bold text-turquoise-900">{currentT.rateWeekday}</td>
                   <td className="py-3.5 px-4 font-black text-turquoise-900 text-right">{currentT.rateWeekdayVal}</td>
@@ -557,6 +567,13 @@ export const PromoHabitacionGratis: React.FC = () => {
                 <tr className="hover:bg-sand-50/20">
                   <td className="py-3.5 px-4 font-bold text-turquoise-900">{currentT.rateWeekend}</td>
                   <td className="py-3.5 px-4 font-black text-turquoise-900 text-right">{currentT.rateWeekendVal}</td>
+                </tr>
+
+                {/* Additional Section */}
+                <tr className="bg-orange-50/50 font-black text-orange-950">
+                  <td colSpan={2} className="py-2 px-4 text-left uppercase tracking-wider text-[10px] bg-orange-50/50">
+                    {currentT.rateAddonsHeader}
+                  </td>
                 </tr>
                 <tr className="hover:bg-sand-50/20">
                   <td className="py-3.5 px-4 font-bold text-turquoise-900">{currentT.rateExtraAdult}</td>
@@ -566,6 +583,8 @@ export const PromoHabitacionGratis: React.FC = () => {
                   <td className="py-3.5 px-4 font-bold text-turquoise-900">{currentT.rateChild}</td>
                   <td className="py-3.5 px-4 font-black text-turquoise-900 text-right">{currentT.rateChildVal}</td>
                 </tr>
+
+                {/* Taxes */}
                 <tr className="bg-emerald-50/30 font-black">
                   <td className="py-4 px-4 text-emerald-800">{currentT.rateTax}</td>
                   <td className="py-4 px-4 text-emerald-700 text-right">{currentT.rateTaxVal}</td>
