@@ -58,6 +58,7 @@ export const PromoHabitacionGratis: React.FC = () => {
       
       inclusionsTitle: "Beneficios Exclusivos Incluidos",
       incRoom: "Hospedaje de cortesía en Habitación Doble (cama queen) o Estándar (dos camas twin).",
+      incBreakfast: "Desayuno continental de cortesía diario para la pareja (¡totalmente gratis y adicional a tu abono de consumo!).",
       incConsumable: "Depósito de garantía 100% consumible en todo el menú de restaurante y bar.",
       incPools: "Acceso libre a nuestras 3 piscinas tropicales y áreas de hamacas.",
       incBeach: "Pase al club de playa Surf Shack en la hermosa Playa Caracol.",
@@ -134,6 +135,7 @@ export const PromoHabitacionGratis: React.FC = () => {
       
       inclusionsTitle: "Exclusive Benefits Included",
       incRoom: "Complimentary lodging in a Double Room (queen bed) or Standard Room (twin beds).",
+      incBreakfast: "Complimentary continental breakfast daily for two (fully free and in addition to your consumable credit!).",
       incConsumable: "100% consumable security deposit on the entire restaurant and bar menu.",
       incPools: "Unlimited access to our 3 tropical pools and hammock deck.",
       incBeach: "Access pass to our Surf Shack beach club in Playa Caracol.",
@@ -515,6 +517,10 @@ export const PromoHabitacionGratis: React.FC = () => {
             <div className="flex items-start space-x-3 text-sm font-semibold text-mahana-dark/85">
               <Check className="h-5 w-5 text-emerald-600 shrink-0 mt-0.5" />
               <span>{currentT.incRoom}</span>
+            </div>
+            <div className="flex items-start space-x-3 text-sm font-semibold text-mahana-dark/85">
+              <Check className="h-5 w-5 text-emerald-600 shrink-0 mt-0.5" />
+              <span>{currentT.incBreakfast}</span>
             </div>
             <div className="flex items-start space-x-3 text-sm font-semibold text-mahana-dark/85">
               <Check className="h-5 w-5 text-emerald-600 shrink-0 mt-0.5" />
