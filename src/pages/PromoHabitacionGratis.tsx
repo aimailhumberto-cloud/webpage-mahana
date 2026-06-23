@@ -212,7 +212,7 @@ export const PromoHabitacionGratis: React.FC = () => {
         </div>
         
         {/* Top-Right Flashy Promo Code & Timer Widget */}
-        <div className="md:absolute md:top-24 md:right-8 bg-gradient-to-br from-yellow-400 to-orange-500 text-mahana-dark p-5 rounded-[2rem] border-4 border-yellow-300 shadow-2xl space-y-2.5 max-w-xs mx-auto z-30 transform hover:scale-105 transition-all duration-300 mb-8 md:mb-0 relative">
+        <div className="md:absolute md:top-28 md:right-12 bg-gradient-to-br from-yellow-400 to-orange-500 text-mahana-dark p-5 rounded-[2rem] border-4 border-yellow-300 shadow-2xl space-y-2.5 max-w-xs mx-auto z-30 transform hover:scale-105 transition-all duration-300 mb-8 md:mb-0 relative">
           <div className="flex items-center gap-1.5 justify-center font-black text-[10px] uppercase tracking-widest bg-white/25 px-3 py-1 rounded-full text-mahana-dark">
             <Clock className="h-4 w-4 animate-pulse" /> {currentT.timerText}
           </div>
@@ -245,18 +245,32 @@ export const PromoHabitacionGratis: React.FC = () => {
           </div>
 
           {/* Tagline */}
-          <p className="text-white/80 text-xs sm:text-sm max-w-md mx-auto font-bold bg-black/30 backdrop-blur-xs py-2 px-4 rounded-xl border border-white/10">
+          <p className="text-white/85 text-xs sm:text-sm max-w-md mx-auto font-bold bg-black/30 backdrop-blur-xs py-2 px-4 rounded-xl border border-white/10">
             {currentT.heroTagline}
           </p>
 
-          {/* CTA Redirect to PMS with Promo Plan Code */}
-          <div className="pt-4">
+          {/* CTA & WhatsApp Buttons Container */}
+          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-4">
+            {/* Booking Link */}
             <a 
               href="/reservar?plan=promo_hab_gratis"
-              className="px-8 py-5 bg-orange-500 hover:bg-orange-400 text-white font-black rounded-2xl shadow-xl hover:shadow-2xl hover:scale-105 active:scale-95 transition-all duration-300 inline-flex items-center gap-2 text-lg border-b-4 border-orange-700 uppercase tracking-wide"
+              className="w-full sm:w-auto px-8 py-5 bg-orange-500 hover:bg-orange-400 text-white font-black rounded-2xl shadow-xl hover:shadow-2xl hover:scale-105 active:scale-95 transition-all duration-300 inline-flex items-center justify-center gap-2 text-lg border-b-4 border-orange-700 uppercase tracking-wide"
             >
               <span>{currentT.heroCta}</span>
               <ChevronRight className="h-6 w-6 stroke-[3px]" />
+            </a>
+
+            {/* WhatsApp Link */}
+            <a 
+              href="https://wa.me/50762906800"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-full sm:w-auto px-8 py-5 bg-emerald-600 hover:bg-emerald-500 text-white font-black rounded-2xl shadow-xl hover:shadow-2xl hover:scale-105 active:scale-95 transition-all duration-300 inline-flex items-center justify-center gap-2.5 text-lg border-b-4 border-emerald-800 uppercase tracking-wide"
+            >
+              <svg className="h-6 w-6 fill-current text-white shrink-0" viewBox="0 0 24 24">
+                <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.513 2.262 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.724-1.458L0 24zm6.59-4.846c1.6.95 3.188 1.449 4.825 1.451 5.436 0 9.86-4.42 9.864-9.864.002-2.637-1.03-5.114-2.905-6.99C16.257 1.875 13.777.844 11.14.844 5.704.844 1.28 5.263 1.277 10.699c-.001 1.637.452 3.231 1.312 4.631l-.993 3.626 3.714-.974.747.443zM17.18 14.39c-.3-.15-1.782-.88-2.057-.98-.275-.1-.475-.15-.675.15-.2.3-.775.98-.95 1.18-.175.2-.35.225-.65.075-.3-.15-1.264-.467-2.408-1.488-.888-.793-1.488-1.77-1.663-2.07-.175-.3-.019-.462.13-.61.135-.133.3-.35.45-.525.15-.175.2-.3.3-.5s.05-.375-.025-.525C9.53 9.4 8.93 7.93 8.68 7.33c-.244-.586-.492-.576-.675-.585-.175-.009-.375-.01-.575-.01-.2 0-.525.075-.8.375-.275.3-1.05 1.025-1.05 2.5s1.075 2.9 1.225 3.1c.15.2 2.115 3.23 5.125 4.53.715.31 1.273.495 1.708.635.714.227 1.365.195 1.88.118.571-.085 1.782-.73 2.032-1.435.25-.7.25-1.3.175-1.43-.075-.13-.275-.2-.575-.35z"/>
+              </svg>
+              <span>{language === 'es' ? 'Contáctanos por WhatsApp' : 'Contact us on WhatsApp'}</span>
             </a>
           </div>
         </div>
@@ -287,10 +301,10 @@ export const PromoHabitacionGratis: React.FC = () => {
             </div>
           </div>
 
-          {/* Step 2 */}
+          {/* Step 2 (Swapped to food-pizza.jpg showing consumable credit) */}
           <div 
             className="relative rounded-3xl overflow-hidden h-72 shadow-lg group hover:shadow-xl transition-all duration-300 flex flex-col justify-end p-6 border border-sand-200"
-            style={{ backgroundImage: 'url("/images/food-pizza-oven.jpg")', backgroundSize: 'cover', backgroundPosition: 'center' }}
+            style={{ backgroundImage: 'url("/images/food-pizza.jpg")', backgroundSize: 'cover', backgroundPosition: 'center' }}
           >
             <div className="absolute inset-0 bg-black/65 group-hover:bg-black/60 transition-colors z-0" />
             <div className="relative z-10 text-white space-y-2 text-left">
@@ -336,10 +350,10 @@ export const PromoHabitacionGratis: React.FC = () => {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {/* Piscinas */}
+            {/* Piscinas (Swapped from deck to clear pool view) */}
             <div 
               className="relative rounded-3xl overflow-hidden h-80 shadow-md group hover:shadow-xl hover:scale-[1.02] transition-all duration-300 flex flex-col justify-end p-6 border border-sand-200/50"
-              style={{ backgroundImage: 'url("/images/hero-pool-deck.jpg")', backgroundSize: 'cover', backgroundPosition: 'center' }}
+              style={{ backgroundImage: 'url("/images/hero-pool-aerial.jpg")', backgroundSize: 'cover', backgroundPosition: 'center' }}
             >
               <div className="absolute inset-0 bg-black/70 group-hover:bg-black/60 transition-colors z-0" />
               <div className="relative z-10 text-white space-y-2">
@@ -351,10 +365,10 @@ export const PromoHabitacionGratis: React.FC = () => {
               </div>
             </div>
 
-            {/* Cocina al Horno */}
+            {/* Cocina al Horno (Swapped to food-pizza-oven.jpg) */}
             <div 
               className="relative rounded-3xl overflow-hidden h-80 shadow-md group hover:shadow-xl hover:scale-[1.02] transition-all duration-300 flex flex-col justify-end p-6 border border-sand-200/50"
-              style={{ backgroundImage: 'url("/images/food-pizza.jpg")', backgroundSize: 'cover', backgroundPosition: 'center' }}
+              style={{ backgroundImage: 'url("/images/food-pizza-oven.jpg")', backgroundSize: 'cover', backgroundPosition: 'center' }}
             >
               <div className="absolute inset-0 bg-black/70 group-hover:bg-black/60 transition-colors z-0" />
               <div className="relative z-10 text-white space-y-2">
@@ -429,12 +443,20 @@ export const PromoHabitacionGratis: React.FC = () => {
         </div>
       </section>
 
-      {/* ── SECTION 4: WHY IT'S A MEGA OFFER (SOLID DARK GRADIENT CONTRAST) ── */}
-      <section className="py-20 px-4 bg-gradient-to-br from-[#115e59] to-[#1e1b4b] text-white overflow-hidden relative">
-        <div className="absolute top-0 left-0 w-96 h-96 bg-orange-500/10 rounded-full blur-3xl pointer-events-none" />
-        <div className="absolute bottom-0 right-0 w-96 h-96 bg-turquoise-400/5 rounded-full blur-3xl pointer-events-none" />
+      {/* ── SECTION 4: WHY IT'S A MEGA OFFER (GRAND PHOTO BACKGROUND & PLAIN CARDS) ── */}
+      <section className="py-24 px-4 overflow-hidden relative text-white">
+        {/* Background Image of the Resort */}
+        <div className="absolute inset-0 z-0">
+          <img 
+            src="/images/lodge-grounds.jpg" 
+            alt="Casa Mahana Resort Grounds" 
+            className="w-full h-full object-cover object-center"
+            loading="lazy"
+          />
+          <div className="absolute inset-0 bg-gradient-to-br from-turquoise-950/90 via-turquoise-950/85 to-mahana-dark/95 z-10" />
+        </div>
 
-        <div className="max-w-6xl mx-auto space-y-12 relative z-10">
+        <div className="max-w-6xl mx-auto space-y-12 relative z-20">
           <div className="text-center space-y-3">
             <span className="text-[10px] font-black text-yellow-300 uppercase tracking-widest bg-white/10 px-3 py-1 rounded-full border border-white/10">
               {language === 'es' ? '¡COMPARA Y COMPRUEBA!' : 'COMPARE & CHECK!'}
@@ -449,25 +471,29 @@ export const PromoHabitacionGratis: React.FC = () => {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div className="bg-white/10 backdrop-blur-md rounded-3xl p-8 border border-white/15 space-y-4 hover:bg-white/15 transition-all duration-300">
+            {/* Box 1 (Plain dark backdrop) */}
+            <div className="bg-black/50 backdrop-blur-md rounded-3xl p-8 border border-white/10 space-y-4 hover:bg-black/60 transition-all duration-300">
               <span className="text-3xl">💰</span>
               <h3 className="text-xl font-black text-yellow-300">{currentT.megaOffer1Title}</h3>
               <p className="text-xs text-sand-100/85 leading-relaxed font-semibold">{currentT.megaOffer1Desc}</p>
             </div>
 
-            <div className="bg-white/10 backdrop-blur-md rounded-3xl p-8 border border-white/15 space-y-4 hover:bg-white/15 transition-all duration-300">
+            {/* Box 2 (Plain dark backdrop) */}
+            <div className="bg-black/50 backdrop-blur-md rounded-3xl p-8 border border-white/10 space-y-4 hover:bg-black/60 transition-all duration-300">
               <span className="text-3xl">🍽️</span>
               <h3 className="text-xl font-black text-yellow-300">{currentT.megaOffer2Title}</h3>
               <p className="text-xs text-sand-100/85 leading-relaxed font-semibold">{currentT.megaOffer2Desc}</p>
             </div>
 
-            <div className="bg-white/10 backdrop-blur-md rounded-3xl p-8 border border-white/15 space-y-4 hover:bg-white/15 transition-all duration-300">
+            {/* Box 3 (Plain dark backdrop) */}
+            <div className="bg-black/50 backdrop-blur-md rounded-3xl p-8 border border-white/10 space-y-4 hover:bg-black/60 transition-all duration-300">
               <span className="text-3xl">📜</span>
               <h3 className="text-xl font-black text-yellow-300">{currentT.megaOffer3Title}</h3>
               <p className="text-xs text-sand-100/85 leading-relaxed font-semibold">{currentT.megaOffer3Desc}</p>
             </div>
 
-            <div className="bg-white/10 backdrop-blur-md rounded-3xl p-8 border border-white/15 space-y-4 hover:bg-white/15 transition-all duration-300">
+            {/* Box 4 (Plain dark backdrop) */}
+            <div className="bg-black/50 backdrop-blur-md rounded-3xl p-8 border border-white/10 space-y-4 hover:bg-black/60 transition-all duration-300">
               <span className="text-3xl">🔑</span>
               <h3 className="text-xl font-black text-yellow-300">{currentT.megaOffer4Title}</h3>
               <p className="text-xs text-sand-100/85 leading-relaxed font-semibold">{currentT.megaOffer4Desc}</p>
@@ -566,22 +592,34 @@ export const PromoHabitacionGratis: React.FC = () => {
             </p>
           </div>
 
-          {/* Large Booking CTA Button */}
-          <div className="space-y-5 mt-8 relative z-10">
-            <div>
-              <a 
-                href="/reservar?plan=promo_hab_gratis"
-                className="px-10 py-5.5 bg-orange-500 hover:bg-orange-400 text-white font-black rounded-2xl shadow-xl hover:shadow-2xl hover:scale-105 active:scale-95 transition-all duration-300 inline-flex items-center gap-2 text-xl border-b-4 border-orange-700 uppercase tracking-wide"
-              >
-                <span>{currentT.footerCtaBtn}</span>
-                <ChevronRight className="h-6 w-6 stroke-[3px]" />
-              </a>
-            </div>
+          {/* Large Booking & WhatsApp Buttons Container */}
+          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mt-8 relative z-10">
+            {/* Booking Button */}
+            <a 
+              href="/reservar?plan=promo_hab_gratis"
+              className="w-full sm:w-auto px-10 py-5.5 bg-orange-500 hover:bg-orange-400 text-white font-black rounded-2xl shadow-xl hover:shadow-2xl hover:scale-105 active:scale-95 transition-all duration-300 inline-flex items-center justify-center gap-2 text-xl border-b-4 border-orange-700 uppercase tracking-wide"
+            >
+              <span>{currentT.footerCtaBtn}</span>
+              <ChevronRight className="h-6 w-6 stroke-[3px]" />
+            </a>
 
-            <div className="flex items-center justify-center gap-2 text-xs text-sand-200/70 font-semibold uppercase tracking-wider">
-              <ShieldCheck className="h-5 w-5 text-emerald-450" />
-              <span>Garantía de reembolso de consumible en el hotel</span>
-            </div>
+            {/* WhatsApp Button */}
+            <a 
+              href="https://wa.me/50762906800"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-full sm:w-auto px-10 py-5.5 bg-emerald-600 hover:bg-emerald-500 text-white font-black rounded-2xl shadow-xl hover:shadow-2xl hover:scale-105 active:scale-95 transition-all duration-300 inline-flex items-center justify-center gap-2.5 text-xl border-b-4 border-emerald-800 uppercase tracking-wide"
+            >
+              <svg className="h-6 w-6 fill-current text-white shrink-0" viewBox="0 0 24 24">
+                <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.513 2.262 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.724-1.458L0 24zm6.59-4.846c1.6.95 3.188 1.449 4.825 1.451 5.436 0 9.86-4.42 9.864-9.864.002-2.637-1.03-5.114-2.905-6.99C16.257 1.875 13.777.844 11.14.844 5.704.844 1.28 5.263 1.277 10.699c-.001 1.637.452 3.231 1.312 4.631l-.993 3.626 3.714-.974.747.443zM17.18 14.39c-.3-.15-1.782-.88-2.057-.98-.275-.1-.475-.15-.675.15-.2.3-.775.98-.95 1.18-.175.2-.35.225-.65.075-.3-.15-1.264-.467-2.408-1.488-.888-.793-1.488-1.77-1.663-2.07-.175-.3-.019-.462.13-.61.135-.133.3-.35.45-.525.15-.175.2-.3.3-.5s.05-.375-.025-.525C9.53 9.4 8.93 7.93 8.68 7.33c-.244-.586-.492-.576-.675-.585-.175-.009-.375-.01-.575-.01-.2 0-.525.075-.8.375-.275.3-1.05 1.025-1.05 2.5s1.075 2.9 1.225 3.1c.15.2 2.115 3.23 5.125 4.53.715.31 1.273.495 1.708.635.714.227 1.365.195 1.88.118.571-.085 1.782-.73 2.032-1.435.25-.7.25-1.3.175-1.43-.075-.13-.275-.2-.575-.35z"/>
+              </svg>
+              <span>{language === 'es' ? 'Contáctanos por WhatsApp' : 'Contact us on WhatsApp'}</span>
+            </a>
+          </div>
+
+          <div className="flex items-center justify-center gap-2 text-xs text-sand-200/70 font-semibold uppercase tracking-wider mt-4 relative z-10">
+            <ShieldCheck className="h-5 w-5 text-emerald-450" />
+            <span>Garantía de reembolso de consumible en el hotel</span>
           </div>
         </div>
       </section>

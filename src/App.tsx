@@ -61,11 +61,11 @@ const AppContent: React.FC = () => {
     <div className="flex flex-col min-h-screen bg-mahana-light text-mahana-dark selection:bg-turquoise-100 selection:text-turquoise-900">
       {!isPromoPage && <Header />}
       {isPromoPage && (
-        <header className="absolute top-0 left-0 right-0 z-50 py-6 px-6 flex justify-center items-center pointer-events-none">
+        <header className="absolute top-0 left-0 right-0 z-50 py-8 px-8 md:px-16 flex justify-start items-center pointer-events-none">
           <img 
             src="/images/logo-casa-mahana.png" 
             alt="Casa Mahana Logo" 
-            className="h-16 w-auto object-contain pointer-events-auto filter drop-shadow-md"
+            className="h-20 md:h-24 w-auto object-contain pointer-events-auto filter drop-shadow-lg opacity-100 transition-transform duration-300 hover:scale-105"
           />
         </header>
       )}
