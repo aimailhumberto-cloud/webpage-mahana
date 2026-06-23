@@ -77,6 +77,7 @@ export const PromoHabitacionGratis: React.FC = () => {
       rateChildVal: "B/. 10.00 por noche",
       rateTax: "Impuestos",
       rateTaxVal: "¡0% Exento!",
+      ratePolicyNote: "Una vez realizada la reserva, el abono depositado NO es reembolsable y las fechas de estancia son finales (NO se permiten cambios de fecha ni cancelaciones). El monto se aplicará única y exclusivamente como crédito de comida y bebidas durante la estadía en las fechas seleccionadas.",
       
       whyTitle: "¿Por qué aprovechar esta súper promoción hoy?",
       why1: "Es verdaderamente gratis",
@@ -156,6 +157,7 @@ export const PromoHabitacionGratis: React.FC = () => {
       rateChildVal: "B/. 10.00 per night",
       rateTax: "Taxes",
       rateTaxVal: "0% Exempt!",
+      ratePolicyNote: "Once the reservation is confirmed, the deposited amount is strictly NON-refundable and stay dates are final (NO date changes or cancellations allowed). The deposit is credited solely for food and beverage consumption during the stay on the selected dates.",
       
       whyTitle: "Why take advantage of this super promo today?",
       why1: "It is truly free",
@@ -591,6 +593,16 @@ export const PromoHabitacionGratis: React.FC = () => {
                 </tr>
               </tbody>
             </table>
+          </div>
+          
+          {/* Policy Note Callout (Fine Print) */}
+          <div className="bg-amber-50/60 border border-amber-250/50 rounded-2xl p-4 text-xs text-amber-800 space-y-1.5 text-left font-medium">
+            <span className="font-extrabold uppercase tracking-wide block text-[10px] text-amber-900">
+              ⚠️ {language === 'es' ? 'CONDICIONES DE LA RESERVA (LETRA CHIQUITA):' : 'BOOKING POLICIES (FINE PRINT):'}
+            </span>
+            <p className="leading-relaxed">
+              {currentT.ratePolicyNote}
+            </p>
           </div>
         </div>
 
