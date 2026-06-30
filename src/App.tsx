@@ -26,6 +26,7 @@ import { EventosBodas } from './pages/EventosBodas';
 import { MediaAdmin } from './pages/MediaAdmin';
 import { MahanaTours } from './pages/MahanaTours';
 import { PromoHabitacionGratis } from './pages/PromoHabitacionGratis';
+import { SpanishImmersionLanding } from './pages/SpanishImmersionLanding';
 
 const ScrollToTop: React.FC = () => {
   const { pathname } = useLocation();
@@ -90,6 +91,7 @@ const AppContent: React.FC = () => {
           <Route path="/estadias/mahana-experience" element={<MahanaExperienceLanding />} />
           <Route path="/estadias/todo-incluido" element={<EstadiaAllInclusiveLanding />} />
           <Route path="/estadias/escape-mahana" element={<EscapeMahanaLanding />} />
+          <Route path="/estadias/spanish-immersion" element={<SpanishImmersionLanding />} />
 
           {/* Day Passes Hub */}
           <Route path="/pasadias" element={<PasadiasHub />} />

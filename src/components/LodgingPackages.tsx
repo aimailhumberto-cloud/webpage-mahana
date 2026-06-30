@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useLanguage } from '../context/LanguageContext';
-import { Check, X, ShieldCheck, ArrowRight, Coffee, GlassWater, Sun, Waves, ShieldAlert } from 'lucide-react';
+import { Check, X, ShieldCheck, ArrowRight, Coffee, GlassWater, Sun, Waves, ShieldAlert, BookOpen } from 'lucide-react';
 
 export const LodgingPackages: React.FC = () => {
   const { language } = useLanguage();
@@ -119,6 +119,28 @@ export const LodgingPackages: React.FC = () => {
       link: '/pasadias/todo-incluido',
       cta: language === 'es' ? 'Ver Detalles' : 'View Details',
       accent: 'border-sand-200/80 hover:border-orange-500/30'
+    },
+    {
+      title: 'Spanish Immersion',
+      badge: language === 'es' ? 'Retiro de 2 Semanas' : '2-Week Language Retreat',
+      price: '$1,850',
+      priceSuffix: language === 'es' ? '/ pers' : '/ guest',
+      desc: language === 'es'
+        ? 'Aprende y vive el español en Chame. 2 semanas todo incluido con alojamiento, comidas gourmet, 30 horas de clase y excursiones.'
+        : 'Learn and live Spanish in Chame. 2-week all-inclusive stay with lodging, gourmet meals, 30 hours of lessons, and tours.',
+      img: '/images/lodge-grounds.jpg',
+      icon: <BookOpen className="h-5 w-5 text-white" />,
+      accentBg: 'bg-orange-600 text-white shadow-orange-200',
+      features: [
+        { text: language === 'es' ? '14 Noches de hospedaje' : '14 Nights of premium lodging', included: true },
+        { text: language === 'es' ? 'Clases + salidas de inmersión' : 'Lessons & guided field trips', included: true },
+        { text: language === 'es' ? 'Pensión completa incluida' : 'Full board gourmet dining', included: true },
+        { text: language === 'es' ? 'Buggies y playa Surf Shack' : 'Buggies tour & beach club pass', included: true },
+        { text: language === 'es' ? 'Traslado aeropuerto Tocumen' : 'Roundtrip airport shuttle', included: true }
+      ],
+      link: '/estadias/spanish-immersion',
+      cta: language === 'es' ? 'Ver Detalles Retiro' : 'View Retreat Details',
+      accent: 'border-sand-200/80 hover:border-orange-500/30'
     }
   ];
 
@@ -146,7 +168,7 @@ export const LodgingPackages: React.FC = () => {
         </div>
 
         {/* Packages Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-5 items-stretch">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-stretch">
           {packages.map((pkg, idx) => (
             <div key={idx} className="relative flex flex-col h-full pt-4">
               {pkg.featured && (

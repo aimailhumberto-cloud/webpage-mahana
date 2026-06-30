@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useLanguage } from '../context/LanguageContext';
-import { Globe, Menu, X, Palmtree, ChevronDown, BedDouble, Sparkles, Crown, Sun, Utensils } from 'lucide-react';
+import { Globe, Menu, X, Palmtree, ChevronDown, BedDouble, Sparkles, Crown, Sun, Utensils, BookOpen } from 'lucide-react';
 
 export const Header: React.FC = () => {
   const { language, setLanguage, t } = useLanguage();
@@ -85,6 +85,13 @@ export const Header: React.FC = () => {
                 >
                   <Crown className="h-4 w-4 text-amber-600 shrink-0" />
                   <span>{language === 'es' ? 'Todo Incluido' : 'All-Inclusive'}</span>
+                </Link>
+                <Link 
+                  to="/estadias/spanish-immersion" 
+                  className="flex items-center space-x-2.5 px-4 py-2 text-sm text-mahana-dark hover:bg-sand-50 hover:text-turquoise-900 rounded-xl transition-colors font-semibold"
+                >
+                  <BookOpen className="h-4 w-4 text-orange-600 shrink-0" />
+                  <span>{language === 'es' ? 'Retiro de Español' : 'Spanish Immersion'}</span>
                 </Link>
               </div>
             </div>
@@ -212,6 +219,10 @@ export const Header: React.FC = () => {
                   <Link to="/estadias/todo-incluido" onClick={handleLinkClick} className="flex items-center space-x-2">
                     <Crown className="h-4 w-4 text-amber-600 shrink-0" />
                     <span>{language === 'es' ? 'Todo Incluido' : 'All-Inclusive'}</span>
+                  </Link>
+                  <Link to="/estadias/spanish-immersion" onClick={handleLinkClick} className="flex items-center space-x-2">
+                    <BookOpen className="h-4 w-4 text-orange-600 shrink-0" />
+                    <span>{language === 'es' ? 'Retiro de Español' : 'Spanish Immersion'}</span>
                   </Link>
                 </div>
               )}
