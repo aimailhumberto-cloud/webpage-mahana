@@ -2,6 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useLanguage } from '../context/LanguageContext';
 import { Check, ArrowRight, ShieldCheck, Soup, GlassWater, Sparkles, Smile, Sun, Clock, Phone, MapPin } from 'lucide-react';
+import { SEO } from '../components/SEO';
 
 export const PasadyaAllInclusiveLanding: React.FC = () => {
   const { t, language } = useLanguage();
@@ -51,6 +52,14 @@ export const PasadyaAllInclusiveLanding: React.FC = () => {
 
   return (
     <div className="bg-mahana-light min-h-[90vh] animate-fade-in-up">
+      <SEO 
+        titleEs="Pasadía Todo Incluido — Casa Mahana Lodge"
+        titleEn="All-Inclusive Day Pass — Casa Mahana Lodge"
+        descriptionEs="Pasa un día espectacular con todo incluido en Chame. Incluye almuerzo gourmet a la carta, barra libre nacional (hasta 12 tragos), snacks ilimitados de piscina y uso de toallas y camastros."
+        descriptionEn="Spend a spectacular all-inclusive day in Chame. Includes gourmet a-la-carte lunch, local open bar (up to 12 drinks), unlimited pool snacks, and towel service."
+        image="/images/hero-pool-drone.jpg"
+        path="/pasadias/todo-incluido"
+      />
       {/* Hero Banner (Beautiful Drone View Kept) */}
       <div className="relative h-96 w-full overflow-hidden">
         <img 

@@ -1,51 +1,59 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://casamahana.com/</loc>
+    <loc>https://www.casamahana.com/</loc>
     <priority>1.00</priority>
   </url>
   <url>
-    <loc>https://casamahana.com/experiencias</loc>
+    <loc>https://www.casamahana.com/experiencias</loc>
     <priority>0.80</priority>
   </url>
   <url>
-    <loc>https://casamahana.com/estadias</loc>
+    <loc>https://www.casamahana.com/estadias</loc>
     <priority>0.90</priority>
   </url>
   <url>
-    <loc>https://casamahana.com/estadias/mahana-experience</loc>
+    <loc>https://www.casamahana.com/estadias/mahana-experience</loc>
     <priority>0.85</priority>
   </url>
   <url>
-    <loc>https://casamahana.com/estadias/todo-incluido</loc>
+    <loc>https://www.casamahana.com/estadias/todo-incluido</loc>
     <priority>0.85</priority>
   </url>
   <url>
-    <loc>https://casamahana.com/pasadias</loc>
+    <loc>https://www.casamahana.com/estadias/escape-mahana</loc>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://www.casamahana.com/estadias/spanish-immersion</loc>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://www.casamahana.com/pasadias</loc>
     <priority>0.90</priority>
   </url>
   <url>
-    <loc>https://casamahana.com/pasadias/pool-day</loc>
+    <loc>https://www.casamahana.com/pasadias/pool-day</loc>
     <priority>0.85</priority>
   </url>
   <url>
-    <loc>https://casamahana.com/pasadias/todo-incluido</loc>
+    <loc>https://www.casamahana.com/pasadias/todo-incluido</loc>
     <priority>0.85</priority>
   </url>
   <url>
-    <loc>https://casamahana.com/restaurante</loc>
+    <loc>https://www.casamahana.com/restaurante</loc>
     <priority>0.80</priority>
   </url>
   <url>
-    <loc>https://casamahana.com/surf-shack</loc>
+    <loc>https://www.casamahana.com/surf-shack</loc>
     <priority>0.80</priority>
   </url>
   <url>
-    <loc>https://casamahana.com/eventos</loc>
+    <loc>https://www.casamahana.com/eventos</loc>
     <priority>0.70</priority>
   </url>
   <url>
-    <loc>https://casamahana.com/mahana-tours</loc>
+    <loc>https://www.casamahana.com/mahana-tours</loc>
     <priority>0.70</priority>
   </url>
 </urlset>

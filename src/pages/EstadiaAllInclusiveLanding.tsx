@@ -2,6 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useLanguage } from '../context/LanguageContext';
 import { Check, ArrowRight, ShieldCheck } from 'lucide-react';
+import { SEO } from '../components/SEO';
 
 export const EstadiaAllInclusiveLanding: React.FC = () => {
   const { t, language } = useLanguage();
@@ -30,6 +31,14 @@ export const EstadiaAllInclusiveLanding: React.FC = () => {
 
   return (
     <div className="bg-mahana-light min-h-[95vh] animate-fade-in-up">
+      <SEO 
+        titleEs="Estadía Todo Incluido + Open Bar — Casa Mahana Lodge"
+        titleEn="All-Inclusive Stay + Open Bar — Casa Mahana Lodge"
+        descriptionEs="Disfruta de la desconexión definitiva con hospedaje, pensión completa, barra libre de cócteles premium ilimitados y traslado al club de playa Surf Shack."
+        descriptionEn="Enjoy the ultimate escape with premium lodging, full board meals, unlimited premium open bar cocktails, and beach club shuttle."
+        image="/images/all-inclusive-pool-hero-v2.jpg"
+        path="/estadias/todo-incluido"
+      />
       {/* Premium Hero Banner */}
       <div className="relative h-[420px] w-full overflow-hidden">
         <img 

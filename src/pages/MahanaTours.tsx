@@ -1,6 +1,7 @@
 import React, { useState, useMemo } from 'react';
 import { useLanguage } from '../context/LanguageContext';
 import { Clock, Users, MapPin, ArrowRight, DollarSign, Calendar, Flame, Compass, Eye, Check } from 'lucide-react';
+import { SEO } from '../components/SEO';
 
 interface TourItem {
   id: string;
@@ -168,6 +169,14 @@ export const MahanaTours: React.FC = () => {
 
   return (
     <div className="bg-mahana-light min-h-screen pb-24 font-sans animate-fade-in-up">
+      <SEO 
+        titleEs="Tours y Excursiones de Aventura — Casa Mahana"
+        titleEn="Adventure Tours & Excursions — Casa Mahana"
+        descriptionEs="Explora Chame y sus alrededores con Mahana Tours. Excursiones en buggy por la playa, caminatas por cañones y cascadas, paseos en bote y cruceros en yate."
+        descriptionEn="Explore Chame and beyond with Mahana Tours. Beach buggy excursions, canyon hikes, waterfalls, boat rides, and private yacht cruises."
+        image="/images/tours-hero-ocean-v2.jpg"
+        path="/mahana-tours"
+      />
       {/* Hero Banner */}
       <section className="relative h-[480px] w-full overflow-hidden">
         <img 

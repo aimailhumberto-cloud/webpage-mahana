@@ -14,6 +14,7 @@ import {
   Navigation,
   Compass
 } from 'lucide-react';
+import { SEO } from '../components/SEO';
 
 export const PromoHabitacionGratis: React.FC = () => {
   const { language } = useLanguage();
@@ -206,6 +207,14 @@ export const PromoHabitacionGratis: React.FC = () => {
 
   return (
     <div className="bg-mahana-light min-h-screen font-sans selection:bg-orange-100 pb-16">
+      <SEO 
+        titleEs="Habitación Gratis (Promo Limitada) — Casa Mahana Lodge"
+        titleEn="Free Room (Limited Promo) — Casa Mahana Lodge"
+        descriptionEs="¡Hospedaje de habitación gratis al depositar tu presupuesto de consumo de alimentos y bebidas! Disfruta de una escapada en pareja en Chame con acceso a 3 piscinas y club de playa."
+        descriptionEn="Complimentary lodging when you pre-deposit your food & beverage budget! Enjoy a couples getaway in Chame with 3 pools and beach club access."
+        image="/images/promo-hero-couple.jpg"
+        path="/promo-habitacion-gratis"
+      />
       
       {/* ── SECTION 1: HIGH-ENERGY PROMOTIONAL HERO ── */}
       <section className="relative min-h-screen flex flex-col justify-start md:justify-center items-center text-white pt-36 pb-20 md:py-24 px-4 overflow-hidden text-center">

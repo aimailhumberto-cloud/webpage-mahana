@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useLanguage } from '../context/LanguageContext';
 import { Check, Clock, MapPin, ArrowRight, UtensilsCrossed, Pizza, Waves, Flame, Eye, Download, X } from 'lucide-react';
+import { SEO } from '../components/SEO';
 
 export const RestaurantePublico: React.FC = () => {
   const { t, language } = useLanguage();
@@ -59,6 +60,14 @@ export const RestaurantePublico: React.FC = () => {
 
   return (
     <div className="py-16 bg-mahana-light min-h-[90vh] animate-fade-in-up">
+      <SEO 
+        titleEs="Restaurante Gourmet al Horno de Leña — Casa Mahana"
+        titleEn="Wood-Fired Gourmet Restaurant — Casa Mahana"
+        descriptionEs="Abierto al público en Chame. Saborea nuestras pizzas artesanales a la leña, ceviches frescos, mariscos locales y cócteles de autor frente a la piscina tropical."
+        descriptionEn="Open to the public in Chame. Savor our wood-fired artisanal pizzas, fresh ceviche, local seafood, and signature cocktails by the tropical pool."
+        image="/images/food-pizza.jpg"
+        path="/restaurante"
+      />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Hero Section */}

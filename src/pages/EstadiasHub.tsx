@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useLanguage } from '../context/LanguageContext';
 import { Check, Users, ShieldAlert, Waves, PawPrint, BedDouble, ArrowRight, Table, X, ZoomIn } from 'lucide-react';
+import { SEO } from '../components/SEO';
 
 export const EstadiasHub: React.FC = () => {
   const { t, language } = useLanguage();
@@ -73,6 +74,14 @@ export const EstadiasHub: React.FC = () => {
 
   return (
     <div className="py-16 bg-mahana-light min-h-[90vh] animate-fade-in-up">
+      <SEO 
+        titleEs="Habitaciones y Estadías — Casa Mahana Lodge"
+        titleEn="Rooms & Lodging — Casa Mahana Lodge"
+        descriptionEs="Descubre nuestras acogedoras habitaciones en Chame. Contamos con habitaciones Estándar, Dobles, Familiares y opciones de Glamping con pensión completa y acceso a piscinas."
+        descriptionEn="Discover our cozy rooms in Chame. We offer Standard, Double, Family rooms and Glamping options with full board and pool access."
+        image="/images/room-doble.jpg"
+        path="/estadias"
+      />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}

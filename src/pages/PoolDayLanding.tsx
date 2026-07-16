@@ -2,6 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useLanguage } from '../context/LanguageContext';
 import { Check, ArrowRight, ShieldAlert, Sun, Landmark, Utensils, GlassWater, Clock, Ban } from 'lucide-react';
+import { SEO } from '../components/SEO';
 
 export const PoolDayLanding: React.FC = () => {
   const { t, language } = useLanguage();
@@ -51,6 +52,14 @@ export const PoolDayLanding: React.FC = () => {
 
   return (
     <div className="bg-mahana-light min-h-[90vh] animate-fade-in-up">
+      <SEO 
+        titleEs="Pase de Piscina Pool Day — Casa Mahana Lodge"
+        titleEn="Pool Day Pass — Casa Mahana Lodge"
+        descriptionEs="Disfruta de un día de sol y piscina por solo B/. 5.50 en Chame. Acceso completo a nuestras 3 piscinas tropicales y áreas comunes. Promociones especiales en bar y restaurante."
+        descriptionEn="Enjoy a day of sun and pool for only $5.50 in Chame. Full access to our 3 tropical pools and common areas. Special bar and restaurant promotions available."
+        image="/images/pool-day-promo-hero-v3.jpg"
+        path="/pasadias/pool-day"
+      />
       {/* Hero Banner (Using the newly uploaded pool photo) */}
       <div className="relative h-96 w-full overflow-hidden">
         <img 

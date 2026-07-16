@@ -2,6 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useLanguage } from '../context/LanguageContext';
 import { Check, ArrowRight, ShieldCheck, Clock, BookOpen, MapPin, Calendar, Award } from 'lucide-react';
+import { SEO } from '../components/SEO';
 
 export const SpanishImmersionLanding: React.FC = () => {
   const { t, language } = useLanguage();
@@ -42,6 +43,14 @@ export const SpanishImmersionLanding: React.FC = () => {
 
   return (
     <div className="bg-mahana-light min-h-[95vh] animate-fade-in-up">
+      <SEO 
+        titleEs="Spanish Immersion Retreat (2 Semanas) — Casa Mahana Lodge"
+        titleEn="Spanish Immersion Retreat (2 Weeks) — Casa Mahana Lodge"
+        descriptionEs="Aprende y habla español con confianza en Chame, Panamá. Retiro de 2 semanas todo incluido con clases dinámicas, salidas de campo guiadas, excursiones en buggy y alimentación completa."
+        descriptionEn="Learn and speak Spanish with confidence in Chame, Panama. 2-week all-inclusive language retreat with lessons, guided field trips, buggy tours, and full board."
+        image="/images/lodge-grounds.jpg"
+        path="/estadias/spanish-immersion"
+      />
       {/* Premium Hero Banner */}
       <div className="relative h-[460px] w-full overflow-hidden">
         <img 

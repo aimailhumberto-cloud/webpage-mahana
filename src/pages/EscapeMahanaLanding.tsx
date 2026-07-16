@@ -2,6 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useLanguage } from '../context/LanguageContext';
 import { Check, ArrowRight, ShieldCheck } from 'lucide-react';
+import { SEO } from '../components/SEO';
 
 export const EscapeMahanaLanding: React.FC = () => {
   const { language } = useLanguage();
@@ -28,6 +29,14 @@ export const EscapeMahanaLanding: React.FC = () => {
 
   return (
     <div className="bg-mahana-light min-h-[95vh] animate-fade-in-up font-sans">
+      <SEO 
+        titleEs="Escape Mahana (Promo Parejas) — Casa Mahana Lodge"
+        titleEn="Escape Mahana (Couples Promo) — Casa Mahana Lodge"
+        descriptionEs="Escapada especial para parejas por $33/noche de domingo a jueves. Incluye hospedaje, desayuno continental y acceso libre a nuestras piscinas y club de playa."
+        descriptionEn="Special couples getaway for $33/night Sunday to Thursday. Includes lodging, continental breakfast, and access to pools and beach club."
+        image="/images/escape-mahana-hero.jpg"
+        path="/estadias/escape-mahana"
+      />
       {/* Hero Banner */}
       <div className="relative h-[420px] w-full overflow-hidden">
         <img 

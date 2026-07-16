@@ -2,6 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useLanguage } from '../context/LanguageContext';
 import { Check, Clock, Calendar, ArrowRight, Tag } from 'lucide-react';
+import { SEO } from '../components/SEO';
 
 export const ProductShowcase: React.FC = () => {
   const { t } = useLanguage();
@@ -49,6 +50,14 @@ export const ProductShowcase: React.FC = () => {
 
   return (
     <div className="py-16 bg-mahana-light min-h-[90vh]">
+      <SEO 
+        titleEs="Planes y Experiencias de Hospedaje — Casa Mahana"
+        titleEn="Plans & Lodging Experiences — Casa Mahana"
+        descriptionEs="Explora todos los planes de estadía y pasadías en Casa Mahana. Compara tarifas de hospedaje estándar, todo incluido, escape para parejas y pases de piscina en Chame."
+        descriptionEn="Explore all lodging plans and day passes at Casa Mahana. Compare rates for standard stays, all-inclusive packages, couples escape, and pool day passes in Chame."
+        image="/images/logo-casa-mahana.png"
+        path="/experiencias"
+      />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}

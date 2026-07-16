@@ -2,6 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useLanguage } from '../context/LanguageContext';
 import { Check, ArrowRight, ShieldCheck } from 'lucide-react';
+import { SEO } from '../components/SEO';
 
 export const MahanaExperienceLanding: React.FC = () => {
   const { t, language } = useLanguage();
@@ -27,6 +28,14 @@ export const MahanaExperienceLanding: React.FC = () => {
 
   return (
     <div className="bg-mahana-light min-h-[95vh] animate-fade-in-up">
+      <SEO 
+        titleEs="Mahana Experience (Pensión Completa) — Casa Mahana Lodge"
+        titleEn="Mahana Experience (Full Board) — Casa Mahana Lodge"
+        descriptionEs="La escapada perfecta con pensión completa (desayuno, almuerzo y cena). Disfruta de una habitación acogedora, piscina tropical, WiFi y acceso a Surf Shack."
+        descriptionEn="The perfect getaway with full board (breakfast, lunch, and dinner). Enjoy a cozy room, tropical pool, WiFi, and Surf Shack access."
+        image="/images/hero-pool-drone.jpg"
+        path="/estadias/mahana-experience"
+      />
       {/* Premium Hero Banner */}
       <div className="relative h-[420px] w-full overflow-hidden">
         <img 

@@ -2,6 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useLanguage } from '../context/LanguageContext';
 import { Check, ArrowRight, Compass, ShieldCheck, Heart, Waves, Sunset, Sparkles, MapPin } from 'lucide-react';
+import { SEO } from '../components/SEO';
 
 export const SurfShackAcademy: React.FC = () => {
   const { t, language } = useLanguage();
@@ -52,6 +53,14 @@ export const SurfShackAcademy: React.FC = () => {
 
   return (
     <div className="bg-mahana-light min-h-[90vh] font-sans pb-24 animate-fade-in-up">
+      <SEO 
+        titleEs="Surf Shack Beach Club & Academy — Casa Mahana"
+        titleEn="Surf Shack Beach Club & Academy — Casa Mahana"
+        descriptionEs="Visita nuestro club de playa en Playa Caracol, Chame. Ofrecemos clases de surf para todos los niveles, alquiler de tablas, cócteles y camastros frente al mar."
+        descriptionEn="Visit our beach club in Playa Caracol, Chame. We offer surf lessons for all levels, surfboard rentals, cocktails, and oceanfront sun loungers."
+        image="/images/surf-shack-hero-v2.jpg"
+        path="/surf-shack"
+      />
       {/* 1. Beach Club Section - Hero & Main Pivot */}
       <section className="relative h-[500px] w-full overflow-hidden">
         <img 

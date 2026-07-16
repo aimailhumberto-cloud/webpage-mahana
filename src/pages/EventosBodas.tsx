@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useLanguage } from '../context/LanguageContext';
 import { Check, Calendar, Users, Heart, Palmtree, ArrowRight, ShieldCheck, Mail, Phone, Cake, Eye, X } from 'lucide-react';
+import { SEO } from '../components/SEO';
 
 export const EventosBodas: React.FC = () => {
   const { t, language } = useLanguage();
@@ -65,6 +66,14 @@ export const EventosBodas: React.FC = () => {
 
   return (
     <div className="py-16 bg-mahana-light min-h-[90vh] animate-fade-in-up">
+      <SEO 
+        titleEs="Bodas y Eventos Exclusivos — Casa Mahana"
+        titleEn="Weddings & Exclusive Events — Casa Mahana"
+        descriptionEs="Celebra tu boda, evento corporativo o fiesta privada en un entorno tropical único en Chame. Ofrecemos paquetes completos, catering gourmet y reserva exclusiva de todo el lodge."
+        descriptionEn="Celebrate your wedding, corporate event, or private party in a unique tropical setting in Chame. We offer full packages, gourmet catering, and exclusive lodge buyout options."
+        image="/images/wedding-setup.jpg"
+        path="/eventos"
+      />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Header */}

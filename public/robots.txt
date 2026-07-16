@@ -4,4 +4,4 @@ User-agent: *
 Allow: /
 
 # Sitemap configuration for Search Engines
-Sitemap: https://casamahana.com/sitemap.xml
+Sitemap: https://www.casamahana.com/sitemap.xml

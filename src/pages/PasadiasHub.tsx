@@ -2,6 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useLanguage } from '../context/LanguageContext';
 import { Check, Clock, Calendar, ArrowRight, Sun, GlassWater, ShieldAlert, Sparkles } from 'lucide-react';
+import { SEO } from '../components/SEO';
 
 export const PasadiasHub: React.FC = () => {
   const { t, language } = useLanguage();
@@ -48,6 +49,14 @@ export const PasadiasHub: React.FC = () => {
 
   return (
     <div className="py-16 bg-mahana-light min-h-[90vh] animate-fade-in-up">
+      <SEO 
+        titleEs="Pasadías y Day Passes — Casa Mahana Lodge"
+        titleEn="Day Passes & Pool Days — Casa Mahana Lodge"
+        descriptionEs="Pasa el día en el paraíso de Chame. Elige entre nuestro Pool Day económico o el Pasadía Todo Incluido con almuerzo gourmet, snacks y open bar nacional."
+        descriptionEn="Spend the day in paradise in Chame. Choose between our budget-friendly Pool Day or the All-Inclusive Day Pass with gourmet lunch, snacks, and local open bar."
+        image="/images/hero-pool-deck.jpg"
+        path="/pasadias"
+      />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Header */}
