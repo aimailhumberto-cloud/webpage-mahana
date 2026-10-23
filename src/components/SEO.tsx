@@ -8,6 +8,7 @@ interface SEOProps {
   descriptionEn: string;
   image?: string;
   path: string;
+  schemaType?: 'LodgingBusiness' | 'Restaurant' | 'TouristAttraction' | 'WebPage';
 }
 
 export const SEO: React.FC<SEOProps> = ({
@@ -16,13 +17,15 @@ export const SEO: React.FC<SEOProps> = ({
   descriptionEs,
   descriptionEn,
   image = '/images/logo-casa-mahana.png',
-  path
+  path,
+  schemaType = 'LodgingBusiness'
 }) => {
   const { language } = useLanguage();
 
   const title = language === 'es' ? titleEs : titleEn;
   const description = language === 'es' ? descriptionEs : descriptionEn;
   const canonicalUrl = `https://www.casamahana.com${path}`;
+  const fullImageUrl = image.startsWith('http') ? image : `https://www.casamahana.com${image}`;
 
   useEffect(() => {
     // 1. Update document title
@@ -46,14 +49,16 @@ export const SEO: React.FC<SEOProps> = ({
     setMetaTag('property', 'og:title', title);
     setMetaTag('property', 'og:description', description);
     setMetaTag('property', 'og:url', canonicalUrl);
-    setMetaTag('property', 'og:image', image.startsWith('http') ? image : `https://www.casamahana.com${image}`);
+    setMetaTag('property', 'og:image', fullImageUrl);
     setMetaTag('property', 'og:type', 'website');
+    setMetaTag('property', 'og:site_name', 'Casa Mahana Lodge & Restaurant');
+    setMetaTag('property', 'og:locale', language === 'es' ? 'es_PA' : 'en_US');
 
     // 5. Update Twitter tags
     setMetaTag('name', 'twitter:card', 'summary_large_image');
     setMetaTag('name', 'twitter:title', title);
     setMetaTag('name', 'twitter:description', description);
-    setMetaTag('name', 'twitter:image', image.startsWith('http') ? image : `https://www.casamahana.com${image}`);
+    setMetaTag('name', 'twitter:image', fullImageUrl);
 
     // 6. Update Canonical link
     let canonicalLink = document.head.querySelector('link[rel="canonical"]');
@@ -64,7 +69,55 @@ export const SEO: React.FC<SEOProps> = ({
     }
     canonicalLink.setAttribute('href', canonicalUrl);
 
-  }, [title, description, canonicalUrl, image]);
+    // 7. Inject / Update Schema.org JSON-LD Structured Data
+    const structuredData: Record<string, unknown> = {
+      '@context': 'https://schema.org',
+      '@type': schemaType === 'Restaurant' ? 'Restaurant' : 'LodgingBusiness',
+      name: 'Casa Mahana Lodge & Restaurant',
+      alternateName: 'Casa Mahana',
+      url: canonicalUrl,
+      logo: 'https://www.casamahana.com/images/logo-casa-mahana.png',
+      image: fullImageUrl,
+      description,
+      telephone: '+5073453222',
+      priceRange: '$5.50 - $66.00',
+      address: {
+        '@type': 'PostalAddress',
+        streetAddress: 'Vía Punta Chame, El Mangote',
+        addressLocality: 'Chame',
+        addressRegion: 'Panamá Oeste',
+        addressCountry: 'PA'
+      },
+      geo: {
+        '@type': 'GeoCoordinates',
+        latitude: 8.5833,
+        longitude: -79.8833
+      },
+      amenityFeature: [
+        { '@type': 'LocationFeatureSpecification', name: '3 Swimming Pools', value: true },
+        { '@type': 'LocationFeatureSpecification', name: 'Wood-Fired Restaurant', value: true },
+        { '@type': 'LocationFeatureSpecification', name: 'Free High-Speed WiFi', value: true },
+        { '@type': 'LocationFeatureSpecification', name: 'Pet Friendly', value: true },
+        { '@type': 'LocationFeatureSpecification', name: 'Free Parking', value: true }
+      ],
+      aggregateRating: {
+        '@type': 'AggregateRating',
+        ratingValue: '4.2',
+        reviewCount: '85'
+      }
+    };
+
+    let scriptTag = document.head.querySelector('#schema-structured-data');
+    if (!scriptTag) {
+      scriptTag = document.createElement('script');
+      scriptTag.setAttribute('type', 'application/ld+json');
+      scriptTag.setAttribute('id', 'schema-structured-data');
+      document.head.appendChild(scriptTag);
+    }
+    scriptTag.textContent = JSON.stringify(structuredData);
+
+  }, [title, description, canonicalUrl, fullImageUrl, language, schemaType]);
 
   return null;
 };
+export default SEO;

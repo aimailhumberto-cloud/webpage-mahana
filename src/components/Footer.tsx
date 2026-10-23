@@ -1,7 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useLanguage } from '../context/LanguageContext';
-import { MapPin, Phone, Mail, Instagram, Facebook, Palmtree } from 'lucide-react';
+import { MapPin, Phone, Mail, Instagram, Facebook } from 'lucide-react';
+import { trackWhatsAppClick, trackEvent } from '../utils/analytics';
 
 export const Footer: React.FC = () => {
   const { language } = useLanguage();
@@ -34,6 +35,7 @@ export const Footer: React.FC = () => {
                 href="https://www.instagram.com/casamahanapanama"
                 target="_blank"
                 rel="noopener noreferrer"
+                onClick={() => trackEvent('click_social', { network: 'Instagram' })}
                 className="p-2 rounded-lg bg-turquoise-900/50 hover:bg-turquoise-900 hover:text-white transition-all"
               >
                 <Instagram className="h-5 w-5" />
@@ -42,6 +44,7 @@ export const Footer: React.FC = () => {
                 href="https://www.facebook.com/casamahanapanama"
                 target="_blank"
                 rel="noopener noreferrer"
+                onClick={() => trackEvent('click_social', { network: 'Facebook' })}
                 className="p-2 rounded-lg bg-turquoise-900/50 hover:bg-turquoise-900 hover:text-white transition-all"
               >
                 <Facebook className="h-5 w-5" />
@@ -105,6 +108,7 @@ export const Footer: React.FC = () => {
                   href="https://maps.google.com/?q=Chame,+Panama"
                   target="_blank"
                   rel="noopener noreferrer"
+                  onClick={() => trackEvent('click_map_directions')}
                   className="hover:text-turquoise-400 transition-colors"
                 >
                   Vía Punta Chame, El Mangote,<br />
@@ -113,19 +117,31 @@ export const Footer: React.FC = () => {
               </li>
               <li className="flex items-center space-x-2.5">
                 <Phone className="h-5 w-5 text-turquoise-400 shrink-0" />
-                <a href="tel:+5073453222" className="hover:text-turquoise-400 transition-colors">
+                <a
+                  href="tel:+5073453222"
+                  onClick={() => trackEvent('click_phone_call', { phone: '+5073453222' })}
+                  className="hover:text-turquoise-400 transition-colors"
+                >
                   +507 345-3222
                 </a>
               </li>
               <li className="flex items-center space-x-2.5">
                 <Phone className="h-5 w-5 text-turquoise-400 shrink-0" />
-                <a href="https://wa.me/50762906800" className="hover:text-turquoise-400 transition-colors">
+                <a
+                  href="https://wa.me/50762906800"
+                  onClick={() => trackWhatsAppClick('footer_contact', 'whatsapp_recepcion')}
+                  className="hover:text-turquoise-400 transition-colors"
+                >
                   +507 6290-6800 (WhatsApp)
                 </a>
               </li>
               <li className="flex items-center space-x-2.5">
                 <Mail className="h-5 w-5 text-turquoise-400 shrink-0" />
-                <a href="mailto:recepcion@casamahana.com" className="hover:text-turquoise-400 transition-colors">
+                <a
+                  href="mailto:recepcion@casamahana.com"
+                  onClick={() => trackEvent('click_email', { email: 'recepcion@casamahana.com' })}
+                  className="hover:text-turquoise-400 transition-colors"
+                >
                   recepcion@casamahana.com
                 </a>
               </li>

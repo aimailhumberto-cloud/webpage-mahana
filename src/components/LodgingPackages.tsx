@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useLanguage } from '../context/LanguageContext';
-import { Check, X, ShieldCheck, ArrowRight, Coffee, GlassWater, Sun, Waves, ShieldAlert, BookOpen } from 'lucide-react';
+import { Check, X, ShieldCheck, ArrowRight, Coffee, GlassWater, Sun, Waves } from 'lucide-react';
 
 export const LodgingPackages: React.FC = () => {
   const { language } = useLanguage();
@@ -27,6 +27,8 @@ export const LodgingPackages: React.FC = () => {
         { text: language === 'es' ? 'Cenas y bebidas no incluidas' : 'Dinners & drinks not included', included: false }
       ],
       link: '/estadias/escape-mahana',
+      planCode: 'escape_mahana',
+      category: 'Estadía',
       cta: language === 'es' ? 'Ver Promo Escape' : 'View Escape Promo',
       accent: 'border-sand-200/80 hover:border-mahana-accent/30',
       limitedTime: true
@@ -50,6 +52,8 @@ export const LodgingPackages: React.FC = () => {
         { text: language === 'es' ? 'Barra libre (Open bar) no incluido' : 'Open bar / drinks not included', included: false }
       ],
       link: '/estadias/mahana-experience',
+      planCode: 'mahana_exp',
+      category: 'Estadía',
       cta: language === 'es' ? 'Ver Detalles Standard' : 'View Standard Details',
       accent: 'border-sand-200/80 hover:border-turquoise-500/30'
     },
@@ -72,6 +76,8 @@ export const LodgingPackages: React.FC = () => {
         { text: language === 'es' ? 'Habitación acogedora incluida' : 'Cozy room included', included: true }
       ],
       link: '/estadias/todo-incluido',
+      planCode: 'todo_incluido',
+      category: 'Estadía',
       cta: language === 'es' ? 'Ver Todo Incluido' : 'View All-Inclusive',
       featured: true,
       accent: 'border-amber-400 bg-amber-50/20 shadow-premium'
@@ -95,6 +101,8 @@ export const LodgingPackages: React.FC = () => {
         { text: language === 'es' ? 'Promociones exclusivas en restaurante' : 'Exclusive restaurant promotions', included: true }
       ],
       link: '/pasadias/pool-day',
+      planCode: 'pasadia_entrada',
+      category: 'Pasadía',
       cta: language === 'es' ? 'Ver Detalles' : 'View Details',
       accent: 'border-sand-200/80 hover:border-cyan-500/30'
     },
@@ -117,29 +125,9 @@ export const LodgingPackages: React.FC = () => {
         { text: language === 'es' ? 'Uso de camastros, hamacas y toallas' : 'Lounge chairs, hammocks & towels', included: true }
       ],
       link: '/pasadias/todo-incluido',
+      planCode: 'pasadia_comidas',
+      category: 'Pasadía',
       cta: language === 'es' ? 'Ver Detalles' : 'View Details',
-      accent: 'border-sand-200/80 hover:border-orange-500/30'
-    },
-    {
-      title: 'Spanish Immersion',
-      badge: language === 'es' ? 'Retiro de 2 Semanas' : '2-Week Language Retreat',
-      price: '$1,850',
-      priceSuffix: language === 'es' ? '/ pers' : '/ guest',
-      desc: language === 'es'
-        ? 'Aprende y vive el español en Chame. 2 semanas todo incluido con alojamiento, comidas gourmet, 30 horas de clase y excursiones.'
-        : 'Learn and live Spanish in Chame. 2-week all-inclusive stay with lodging, gourmet meals, 30 hours of lessons, and tours.',
-      img: '/images/lodge-grounds.jpg',
-      icon: <BookOpen className="h-5 w-5 text-white" />,
-      accentBg: 'bg-orange-600 text-white shadow-orange-200',
-      features: [
-        { text: language === 'es' ? '14 Noches de hospedaje' : '14 Nights of premium lodging', included: true },
-        { text: language === 'es' ? 'Clases + salidas de inmersión' : 'Lessons & guided field trips', included: true },
-        { text: language === 'es' ? 'Pensión completa incluida' : 'Full board gourmet dining', included: true },
-        { text: language === 'es' ? 'Buggies y playa Surf Shack' : 'Buggies tour & beach club pass', included: true },
-        { text: language === 'es' ? 'Traslado aeropuerto Tocumen' : 'Roundtrip airport shuttle', included: true }
-      ],
-      link: '/estadias/spanish-immersion',
-      cta: language === 'es' ? 'Ver Detalles Retiro' : 'View Retreat Details',
       accent: 'border-sand-200/80 hover:border-orange-500/30'
     }
   ];
@@ -168,7 +156,7 @@ export const LodgingPackages: React.FC = () => {
         </div>
 
         {/* Packages Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-stretch">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-5 items-stretch">
           {packages.map((pkg, idx) => (
             <div key={idx} className="relative flex flex-col h-full pt-4">
               {pkg.featured && (
@@ -194,6 +182,7 @@ export const LodgingPackages: React.FC = () => {
                   <img
                     src={pkg.img}
                     alt={pkg.title}
+                    loading="lazy"
                     className="w-full h-full object-cover transition-transform duration-[4000ms] ease-out group-hover:scale-115"
                   />
                   {/* Visual fade-out overlay */}
@@ -268,7 +257,7 @@ export const LodgingPackages: React.FC = () => {
                     </Link>
 
                     <button
-                      onClick={() => navigate('/reservar')}
+                      onClick={() => navigate('/reservar', { state: { planCode: pkg.planCode, category: pkg.category } })}
                       className="w-full text-center text-[10px] font-extrabold text-turquoise-700 hover:text-turquoise-950 uppercase tracking-widest transition-colors py-1.5"
                     >
                       {language === 'es' ? '⚡ Reservar en Línea' : '⚡ Book Online'}

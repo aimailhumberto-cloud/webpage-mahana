@@ -26,12 +26,22 @@ import { EventosBodas } from './pages/EventosBodas';
 import { MediaAdmin } from './pages/MediaAdmin';
 import { MahanaTours } from './pages/MahanaTours';
 import { PromoHabitacionGratis } from './pages/PromoHabitacionGratis';
-import { SpanishImmersionLanding } from './pages/SpanishImmersionLanding';
+import {
+  captureAttributionParams,
+  trackPageView,
+  trackBookingIntent,
+  buildPmsBookingUrl
+} from './utils/analytics';
 
 const ScrollToTop: React.FC = () => {
   const { pathname } = useLocation();
   React.useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'instant' });
+    captureAttributionParams();
+    const timer = setTimeout(() => {
+      trackPageView(pathname, document.title);
+    }, 60);
+    return () => clearTimeout(timer);
   }, [pathname]);
 
   return null;
@@ -40,8 +50,27 @@ const ScrollToTop: React.FC = () => {
 const RedirectToPMS: React.FC = () => {
   const location = useLocation();
   React.useEffect(() => {
-    const search = location.search || '';
-    window.location.replace(`https://casa-mahana-pms.onrender.com/reservar${search}`);
+    const state = (location.state as { planCode?: string; category?: string; guests?: number } | null) || {};
+    const searchParams = new URLSearchParams(location.search || '');
+    const planCode = state.planCode || searchParams.get('plan') || undefined;
+    const category = state.category || searchParams.get('category') || undefined;
+    const guests = state.guests || (searchParams.get('guests') ? Number(searchParams.get('guests')) : undefined);
+
+    trackBookingIntent({
+      planCode,
+      category,
+      guests,
+      source: 'redirect_to_pms'
+    });
+
+    const targetUrl = buildPmsBookingUrl({
+      search: location.search || '',
+      planCode,
+      category,
+      guests
+    });
+
+    window.location.replace(targetUrl);
   }, [location]);
 
   return (
@@ -91,7 +120,6 @@ const AppContent: React.FC = () => {
           <Route path="/estadias/mahana-experience" element={<MahanaExperienceLanding />} />
           <Route path="/estadias/todo-incluido" element={<EstadiaAllInclusiveLanding />} />
           <Route path="/estadias/escape-mahana" element={<EscapeMahanaLanding />} />
-          <Route path="/estadias/spanish-immersion" element={<SpanishImmersionLanding />} />
 
           {/* Day Passes Hub */}
           <Route path="/pasadias" element={<PasadiasHub />} />

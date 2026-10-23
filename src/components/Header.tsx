@@ -1,28 +1,17 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useLanguage } from '../context/LanguageContext';
-import { Globe, Menu, X, Palmtree, ChevronDown, BedDouble, Sparkles, Crown, Sun, Utensils, BookOpen } from 'lucide-react';
+import { Globe, Menu, X, ChevronDown, BedDouble, Sparkles, Crown, Sun, Utensils } from 'lucide-react';
+import { trackBookingIntent, buildPmsBookingUrl } from '../utils/analytics';
 
 export const Header: React.FC = () => {
   const { language, setLanguage, t } = useLanguage();
   const [isOpen, setIsOpen] = useState(false);
   const [mobileEstadiasOpen, setMobileEstadiasOpen] = useState(false);
   const [mobilePasadiasOpen, setMobilePasadiasOpen] = useState(false);
-  const navigate = useNavigate();
 
   const toggleLanguage = () => {
     setLanguage(language === 'es' ? 'en' : 'es');
-  };
-
-  const handleNavClick = (sectionId: string) => {
-    setIsOpen(false);
-    navigate('/');
-    setTimeout(() => {
-      const element = document.getElementById(sectionId);
-      if (element) {
-        element.scrollIntoView({ behavior: 'smooth' });
-      }
-    }, 100);
   };
 
   const handleLinkClick = () => {
@@ -73,6 +62,13 @@ export const Header: React.FC = () => {
                   <span>{language === 'es' ? 'Todas las Habitaciones' : 'All Rooms & Capacities'}</span>
                 </Link>
                 <Link 
+                  to="/estadias/escape-mahana" 
+                  className="flex items-center space-x-2.5 px-4 py-2 text-sm text-mahana-dark hover:bg-sand-50 hover:text-turquoise-900 rounded-xl transition-colors font-semibold"
+                >
+                  <Sparkles className="h-4 w-4 text-rose-500 shrink-0" />
+                  <span>Escape Mahana ($33)</span>
+                </Link>
+                <Link 
                   to="/estadias/mahana-experience" 
                   className="flex items-center space-x-2.5 px-4 py-2 text-sm text-mahana-dark hover:bg-sand-50 hover:text-turquoise-900 rounded-xl transition-colors font-semibold"
                 >
@@ -85,13 +81,6 @@ export const Header: React.FC = () => {
                 >
                   <Crown className="h-4 w-4 text-amber-600 shrink-0" />
                   <span>{language === 'es' ? 'Todo Incluido' : 'All-Inclusive'}</span>
-                </Link>
-                <Link 
-                  to="/estadias/spanish-immersion" 
-                  className="flex items-center space-x-2.5 px-4 py-2 text-sm text-mahana-dark hover:bg-sand-50 hover:text-turquoise-900 rounded-xl transition-colors font-semibold"
-                >
-                  <BookOpen className="h-4 w-4 text-orange-600 shrink-0" />
-                  <span>{language === 'es' ? 'Retiro de Español' : 'Spanish Immersion'}</span>
                 </Link>
               </div>
             </div>
@@ -158,7 +147,10 @@ export const Header: React.FC = () => {
 
             {/* CTA Button */}
             <button
-              onClick={() => window.location.href = 'https://casa-mahana-pms.onrender.com/reservar'}
+              onClick={() => {
+                trackBookingIntent({ source: 'header_desktop_cta' });
+                window.location.href = buildPmsBookingUrl();
+              }}
               className="px-5 py-2.5 bg-turquoise-700 hover:bg-turquoise-900 text-white rounded-xl transition-all shadow-md font-bold text-sm hover:scale-[1.02] active:scale-[0.98]"
             >
               {t('hero.cta_book')}
@@ -212,6 +204,10 @@ export const Header: React.FC = () => {
                     <BedDouble className="h-4 w-4 text-turquoise-700 shrink-0" />
                     <span>{language === 'es' ? 'Todas las Habitaciones' : 'All Rooms'}</span>
                   </Link>
+                  <Link to="/estadias/escape-mahana" onClick={handleLinkClick} className="flex items-center space-x-2">
+                    <Sparkles className="h-4 w-4 text-rose-500 shrink-0" />
+                    <span>Escape Mahana ($33)</span>
+                  </Link>
                   <Link to="/estadias/mahana-experience" onClick={handleLinkClick} className="flex items-center space-x-2">
                     <Sparkles className="h-4 w-4 text-turquoise-700 shrink-0" />
                     <span>Mahana Experience</span>
@@ -219,10 +215,6 @@ export const Header: React.FC = () => {
                   <Link to="/estadias/todo-incluido" onClick={handleLinkClick} className="flex items-center space-x-2">
                     <Crown className="h-4 w-4 text-amber-600 shrink-0" />
                     <span>{language === 'es' ? 'Todo Incluido' : 'All-Inclusive'}</span>
-                  </Link>
-                  <Link to="/estadias/spanish-immersion" onClick={handleLinkClick} className="flex items-center space-x-2">
-                    <BookOpen className="h-4 w-4 text-orange-600 shrink-0" />
-                    <span>{language === 'es' ? 'Retiro de Español' : 'Spanish Immersion'}</span>
                   </Link>
                 </div>
               )}
@@ -290,7 +282,8 @@ export const Header: React.FC = () => {
             <button
               onClick={() => {
                 setIsOpen(false);
-                window.location.href = 'https://casa-mahana-pms.onrender.com/reservar';
+                trackBookingIntent({ source: 'header_mobile_cta' });
+                window.location.href = buildPmsBookingUrl();
               }}
               className="mt-4 w-full py-3.5 bg-turquoise-700 hover:bg-turquoise-900 text-white rounded-xl text-center font-extrabold shadow-md"
             >

@@ -1,16 +1,22 @@
 import React, { useState } from 'react';
 import { MessageSquare, X, Send } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
+import { trackWhatsAppClick, trackEvent } from '../utils/analytics';
 
 export const WhatsappConcierge: React.FC = () => {
   const { language } = useLanguage();
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleOpen = () => {
-    setIsOpen(!isOpen);
+    const nextState = !isOpen;
+    setIsOpen(nextState);
+    if (nextState) {
+      trackEvent('open_whatsapp_concierge');
+    }
   };
 
   const handleChatClick = () => {
+    trackWhatsAppClick('whatsapp_concierge_widget', 'consulta_general_tarifas');
     // Open whatsapp conversation with receptionist number
     const number = '50762906800'; // Real Casa Mahana phone number
     const text = language === 'es' 

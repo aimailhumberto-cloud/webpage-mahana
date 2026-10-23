@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useLanguage } from '../context/LanguageContext';
-import { X, Gift, MessageSquare, ArrowRight } from 'lucide-react';
+import { X, Gift, ArrowRight } from 'lucide-react';
+import { trackEvent, trackWhatsAppClick } from '../utils/analytics';
 
 export const PromoPopup: React.FC = () => {
   const { language } = useLanguage();
@@ -27,15 +28,21 @@ export const PromoPopup: React.FC = () => {
   const handleOpen = () => {
     setIsMinimized(false);
     setIsVisible(true);
+    trackEvent('reopen_promo_popup', { promo_name: 'escape_mahana_33' });
   };
 
   const handleBannerClick = () => {
-    // Navigate to the new landing page for the promo
+    trackEvent('select_promotion', {
+      promotion_id: 'escape_mahana_33',
+      promotion_name: 'Escape Mahana $33'
+    });
+    // Navigate to the landing page for the promo
     navigate('/estadias/escape-mahana');
   };
 
   const handleWhatsAppClick = (e: React.MouseEvent) => {
     e.stopPropagation();
+    trackWhatsAppClick('promo_popup_escape_mahana', 'escape_mahana_33');
     const number = '50762906800';
     const text = language === 'es'
       ? 'Hola Casa Mahana, me interesa la promoción Escape Mahana de $33 para 2 personas.'
@@ -74,6 +81,7 @@ export const PromoPopup: React.FC = () => {
   return (
     <div
       onClick={handleBannerClick}
+      onContextMenu={handleWhatsAppClick}
       className={`fixed bottom-6 right-6 z-50 max-w-[320px] w-[90vw] rounded-[24px] shadow-2xl border border-white/20 transition-all duration-500 cursor-pointer group overflow-hidden bg-mahana-dark ${
         isVisible ? 'translate-y-0 opacity-100 scale-100' : 'translate-y-12 opacity-0 scale-95 pointer-events-none'
       }`}
@@ -91,8 +99,9 @@ export const PromoPopup: React.FC = () => {
         <img
           src="/images/escape-mahana-promo.jpg"
           alt="Escape Mahana Promo"
+          loading="lazy"
           className="w-full h-auto object-contain transition-transform duration-500 group-hover:scale-105"
-          onError={(e) => {
+          onError={() => {
             console.error('Failed to load promo image');
           }}
         />

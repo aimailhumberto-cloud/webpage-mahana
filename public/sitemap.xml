@@ -25,10 +25,6 @@
     <priority>0.85</priority>
   </url>
   <url>
-    <loc>https://www.casamahana.com/estadias/spanish-immersion</loc>
-    <priority>0.85</priority>
-  </url>
-  <url>
     <loc>https://www.casamahana.com/pasadias</loc>
     <priority>0.90</priority>
   </url>
