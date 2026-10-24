@@ -15,8 +15,8 @@ export const ProductsHook: React.FC = () => {
       title: language === 'es' ? 'Estadías' : 'Stays',
       subtitle: language === 'es' ? 'Mahana Experience & Todo Incluido' : 'Mahana Experience & All-Inclusive',
       desc: language === 'es'
-        ? 'Habitaciones Doble, Estándar, Familiar y Camping rodeadas de naturaleza. Desayuno, piscina, WiFi y más desde $70/noche.'
-        : 'Double, Standard, Family & Camping rooms surrounded by nature. Breakfast, pool, WiFi and more from $70/night.',
+        ? 'Habitaciones Doble, Estándar, Familiar y Camping rodeadas de naturaleza. Desayuno, piscina, WiFi y más desde $49.50/noche.'
+        : 'Double, Standard, Family & Camping rooms surrounded by nature. Breakfast, pool, WiFi and more from $49.50/night.',
       gradient: 'from-turquoise-600 to-turquoise-800',
       bgImage: media.exp_stays,
       badge: language === 'es' ? 'Hospedaje' : 'Lodging',

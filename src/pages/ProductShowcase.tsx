@@ -12,7 +12,7 @@ export const ProductShowcase: React.FC = () => {
     {
       key: 'mahana' as const,
       img: 'https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=800&q=80',
-      price: '$70',
+      price: '$49.50',
       priceUnit: t('common.nights'),
       category: 'Estadía' as const,
       planCode: 'mahana_exp',
@@ -30,7 +30,7 @@ export const ProductShowcase: React.FC = () => {
     {
       key: 'all_inclusive' as const,
       img: 'https://images.unsplash.com/photo-1506929562872-bb421503ef21?auto=format&fit=crop&w=800&q=80',
-      price: '$120',
+      price: '$66',
       priceUnit: t('common.nights'),
       category: 'Estadía' as const,
       planCode: 'todo_incluido',
