@@ -72,7 +72,7 @@ export const Hero: React.FC = () => {
   };
 
   return (
-    <section id="inicio" className="relative min-h-[92vh] sm:min-h-[95vh] flex flex-col justify-between overflow-hidden bg-black pt-16 pb-12 sm:pb-16">
+    <section id="inicio" className="relative min-h-[92vh] sm:min-h-[95vh] flex flex-col justify-between overflow-hidden bg-black pt-16 pb-12 sm:pb-16 band-full-bleed">
       {/* Slideshow background — natural, bright sunlit resort photography */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         {slides.map((slide, index) => (
@@ -86,50 +86,52 @@ export const Hero: React.FC = () => {
             }}
           />
         ))}
-        {/* Soft natural photographic vignette — NO dark purple/blue overlay */}
-        <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/45 to-transparent" />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-transparent to-black/35" />
+        {/* Soft natural photographic vignette */}
+        <div className="absolute inset-0 bg-gradient-to-r from-black/85 via-black/50 to-black/25" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/40" />
       </div>
 
-      {/* Main Hero Header & Titles */}
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full z-10 my-auto pt-6 pb-8">
-        <div className="max-w-3xl text-left space-y-6">
+      {/* Main Hero Header & Titles — Fluid Editorial Spanning */}
+      <div className="relative container-fluid z-10 my-auto pt-8 pb-10">
+        <div className="max-w-4xl text-left space-y-6">
           {/* Natural Location Tag */}
-          <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 bg-black/40 backdrop-blur-md border border-white/25 rounded-full text-white text-xs uppercase tracking-widest font-semibold">
+          <div className="inline-flex items-center space-x-2 px-4 py-1.5 bg-black/40 backdrop-blur-md border border-white/20 rounded-full text-sand-100 text-xs uppercase tracking-widest font-semibold shadow-glass">
             <MapPin className="w-3.5 h-3.5 text-turquoise-400" />
-            <span>Chame, Panamá</span>
+            <span>Chame, Panamá · A 1h de la Ciudad</span>
           </div>
 
-          {/* Editorial Boutique Title */}
+          {/* Editorial Boutique Serif Headline */}
           <div className="space-y-4">
-            <h1 className="text-3xl sm:text-5xl lg:text-[56px] font-black tracking-tight text-white leading-[1.08] font-sans drop-shadow-lg uppercase">
+            <h1 className="text-4xl sm:text-6xl lg:text-7xl xl:text-[76px] font-serif font-bold tracking-tight text-sand-50 leading-[1.06] drop-shadow-2xl">
               {t('hero.headline')}
             </h1>
-            <p className="text-base sm:text-lg text-sand-50/90 leading-relaxed font-sans max-w-2xl drop-shadow-md">
+            <p className="text-base sm:text-xl lg:text-2xl text-sand-100/90 leading-relaxed font-sans max-w-3xl drop-shadow-md">
               {t('hero.subheadline')}
             </p>
           </div>
 
           {/* Authentic Trust Badges */}
-          <div className="flex flex-wrap items-center gap-x-4 gap-y-2 pt-1 text-sand-100/90 text-xs font-semibold">
-            <span className="flex items-center gap-1.5 text-amber-300">⭐ 4.2 en Google</span>
+          <div className="flex flex-wrap items-center gap-x-5 gap-y-2.5 pt-2 text-sand-100 text-xs sm:text-sm font-semibold">
+            <span className="flex items-center gap-1.5 text-sand-300">⭐ 4.2 en Google (590+ reseñas)</span>
             <span className="text-white/40">•</span>
             <span className="flex items-center gap-1.5">🐾 Pet Friendly</span>
             <span className="text-white/40">•</span>
             <span className="flex items-center gap-1.5">🏊 3 Piscinas Tropicales</span>
+            <span className="text-white/40">•</span>
+            <span className="flex items-center gap-1.5">🍕 Horno a la Leña</span>
           </div>
         </div>
       </div>
 
-      {/* Floating Booking Bar (Minimalist Luxury Hospitality Capsule) */}
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full z-20">
+      {/* Floating Booking Bar — Fluid Responsive Hospitality Capsule */}
+      <div className="relative container-fluid z-20">
         <form
           onSubmit={handleBookingSubmit}
-          className="bg-white/95 backdrop-blur-md rounded-3xl md:rounded-full border border-white/60 shadow-2xl p-3 sm:p-3.5 transition-all"
+          className="bg-white/95 backdrop-blur-md rounded-3xl md:rounded-full border border-sand-200/70 shadow-2xl p-3 sm:p-4 transition-all"
         >
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-12 gap-2.5 sm:gap-3 items-center">
             {/* Field 1: Experiencia / Plan (4 cols) */}
-            <div className="md:col-span-4 px-3 py-1.5 text-left rounded-2xl hover:bg-sand-50/80 transition-colors">
+            <div className="md:col-span-4 px-3.5 py-1.5 text-left rounded-2xl hover:bg-sand-50/90 transition-colors">
               <label className="block text-[10px] font-extrabold uppercase tracking-widest text-turquoise-800 flex items-center gap-1.5 mb-1">
                 <Sparkles className="w-3.5 h-3.5 text-turquoise-600" />
                 <span>{language === 'es' ? 'Experiencia / Plan' : 'Experience / Plan'}</span>
@@ -161,7 +163,7 @@ export const Hero: React.FC = () => {
             </div>
 
             {/* Field 2: Huéspedes (3 cols) */}
-            <div className="md:col-span-3 px-3 py-1.5 text-left rounded-2xl hover:bg-sand-50/80 transition-colors border-t sm:border-t-0 sm:border-l border-sand-200">
+            <div className="md:col-span-3 px-3.5 py-1.5 text-left rounded-2xl hover:bg-sand-50/90 transition-colors border-t sm:border-t-0 sm:border-l border-sand-200">
               <label className="block text-[10px] font-extrabold uppercase tracking-widest text-turquoise-800 flex items-center gap-1.5 mb-1">
                 <Users className="w-3.5 h-3.5 text-turquoise-600" />
                 <span>{language === 'es' ? 'Huéspedes' : 'Guests'}</span>
@@ -180,7 +182,7 @@ export const Hero: React.FC = () => {
             </div>
 
             {/* Field 3: Fecha de Llegada (2 cols) */}
-            <div className="md:col-span-2 px-3 py-1.5 text-left rounded-2xl hover:bg-sand-50/80 transition-colors border-t sm:border-t-0 sm:border-l border-sand-200">
+            <div className="md:col-span-2 px-3.5 py-1.5 text-left rounded-2xl hover:bg-sand-50/90 transition-colors border-t sm:border-t-0 sm:border-l border-sand-200">
               <label className="block text-[10px] font-extrabold uppercase tracking-widest text-turquoise-800 flex items-center gap-1.5 mb-1">
                 <Calendar className="w-3.5 h-3.5 text-turquoise-600" />
                 <span>{language === 'es' ? 'Llegada' : 'Check-In'}</span>
@@ -197,7 +199,7 @@ export const Hero: React.FC = () => {
             <div className="md:col-span-3 pt-2 md:pt-0">
               <button
                 type="submit"
-                className="w-full flex items-center justify-center space-x-2 py-3.5 px-6 bg-turquoise-700 hover:bg-turquoise-800 active:scale-[0.98] text-white rounded-2xl md:rounded-full font-extrabold text-xs sm:text-sm transition-all shadow-md hover:shadow-lg hover:scale-[1.02]"
+                className="w-full flex items-center justify-center space-x-2 py-3.5 px-6 bg-turquoise-750 hover:bg-turquoise-800 active:scale-[0.98] text-white rounded-2xl md:rounded-full font-extrabold text-xs sm:text-sm transition-all shadow-md hover:shadow-lg hover:scale-[1.02]"
               >
                 <span>{language === 'es' ? 'Consultar Disponibilidad' : 'Check Availability'}</span>
                 <ArrowRight className="w-4 h-4" />
@@ -208,16 +210,16 @@ export const Hero: React.FC = () => {
       </div>
 
       {/* Discrete Photo Navigator Pills at bottom right */}
-      <div className="absolute bottom-3 right-6 z-10 hidden lg:flex items-center space-x-1.5 bg-black/40 backdrop-blur-md border border-white/20 rounded-full px-2.5 py-1 text-[10px]">
+      <div className="absolute bottom-4 right-8 z-10 hidden lg:flex items-center space-x-1.5 bg-black/50 backdrop-blur-md border border-white/20 rounded-full px-3 py-1.5 text-[11px]">
         {slides.map((slide, idx) => (
           <button
             key={idx}
             type="button"
             onClick={() => setCurrentIdx(idx)}
-            className={`px-2 py-0.5 rounded-full font-bold transition-all ${
+            className={`px-2.5 py-0.5 rounded-full font-bold transition-all ${
               idx === currentIdx
-                ? 'bg-white text-black shadow-xs'
-                : 'text-white/70 hover:text-white'
+                ? 'bg-white text-turquoise-950 shadow-sm'
+                : 'text-white/75 hover:text-white'
             }`}
           >
             {language === 'es' ? slide.labelEs : slide.labelEn}

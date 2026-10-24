@@ -93,3 +93,52 @@ Integrity mode: `development`
 ### Performance & Build Verification
 - [ ] All dynamic `<img />` tags for large photos (e.g. heroes, galleries, cards) use native `loading="lazy"` attribute.
 - [ ] Running `npm run build` compiles 100% successfully in under 3 seconds with zero TypeScript errors or bundler discrepancies.
+
+
+## Follow-up — 2026-10-24T12:29:33Z
+
+Overhaul the visual design and layout of the entire Casa Mahana public website (`webpage-mahana`), transforming it from a cramped, boxed layout with sterile white voids into an edge-to-edge, full-width editorial luxury boutique resort experience inspired by world-class eco-resorts.
+
+Working directory: `C:\Users\Usuario\.gemini\antigravity\scratch\webpage-mahana`
+Integrity mode: development
+
+## Requirements
+
+### R1. Full-Width Edge-to-Edge Layout Architecture
+Eliminate narrow centered container boxes (`max-w-5xl`, `max-w-4xl`) that leave massive empty white margins on desktop displays. Restructure all major catalog hubs and pages to leverage full screen width (fluid full-bleed sections, edge-to-edge photography bands, and balanced grid layouts) on both mobile and widescreen desktop viewports.
+
+### R2. High-Impact Horizontal Experience Showcases
+Replace cramped vertical product cards with expansive horizontal split showcases (50-60% large-format imagery / 40-50% editorial package breakdown) across key catalog pages:
+- **Pasadías Hub (`/pasadias`)**: Full-width showcases for 'Pasadía Todo Incluido' ($38.50) and 'Pool Day' ($5.50), plus an edge-to-edge inclusion comparison matrix and poolside atmosphere gallery.
+- **Estadías Hub (`/estadias`)**: Expansive panoramic suite showcases for Double, Family, Standard, and Glamping accommodations with rich amenities, room specs, and direct booking actions.
+- **Experiencias Hub (`/experiencias`)**: Unified full-width showcase comparing stays, day passes, and dining.
+
+### R3. Home Page Luxury Upgrade (`/`)
+Transform the homepage into a seamless, full-screen magazine-style resort narrative:
+- Elevate the Hero with clean, sun-drenched resort photography, refined editorial typography, and the floating booking capsule.
+- Redesign 'Nuestras Experiencias' (`ProductsHook`) and 'Modalidades & Tarifas' (`LodgingPackages`) into full-width visual bands with large photography and clear price badges.
+- Expand the Wood-Fired Restaurant (`Restaurant`) and Facilities sections into edge-to-edge visual stories.
+
+### R4. Experience Destination Pages Overhaul
+Bring the full-bleed tropical resort design to the specialized destination pages:
+- **Restaurante (`/restaurante`)**: Full-bleed culinary showcase featuring wood-fired pizzas, fresh seafood, signature cocktails, and elegant interactive digital menu.
+- **Surf Shack (`/surf-shack`)**: Oceanfront beach club vibe with panoramic Caracol beach imagery, surf lesson packages, and coastal aesthetics.
+- **Mahana Tours (`/mahana-tours`) & Eventos (`/eventos`)**: High-impact visual presentations for buggy tours, island boat trips, and private wedding buyouts.
+
+### R5. Preservation of Analytics, Booking Handoff & SEO Integrity
+Maintain all existing functional engines:
+- Pre-populated URL booking redirects to the PMS (`/reservar?plan=...&guests=...&date=...`).
+- Google Analytics 4 (`G-02NLS8E3LG`) tracking and virtual pageviews (`analytics.ts`).
+- Dynamic and static pre-rendered SEO metadata (`SEO.tsx`, `scripts/prerender-seo.mjs`).
+- Seamless Spanish and English bilingual toggle (`LanguageContext.tsx`).
+
+## Acceptance Criteria
+
+### Visual & Technical Verification
+- [ ] No page has empty white side margins exceeding standard responsive padding on 1080p+ widescreen monitors.
+- [ ] All experience cards in `/pasadias` use horizontal split layouts with images occupying at least 380px height or 50% width on desktop.
+- [ ] Visual inclusion comparison matrix is live on `/pasadias` comparing Pool Day vs Pasadía Todo Incluido.
+- [ ] The homepage (`/`), `/estadias`, `/pasadias`, `/restaurante`, and `/surf-shack` render with full-bleed imagery and warm resort color palettes.
+- [ ] Clicking any booking CTA successfully navigates to `/reservar` with the exact corresponding `planCode`, guest count, and category preserved in URL params.
+- [ ] `npm run build` completes with 0 errors and generates all 14 prerendered SEO routes.
+- [ ] Responsive inspection confirms seamless fluid layouts on both mobile (375px-430px) and desktop (1440px-1920px).

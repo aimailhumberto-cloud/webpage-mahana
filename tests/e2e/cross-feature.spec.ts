@@ -1,285 +1,215 @@
 import { test, expect } from '@playwright/test';
-import { resetDatabase } from './utils/db-helpers';
-import Database from 'better-sqlite3';
-import * as fs from 'fs';
-import * as path from 'path';
-import { fileURLToPath } from 'url';
-
-const crossFilename = fileURLToPath(import.meta.url);
-const crossDirname = path.dirname(crossFilename);
 
 test.describe('Casa Mahana E2E Tier 3 Cross-Feature Combination Tests', () => {
-  let tempJpgPath: string;
 
-  test.beforeAll(() => {
-    const assetsDir = path.join(crossDirname, 'assets');
-    if (!fs.existsSync(assetsDir)) {
-      fs.mkdirSync(assetsDir, { recursive: true });
-    }
-    tempJpgPath = path.join(assetsDir, 'test-cross.jpg');
-    fs.writeFileSync(tempJpgPath, 'Dummy JPG content for cross feature tests');
+  test.beforeEach(async ({ page }) => {
+    // Intercept PMS booking redirect cleanly
+    await page.route('https://casa-mahana-pms.onrender.com/**', route => {
+      return route.fulfill({
+        status: 200,
+        contentType: 'text/html',
+        body: '<html><body>PMS Mock Page</body></html>'
+      });
+    });
   });
 
-  test.afterAll(() => {
-    if (fs.existsSync(tempJpgPath)) {
-      fs.unlinkSync(tempJpgPath);
-    }
+  test('1. i18n Language Persistence across Client-Side Route Navigation', async ({ page }) => {
+    await page.goto('/');
+    await page.waitForLoadState('domcontentloaded');
+
+    // Switch to English
+    const switcher = page.locator('button[aria-label="Switch Language"]').first();
+    await switcher.click();
+    await page.waitForTimeout(100);
+
+    // Verify Homepage is in English
+    await expect(page.locator('text=Your Tropical Sanctuary in the Heart of Chame')).toBeVisible();
+
+    // Navigate to Stays Hub via header link
+    await page.locator('header nav a:has-text("Home")').first().waitFor();
+    await page.goto('/estadias');
+    await page.waitForLoadState('domcontentloaded');
+
+    // Verify Stays Hub rendered in English without resetting
+    await expect(page.locator('h1')).toContainText('Rooms & Capacities');
+    await expect(page.getByText('Max Capacity')).toBeVisible();
+
+    // Navigate to Pasadías Hub
+    await page.goto('/pasadias');
+    await page.waitForLoadState('domcontentloaded');
+
+    // Verify Pasadías Hub is in English
+    await expect(page.getByText('Our Day Pass Packages in Chame')).toBeVisible();
+
+    // Check localStorage persistence
+    const savedLanguage = await page.evaluate(() => localStorage.getItem('language'));
+    expect(savedLanguage).toBe('en');
   });
 
-  test.beforeEach(async () => {
-    resetDatabase();
+  test('2. i18n Language Persistence across Page Reload', async ({ page }) => {
+    await page.goto('/surf-shack');
+    await page.waitForLoadState('domcontentloaded');
+
+    // Switch to English
+    const switcher = page.locator('button[aria-label="Switch Language"]').first();
+    await switcher.click();
+    await page.waitForTimeout(100);
+
+    // Verify English text
+    await expect(page.getByRole('heading', { name: 'National Surf Academy' })).toBeVisible();
+
+    // Reload page
+    await page.reload();
+    await page.waitForLoadState('domcontentloaded');
+
+    // Must remain in English
+    await expect(page.getByRole('heading', { name: 'National Surf Academy' })).toBeVisible();
+    const savedLanguage = await page.evaluate(() => localStorage.getItem('language'));
+    expect(savedLanguage).toBe('en');
   });
 
-  const getFutureDates = () => {
-    const today = new Date();
-    const nextWeek = new Date(today.getTime() + 7 * 24 * 60 * 60 * 1000);
-    const inTwoWeeks = new Date(today.getTime() + 9 * 24 * 60 * 60 * 1000);
-    const checkInStr = nextWeek.toISOString().split('T')[0];
-    const checkOutStr = inTwoWeeks.toISOString().split('T')[0];
-    return { checkInStr, checkOutStr };
-  };
+  test('3. Reactive SEO Metadata Updates across Route Transitions & Language Toggling', async ({ page }) => {
+    await page.goto('/estadias');
+    await page.waitForLoadState('domcontentloaded');
 
-  const getRoomCard = (page: any, tipo: string) => {
-    return page.locator('div.rounded-2xl.border.bg-white', { has: page.locator('h3', { hasText: tipo }) }).first();
-  };
+    // Verify Spanish SEO Title
+    await expect(page).toHaveTitle(/Habitaciones y Tarifas|Casa Mahana/);
 
-  const getRoomGroup = (page: any, num: number) => {
-    return page.locator('div.p-5.rounded-2xl.border', { hasText: `Habitación ${num}` }).first();
-  };
+    // Toggle language to English
+    const switcher = page.locator('button[aria-label="Switch Language"]').first();
+    await switcher.click();
+    await page.waitForTimeout(150);
 
-  test('1. i18n Translation Persistence & Toggle throughout Checkout', async ({ page }) => {
-    await page.goto('/reservar');
-    
-    // Switch to English in Step 1
-    await page.locator('button[aria-label="Switch Language"]').click();
-    await expect(page.locator('text=Select Experience')).toBeVisible();
+    // Title should dynamically update to English
+    await expect(page).toHaveTitle(/Rooms & Suites|Casa Mahana/);
 
-    const { checkInStr, checkOutStr } = getFutureDates();
-    await page.locator('label:has-text("Check-in Date") + input[type="date"]').fill(checkInStr);
-    await page.locator('label:has-text("Check-out Date") + input[type="date"]').fill(checkOutStr);
-    await page.locator('button:has-text("Check Availability")').click();
+    // Navigate to Restaurante
+    await page.goto('/restaurante');
+    await page.waitForLoadState('domcontentloaded');
 
-    // Verify Step 2 is in English
-    await expect(page.locator('text=Choose a room to add')).toBeVisible();
-
-    // Switch back to Spanish
-    await page.locator('button[aria-label="Switch Language"]').click();
-    await expect(page.locator('text=Elige una habitación para agregar')).toBeVisible();
+    // Title should update for restaurant in English
+    await expect(page).toHaveTitle(/Wood-Fired Gourmet Restaurant|Casa Mahana/);
   });
 
-  test('2. Experience Category Toggle: Cart is cleared and state reset upon switching Stay/Pasadía', async ({ page }) => {
-    await page.goto('/reservar');
-    const { checkInStr, checkOutStr } = getFutureDates();
-    await page.locator('label:has-text("Fecha de Check-in") + input[type="date"]').fill(checkInStr);
-    await page.locator('label:has-text("Fecha de Check-out") + input[type="date"]').fill(checkOutStr);
-    await page.locator('button:has-text("Ver Disponibilidad")').click();
+  test('4. Marketing Attribution Continuity: UTM & Click ID Forwarding to PMS Booking URL', async ({ page }) => {
+    let capturedPmsUrl = '';
+    await page.route('https://casa-mahana-pms.onrender.com/**', route => {
+      capturedPmsUrl = route.request().url();
+      return route.fulfill({ status: 200, contentType: 'text/html', body: '<html><body>PMS</body></html>' });
+    });
 
-    // Add Estándar to cart
-    await getRoomCard(page, 'Estándar').locator('button:has-text("+")').click();
-    await expect(page.locator('text=Tu Carrito de Habitaciones')).toBeVisible();
+    // Guest lands with marketing campaign parameters
+    await page.goto('/?utm_source=meta_ads&utm_medium=social_cpc&utm_campaign=summer_escape&gclid=gclid_mock_999');
+    await page.waitForLoadState('domcontentloaded');
 
-    // Switch to Pasadía
-    await page.locator('button:has-text("Pasadía (Por el día)")').click();
+    // Check attribution was captured in sessionStorage
+    const attributionData = await page.evaluate(() => {
+      return sessionStorage.getItem('mahana_attribution_v1');
+    });
+    expect(attributionData).not.toBeNull();
+    expect(attributionData).toContain('meta_ads');
+    expect(attributionData).toContain('summer_escape');
 
-    // Verify cart is emptied automatically (cart banner not visible)
-    await expect(page.locator('text=Tu Carrito de Habitaciones')).not.toBeVisible();
+    // Guest browses to Pasadías Hub
+    await page.goto('/pasadias');
+    await page.waitForLoadState('domcontentloaded');
+
+    // Guest clicks booking button on the All-Inclusive Day Pass
+    await page.getByRole('button', { name: 'Reservar', exact: true }).first().click();
+
+    // Verify PMS target URL preserved both functional and marketing parameters
+    await expect.poll(() => capturedPmsUrl).toContain('plan=pasadia_comidas');
+    await expect.poll(() => capturedPmsUrl).toContain('utm_source=meta_ads');
+    await expect.poll(() => capturedPmsUrl).toContain('utm_medium=social_cpc');
+    await expect.poll(() => capturedPmsUrl).toContain('utm_campaign=summer_escape');
+    await expect.poll(() => capturedPmsUrl).toContain('gclid=gclid_mock_999');
   });
 
-  test('3. Cart Recalculation: Dates modification correctly updates live quote in Cart', async ({ page }) => {
-    await page.goto('/reservar');
-    const { checkInStr, checkOutStr } = getFutureDates();
-    await page.locator('label:has-text("Fecha de Check-in") + input[type="date"]').fill(checkInStr);
-    await page.locator('label:has-text("Fecha de Check-out") + input[type="date"]').fill(checkOutStr);
-    await page.locator('button:has-text("Ver Disponibilidad")').click();
+  test('5. Homepage Floating Booking Capsule: Interacts with dates/plans/guests and redirects to PMS', async ({ page }) => {
+    let capturedPmsUrl = '';
+    await page.route('https://casa-mahana-pms.onrender.com/**', route => {
+      capturedPmsUrl = route.request().url();
+      return route.fulfill({ status: 200, contentType: 'text/html', body: '<html><body>PMS</body></html>' });
+    });
 
-    // Add Doble to cart
-    await getRoomCard(page, 'Doble').locator('button:has-text("+")').click();
-    
-    const firstTotalText = await page.locator('span:has-text("Total de tu estadía") + p').innerText();
-    const firstTotal = parseFloat(firstTotalText.replace('$', ''));
+    await page.goto('/');
+    await page.waitForLoadState('domcontentloaded');
 
-    // Go back to step 1
-    await page.click('button:has-text("Cambiar fechas")');
+    // Select plan: Escape Mahana
+    const planSelect = page.locator('section#inicio select').first();
+    await planSelect.selectOption({ value: 'escape_mahana' });
 
-    // Change checkout date to 3 nights instead of 2 (checkInStr is nextWeek, so make checkOutStr inThreeWeeks)
-    const inThreeWeeks = new Date(new Date().getTime() + 10 * 24 * 60 * 60 * 1000).toISOString().split('T')[0];
-    await page.locator('label:has-text("Fecha de Check-out") + input[type="date"]').fill(inThreeWeeks);
-    await page.locator('button:has-text("Ver Disponibilidad")').click();
+    // Select guests: 4 Personas
+    const guestsSelect = page.locator('section#inicio select').nth(1);
+    await guestsSelect.selectOption({ value: '4' });
 
-    const secondTotalText = await page.locator('span:has-text("Total de tu estadía") + p').innerText();
-    const secondTotal = parseFloat(secondTotalText.replace('$', ''));
+    // Set check-in date
+    const dateInput = page.locator('section#inicio input[type="date"]');
+    await dateInput.fill('2026-11-20');
 
-    expect(secondTotal).toBeGreaterThan(firstTotal);
+    // Click submit
+    await page.locator('section#inicio button[type="submit"]').click();
+
+    // Verify PMS URL received parameters
+    await expect.poll(() => capturedPmsUrl).toContain('plan=escape_mahana');
+    await expect.poll(() => capturedPmsUrl).toContain('guests=4');
+    await expect.poll(() => capturedPmsUrl).toContain('date=2026-11-20');
   });
 
-  test('4. Guest Reallocation: Surcharge live updates when varying adults/minors/pets mix', async ({ page }) => {
-    await page.goto('/reservar');
-    const { checkInStr, checkOutStr } = getFutureDates();
-    await page.locator('label:has-text("Fecha de Check-in") + input[type="date"]').fill(checkInStr);
-    await page.locator('label:has-text("Fecha de Check-out") + input[type="date"]').fill(checkOutStr);
-    await page.locator('button:has-text("Ver Disponibilidad")').click();
+  test('6. Header Desktop CTA: Direct PMS booking redirect', async ({ page }) => {
+    let capturedPmsUrl = '';
+    await page.route('https://casa-mahana-pms.onrender.com/**', route => {
+      capturedPmsUrl = route.request().url();
+      return route.fulfill({ status: 200, contentType: 'text/html', body: '<html><body>PMS</body></html>' });
+    });
 
-    await getRoomCard(page, 'Familiar').locator('button:has-text("+")').click();
-    await page.click('button:has-text("Siguiente: Distribuir Huéspedes")');
+    await page.setViewportSize({ width: 1440, height: 900 });
+    await page.goto('/');
+    await page.waitForLoadState('domcontentloaded');
 
-    const firstTotalText = await page.locator('span:has-text("Hab. Total") + span').innerText();
-    const firstTotal = parseFloat(firstTotalText.replace('$', ''));
+    // Click desktop header CTA button
+    const headerCta = page.locator('header button:has-text("Reservar Hospedaje")').first();
+    await headerCta.click();
 
-    // Increment adults (from 1 to 2)
-    const room1 = getRoomGroup(page, 1);
-    await room1.locator('button:has-text("+")').first().click();
-    await page.waitForTimeout(1000);
-
-    const secondTotalText = await page.locator('span:has-text("Hab. Total") + span').innerText();
-    const secondTotal = parseFloat(secondTotalText.replace('$', ''));
-
-    expect(secondTotal).toBeGreaterThan(firstTotal);
+    await expect.poll(() => capturedPmsUrl).toContain('https://casa-mahana-pms.onrender.com/reservar');
   });
 
-  test('5. Multi-room transaction: Verify room isolation & checkout matching group code', async ({ page }) => {
-    await page.goto('/reservar');
-    const { checkInStr, checkOutStr } = getFutureDates();
-    await page.locator('label:has-text("Fecha de Check-in") + input[type="date"]').fill(checkInStr);
-    await page.locator('label:has-text("Fecha de Check-out") + input[type="date"]').fill(checkOutStr);
-    await page.locator('label:has-text("Adultos") + select').selectOption({ value: '3' });
-    await page.locator('button:has-text("Ver Disponibilidad")').click();
+  test('7. Mobile Menu CTA: Booking redirection from mobile drawer', async ({ page }) => {
+    let capturedPmsUrl = '';
+    await page.route('https://casa-mahana-pms.onrender.com/**', route => {
+      capturedPmsUrl = route.request().url();
+      return route.fulfill({ status: 200, contentType: 'text/html', body: '<html><body>PMS</body></html>' });
+    });
 
-    // Add Doble and Estándar
-    await getRoomCard(page, 'Doble').locator('button:has-text("+")').click();
-    await getRoomCard(page, 'Estándar').locator('button:has-text("+")').click();
+    await page.setViewportSize({ width: 375, height: 667 });
+    await page.goto('/');
+    await page.waitForLoadState('domcontentloaded');
 
-    await page.click('button:has-text("Siguiente: Distribuir Huéspedes")');
+    // Open mobile menu
+    await page.locator('header button').filter({ has: page.locator('svg.lucide-menu') }).click();
 
-    // Room 1 (Doble) has 1 adult by default. Set to 2 adults (1 + 1 = 2)
-    const room1 = getRoomGroup(page, 1);
-    await room1.locator('button:has-text("+")').first().click();
+    // Click mobile booking CTA
+    const mobileCta = page.locator('header .lg\\:hidden button:has-text("Reservar Hospedaje")');
+    await mobileCta.click();
 
-    // Room 2 (Estándar) has 1 adult by default. Set to 1 adult (so we have exactly 3 adults in total search, satisfying perfect match)
-    // Wait, Estándar min cap is 2! So let's check. Ah, perfect. 
-    // Total assigned: Doble = 2, Estándar = 2 (Total 4). So we can toggle search adults to 4!
-    // But since search was 3, let's satisfy perfect allocation:
-    // Assigned: Room 1 (Doble) = 2, Room 2 (Estándar) = 1 (Total 3)
-    // But Estándar will show "Supera Capacidad" warning because its min capacity is 2.
-    // Let's go back and search for 4 adults!
-    await page.click('button:has-text("Volver a habitaciones")');
-    await page.click('button:has-text("Cambiar fechas")');
-    await page.locator('label:has-text("Adultos") + select').selectOption({ value: '4' });
-    await page.locator('button:has-text("Ver Disponibilidad")').click();
-
-    // Add Doble and Estándar
-    await getRoomCard(page, 'Doble').locator('button:has-text("+")').click();
-    await getRoomCard(page, 'Estándar').locator('button:has-text("+")').click();
-    await page.click('button:has-text("Siguiente: Distribuir Huéspedes")');
-
-    // Room 1 (Doble) default 1. Increment to 2 adults.
-    await getRoomGroup(page, 1).locator('button:has-text("+")').first().click();
-    // Room 2 (Estándar) default 1. Increment to 2 adults.
-    await getRoomGroup(page, 2).locator('button:has-text("+")').first().click();
-
-    // Verify perfect allocation
-    await expect(page.locator('text=¡Perfecto! Todos los huéspedes y mascotas han sido asignados correctamente.')).toBeVisible();
-
-    await page.click('button:has-text("Siguiente: Datos de Huésped")');
-    await page.locator('label:has-text("Nombre") + input').fill('Pedro');
-    await page.locator('label:has-text("Apellido") + input').fill('Castillo');
-    await page.locator('label:has-text("Correo Electrónico") + input').fill('pedro.castillo@test.com');
-    await page.click('button:has-text("Siguiente: Proceder al Pago")');
-
-    await page.locator('button:has-text("Transferencia / Yappy / Cupón")').click();
-    await page.locator('label:has-text("Referencia de Transacción") + input').fill('REF-MULTI-CROSS');
-
-    // Upload file
-    const fileChooserPromise = page.waitForEvent('filechooser');
-    await page.locator('#public-receipt-input').click();
-    const fileChooser = await fileChooserPromise;
-    await fileChooser.setFiles(tempJpgPath);
-
-    await page.click('button:has-text("Confirmar Reserva y Subir Recibo")');
-
-    // Verify step 6 confirmation
-    await expect(page.locator('text=¡Tu solicitud de reserva ha sido enviada!')).toBeVisible();
-
-    // Extract group code
-    const groupCodeText = await page.locator('p:has-text("REF-") + p').innerText();
-    expect(groupCodeText.startsWith('#')).toBe(true);
-
-    // Query database to verify both rooms have the same grupo_codigo
-    const code = groupCodeText.replace('#', '');
-    const db = new Database(`C:\\Users\\Usuario\\.gemini\\antigravity\\scratch\\casa-mahana-pms\\data\\casa-mahana-test.db`);
-    try {
-      const dbReservations = db.prepare("SELECT * FROM reservas_hotel WHERE grupo_codigo = ?").all(code) as any[];
-      expect(dbReservations.length).toBe(2);
-      expect(dbReservations[0].tipo_habitacion).not.toBe(dbReservations[1].tipo_habitacion);
-    } finally {
-      db.close();
-    }
+    await expect.poll(() => capturedPmsUrl).toContain('https://casa-mahana-pms.onrender.com/reservar');
   });
 
-  test('6. PayPal API Integration: Toggle online payment dynamically matches backend settings', async ({ page }) => {
-    // Manually disable PayPal in backend
-    const db = new Database(`C:\\Users\\Usuario\\.gemini\\antigravity\\scratch\\casa-mahana-pms\\data\\casa-mahana-test.db`);
-    try {
-      db.prepare("UPDATE config_hotel SET valor = '' WHERE clave = 'paypal_client_id'").run();
-    } finally {
-      db.close();
-    }
+  test('8. Estadías Hub Booking Action: Correctly passes mahana_exp and category to PMS', async ({ page }) => {
+    let capturedPmsUrl = '';
+    await page.route('https://casa-mahana-pms.onrender.com/**', route => {
+      capturedPmsUrl = route.request().url();
+      return route.fulfill({ status: 200, contentType: 'text/html', body: '<html><body>PMS</body></html>' });
+    });
 
-    await page.goto('/reservar');
-    const { checkInStr, checkOutStr } = getFutureDates();
-    await page.locator('label:has-text("Fecha de Check-in") + input[type="date"]').fill(checkInStr);
-    await page.locator('label:has-text("Fecha de Check-out") + input[type="date"]').fill(checkOutStr);
-    await page.locator('button:has-text("Ver Disponibilidad")').click();
+    await page.goto('/estadias');
+    await page.waitForLoadState('domcontentloaded');
 
-    await getRoomCard(page, 'Estándar').locator('button:has-text("+")').click();
-    await page.click('button:has-text("Siguiente: Distribuir Huéspedes")');
-    await page.click('button:has-text("Siguiente: Datos de Huésped")');
+    // Click "Reservar Habitación" on the first room card
+    await page.locator('button:has-text("Reservar Habitación")').first().click();
 
-    await page.locator('label:has-text("Nombre") + input').fill('Maria');
-    await page.locator('label:has-text("Apellido") + input').fill('Gomez');
-    await page.locator('label:has-text("Correo Electrónico") + input').fill('maria.gomez@test.com');
-    await page.click('button:has-text("Siguiente: Proceder al Pago")');
-
-    // Click PayPal tab
-    await page.locator('button:has-text("Pago Seguro Online")').click();
-    // Verify system shows unavailable banner since enabled = 0
-    await expect(page.locator('text=Sistema de pago online no disponible temporalmente')).toBeVisible();
+    await expect.poll(() => capturedPmsUrl).toContain('plan=mahana_exp');
+    await expect.poll(() => capturedPmsUrl).toContain('category=Estad%C3%ADa');
   });
 
-  test('7. Offline Payment Method Switching: UI state and uploaded file persist between sub-tabs', async ({ page }) => {
-    await page.goto('/reservar');
-    const { checkInStr, checkOutStr } = getFutureDates();
-    await page.locator('label:has-text("Fecha de Check-in") + input[type="date"]').fill(checkInStr);
-    await page.locator('label:has-text("Fecha de Check-out") + input[type="date"]').fill(checkOutStr);
-    await page.locator('button:has-text("Ver Disponibilidad")').click();
-
-    await getRoomCard(page, 'Estándar').locator('button:has-text("+")').click();
-    await page.click('button:has-text("Siguiente: Distribuir Huéspedes")');
-    await page.click('button:has-text("Siguiente: Datos de Huésped")');
-
-    await page.locator('label:has-text("Nombre") + input').fill('Maria');
-    await page.locator('label:has-text("Apellido") + input').fill('Gomez');
-    await page.locator('label:has-text("Correo Electrónico") + input').fill('maria.gomez@test.com');
-    await page.click('button:has-text("Siguiente: Proceder al Pago")');
-
-    await page.locator('button:has-text("Transferencia / Yappy / Cupón")').click();
-    
-    // Fill reference
-    await page.locator('label:has-text("Referencia de Transacción") + input').fill('REF-CROSS-PERSIST');
-
-    // Upload file
-    const fileChooserPromise = page.waitForEvent('filechooser');
-    await page.locator('#public-receipt-input').click();
-    const fileChooser = await fileChooserPromise;
-    await fileChooser.setFiles(tempJpgPath);
-
-    // Switch from Transferencia to Yappy sub-tab
-    await page.locator('button:has-text("Yappy")').click();
-
-    // Verify instructions change but reference and file persist
-    await expect(page.locator('text=Envía tu yappy al')).toBeVisible();
-    
-    const referenceVal = await page.locator('label:has-text("Referencia de Transacción") + input').inputValue();
-    expect(referenceVal).toBe('REF-CROSS-PERSIST');
-    await expect(page.locator('p:has-text("test-cross.jpg")')).toBeVisible();
-  });
 });

@@ -2,6 +2,15 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Fluid Responsive Containers & Full-Bleed Bands */
+.container-fluid {
+  @apply w-full max-w-[1680px] 2xl:max-w-[1800px] mx-auto px-4 sm:px-8 lg:px-12 xl:px-16;
+}
+
+.band-full-bleed {
+  @apply w-full relative overflow-hidden;
+}
+
 @layer utilities {
   /* Premium Micro-Animations & Keyframes */
   .animate-fade-in-up {

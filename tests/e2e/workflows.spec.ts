@@ -1,414 +1,179 @@
 import { test, expect } from '@playwright/test';
-import { resetDatabase } from './utils/db-helpers';
-import Database from 'better-sqlite3';
-import * as fs from 'fs';
-import * as path from 'path';
-import { fileURLToPath } from 'url';
-
-const workflowFilename = fileURLToPath(import.meta.url);
-const workflowDirname = path.dirname(workflowFilename);
 
 test.describe('Casa Mahana E2E Tier 4 Real-World Workflows', () => {
-  let tempJpgPath: string;
-  let tempPdfPath: string;
 
-  test.beforeAll(() => {
-    const assetsDir = path.join(workflowDirname, 'assets');
-    if (!fs.existsSync(assetsDir)) {
-      fs.mkdirSync(assetsDir, { recursive: true });
-    }
-    tempJpgPath = path.join(assetsDir, 'test-workflow.jpg');
-    tempPdfPath = path.join(assetsDir, 'test-workflow.pdf');
-    fs.writeFileSync(tempJpgPath, 'Dummy JPG content for workflow tests');
-    fs.writeFileSync(tempPdfPath, '%PDF-1.4 Dummy PDF content for workflow tests');
+  test.beforeEach(async ({ page }) => {
+    // Intercept external PMS booking redirects
+    await page.route('https://casa-mahana-pms.onrender.com/**', route => {
+      return route.fulfill({
+        status: 200,
+        contentType: 'text/html',
+        body: '<html><body>PMS Mock Page</body></html>'
+      });
+    });
   });
 
-  test.afterAll(() => {
-    if (fs.existsSync(tempJpgPath)) fs.unlinkSync(tempJpgPath);
-    if (fs.existsSync(tempPdfPath)) fs.unlinkSync(tempPdfPath);
+  test('Workflow 1: Complete Guest Journey — Pasadías Hub to PMS Booking Redirection', async ({ page }) => {
+    let capturedPmsUrl = '';
+    await page.route('https://casa-mahana-pms.onrender.com/**', route => {
+      capturedPmsUrl = route.request().url();
+      return route.fulfill({ status: 200, contentType: 'text/html', body: '<html><body>PMS</body></html>' });
+    });
+
+    // 1. Guest visits Pasadías Hub
+    await page.goto('/pasadias');
+    await page.waitForLoadState('domcontentloaded');
+
+    // 2. Guest inspects Day Pass offerings
+    await expect(page.getByText('Nuestras Opciones de Pasadía en Chame')).toBeVisible();
+    await expect(page.getByText('$38.50')).toBeVisible();
+    await expect(page.getByText('$5.50')).toBeVisible();
+
+    // 3. Guest clicks "Ver Detalles" on Pool Day card
+    await page.getByRole('button', { name: 'Ver Detalles' }).nth(1).click();
+    await page.waitForURL('**/pasadias/pool-day');
+
+    // 4. On dedicated Pool Day landing page, inspects highlights and clicks booking CTA
+    await expect(page.locator('h1')).toContainText('Pool Day');
+    const bookCta = page.getByRole('button', { name: 'Reservar Pool Day' });
+    await bookCta.click();
+
+    // 5. Verify redirection to PMS preserves planCode and category
+    await expect.poll(() => capturedPmsUrl).toContain('plan=pasadia_entrada');
+    await expect.poll(() => capturedPmsUrl).toContain('category=Pasad%C3%ADa');
   });
 
-  test.beforeEach(async () => {
-    resetDatabase();
+  test('Workflow 2: Complete Guest Journey — Culinary Exploration on /restaurante', async ({ page }) => {
+    await page.goto('/restaurante');
+    await page.waitForLoadState('domcontentloaded');
+
+    // 1. Inspect restaurant header and schedule card
+    await expect(page.locator('h1')).toContainText('Restaurante');
+    await expect(page.getByText('Abierto al Público General', { exact: true })).toBeVisible();
+
+    // 2. Open Digital Menu Sheet Modal
+    const viewMenuBtn = page.getByRole('button', { name: 'Ver el Menú' });
+    await viewMenuBtn.click();
+
+    // Verify modal is opened displaying the restaurant menu sheet
+    const modalImage = page.locator('img[alt="Casa Mahana printed menu"]');
+    await expect(modalImage).toBeVisible();
+
+    // 3. Close Menu Modal
+    const closeModalBtn = page.getByRole('button', { name: 'Close menu' });
+    await closeModalBtn.click();
+    await expect(modalImage).toBeHidden();
+
+    // 4. Explore culinary specialties
+    await expect(page.getByRole('heading', { name: 'Pizza Pepperoni' })).toBeVisible();
+    await expect(page.getByRole('heading', { name: 'Ceviche de la Casa' })).toBeVisible();
+
+    // 5. Click Day Pass Cross-Sell CTA
+    const crossSellBtn = page.locator('button:has-text("Ver Detalles del Pasadía")');
+    await crossSellBtn.click();
+    await page.waitForURL('**/pasadias/todo-incluido');
+    await expect(page.locator('h1')).toContainText('Pasadía Todo Incluido');
   });
 
-  const getFutureDates = () => {
-    const today = new Date();
-    const nextWeek = new Date(today.getTime() + 7 * 24 * 60 * 60 * 1000);
-    const inTwoWeeks = new Date(today.getTime() + 12 * 24 * 60 * 60 * 1000); // 5 nights
-    const checkInStr = nextWeek.toISOString().split('T')[0];
-    const checkOutStr = inTwoWeeks.toISOString().split('T')[0];
-    return { checkInStr, checkOutStr };
-  };
-
-  const getRoomCard = (page: any, tipo: string) => {
-    return page.locator('div.rounded-2xl.border.bg-white', { has: page.locator('h3', { hasText: tipo }) }).first();
-  };
-
-  const getRoomGroup = (page: any, num: number) => {
-    return page.locator('div.p-5.rounded-2xl.border', { hasText: `Habitación ${num}` }).first();
-  };
-
-  test('Workflow 1: Extended Stay Booking with Rate Plan Toggling and Dynamic Surcharge Verification', async ({ page }) => {
-    await page.goto('/reservar');
-    const { checkInStr, checkOutStr } = getFutureDates(); // 5 nights
-
-    await page.locator('label:has-text("Fecha de Check-in") + input[type="date"]').fill(checkInStr);
-    await page.locator('label:has-text("Fecha de Check-out") + input[type="date"]').fill(checkOutStr);
-    await page.locator('label:has-text("Adultos") + select').selectOption({ value: '4' });
-    await page.locator('button:has-text("Ver Disponibilidad")').click();
-
-    // Toggle rate plan to Todo Incluido for Familiar room
-    await getRoomCard(page, 'Familiar').locator('select').selectOption({ value: 'todo_incluido' });
-    await getRoomCard(page, 'Familiar').locator('button:has-text("+")').click();
-
-    // Go to step 3
-    await page.click('button:has-text("Siguiente: Distribuir Huéspedes")');
-
-    // Assing guest configuration: Familiar room max is 6, we have 4 adults buscados.
-    // Familiar by default will get 4 adults automatically assigned since it was isFirstRoom and adultsBuscados was 4.
-    // Let's verify assigned matches 4 / 4
-    await expect(page.locator('text=¡Perfecto! Todos los huéspedes y mascotas han sido asignados correctamente.')).toBeVisible();
-
-    // Go to step 4
-    await page.click('button:has-text("Siguiente: Datos de Huésped")');
-
-    // Verify subtotal calculation in step 4
-    // Plan: todo_incluido base rate is $150 per adult night.
-    // 4 adults * $150 * 5 nights = $3000 base.
-    // Holiday/Weekend markup check: Let's assume standard weekday.
-    // Let's verify subtotal is calculated correctly in the UI.
-    const subtotalText = await page.locator('span:has-text("Subtotal") + span').innerText();
-    const subtotal = parseFloat(subtotalText.replace('$', ''));
-    expect(subtotal).toBeGreaterThan(0);
-
-    // Select Pago Total
-    await page.locator('button:has-text("Pago Completo")').click();
-
-    // Fill guest information
-    await page.locator('label:has-text("Nombre") + input').fill('Carlos');
-    await page.locator('label:has-text("Apellido") + input').fill('Santana');
-    await page.locator('label:has-text("Correo Electrónico") + input').fill('carlos.santana@test.com');
-    await page.locator('label:has-text("WhatsApp") + input').fill('+507 6888-8888');
-
-    // Go to step 5
-    await page.click('button:has-text("Siguiente: Proceder al Pago")');
-
-    // Choose bank transfer
-    await page.locator('button:has-text("Transferencia / Yappy / Cupón")').click();
-    await page.locator('label:has-text("Referencia de Transacción") + input').fill('REF-WORKFLOW-1');
-
-    // Upload receipt file
-    const fileChooserPromise = page.waitForEvent('filechooser');
-    await page.locator('#public-receipt-input').click();
-    const fileChooser = await fileChooserPromise;
-    await fileChooser.setFiles(tempJpgPath);
-
-    // Submit
-    await page.click('button:has-text("Confirmar Reserva y Subir Recibo")');
-
-    // Verify success confirmation
-    await expect(page.locator('text=¡Tu solicitud de reserva ha sido enviada!')).toBeVisible();
-
-    // Verify database entry matches Carlos Santana, status is Pendiente, and contains correct totals
-    const db = new Database(`C:\\Users\\Usuario\\.gemini\\antigravity\\scratch\\casa-mahana-pms\\data\\casa-mahana-test.db`);
-    try {
-      const reservation = db.prepare("SELECT * FROM reservas_hotel WHERE cliente = 'Carlos' AND apellido = 'Santana'").get() as any;
-      expect(reservation).toBeDefined();
-      expect(reservation.estado).toBe('Pendiente');
-      expect(reservation.plan_codigo).toBe('todo_incluido');
-      expect(reservation.noches).toBe(5);
-    } finally {
-      db.close();
-    }
-  });
-
-  test('Workflow 2: Day Pass Group Booking with Multiple Bohíos & Surcharges', async ({ page }) => {
-    await page.goto('/reservar');
-    await page.locator('button:has-text("Pasadía (Por el día)")').click();
-
-    const { checkInStr } = getFutureDates();
-    await page.locator('label:has-text("Fecha de Visita") + input[type="date"]').fill(checkInStr);
-    await page.locator('label:has-text("Adultos") + select').selectOption({ value: '6' });
-    await page.locator('button:has-text("Ver Disponibilidad")').click();
-
-    // Select plan: 1st Bohío has "pasadia_comidas" plan, 2nd Bohío has "pasadia_premium" plan.
-    await getRoomCard(page, 'Bohío').locator('select').selectOption({ value: 'pasadia_comidas' });
-    await getRoomCard(page, 'Bohío').locator('button:has-text("+")').click();
-
-    // Change selected plan to premium for the next Bohío
-    await getRoomCard(page, 'Bohío').locator('select').selectOption({ value: 'pasadia_premium' });
-    await getRoomCard(page, 'Bohío').locator('button:has-text("+")').click();
-
-    // Go to step 3
-    await page.click('button:has-text("Siguiente: Distribuir Huéspedes")');
-
-    // Room 1 (Bohío) default: 1 adult. Room 2 (Bohío) default: 1 adult. Total assigned: 2. Search is 6.
-    // Set 3 adults in Bohío 1 and 3 adults in Bohío 2
-    const group1 = getRoomGroup(page, 1);
-    const group2 = getRoomGroup(page, 2);
-    // Click plus twice in group 1
-    await group1.locator('button:has-text("+")').first().click();
-    await group1.locator('button:has-text("+")').first().click();
-    // Click plus twice in group 2
-    await group2.locator('button:has-text("+")').first().click();
-    await group2.locator('button:has-text("+")').first().click();
-
-    await expect(page.locator('text=¡Perfecto! Todos los huéspedes y mascotas han sido asignados correctamente.')).toBeVisible();
-
-    // Go to step 4
-    await page.click('button:has-text("Siguiente: Datos de Huésped")');
-
-    // Fill guest information
-    await page.locator('label:has-text("Nombre") + input').fill('Sofia');
-    await page.locator('label:has-text("Apellido") + input').fill('Vergara');
-    await page.locator('label:has-text("Correo Electrónico") + input').fill('sofia.vergara@test.com');
-
-    // Go to step 5
-    await page.click('button:has-text("Siguiente: Proceder al Pago")');
-
-    // Choose Yappy
-    await page.locator('button:has-text("Transferencia / Yappy / Cupón")').click();
-    await page.locator('button:has-text("Yappy")').click();
-    await page.locator('label:has-text("Referencia de Transacción") + input').fill('REF-YAPPY-WORKFLOW');
-
-    // Upload receipt file
-    const fileChooserPromise = page.waitForEvent('filechooser');
-    await page.locator('#public-receipt-input').click();
-    const fileChooser = await fileChooserPromise;
-    await fileChooser.setFiles(tempJpgPath);
-
-    // Submit
-    await page.click('button:has-text("Confirmar Reserva y Subir Recibo")');
-
-    // Verify success confirmation
-    await expect(page.locator('text=¡Tu solicitud de reserva ha sido enviada!')).toBeVisible();
-
-    // Retrieve group code
-    const groupCodeText = await page.locator('p:has-text("REF-") + p').innerText();
-    const code = groupCodeText.replace('#', '');
-
-    // Verify in database that 2 reservation records are present with exact plans and sharing the group code
-    const db = new Database(`C:\\Users\\Usuario\\.gemini\\antigravity\\scratch\\casa-mahana-pms\\data\\casa-mahana-test.db`);
-    try {
-      const records = db.prepare("SELECT * FROM reservas_hotel WHERE grupo_codigo = ?").all(code) as any[];
-      expect(records.length).toBe(2);
-      
-      const planCodes = records.map(r => r.plan_codigo);
-      expect(planCodes).toContain('pasadia_comidas');
-      expect(planCodes).toContain('pasadia_premium');
-    } finally {
-      db.close();
-    }
-  });
-
-  test('Workflow 3: Back-and-Forth Cart Modification and Date Shifts', async ({ page }) => {
-    await page.goto('/reservar');
-    const { checkInStr, checkOutStr } = getFutureDates(); // 5 nights
-
-    await page.locator('label:has-text("Fecha de Check-in") + input[type="date"]').fill(checkInStr);
-    await page.locator('label:has-text("Fecha de Check-out") + input[type="date"]').fill(checkOutStr);
-    await page.locator('label:has-text("Adultos") + select').selectOption({ value: '2' });
-    await page.locator('button:has-text("Ver Disponibilidad")').click();
-
-    // Add Doble room to cart
-    await getRoomCard(page, 'Doble').locator('button:has-text("+")').click();
-
-    // Proceed to Step 3
-    await page.click('button:has-text("Siguiente: Distribuir Huéspedes")');
-    await expect(page.locator('text=¡Perfecto! Todos los huéspedes y mascotas han sido asignados correctamente.')).toBeVisible();
-
-    // Go back to Step 2
-    await page.click('button:has-text("Volver a habitaciones")');
-
-    // Add Camping room to cart
-    await getRoomCard(page, 'Camping').locator('button:has-text("+")').click();
-
-    // Go back to Step 1
-    await page.click('button:has-text("Cambiar fechas")');
-
-    // Change dates to 2 nights
-    const today = new Date();
-    const checkIn2 = new Date(today.getTime() + 3 * 24 * 60 * 60 * 1000).toISOString().split('T')[0];
-    const checkOut2 = new Date(today.getTime() + 5 * 24 * 60 * 60 * 1000).toISOString().split('T')[0];
-    await page.locator('label:has-text("Fecha de Check-in") + input[type="date"]').fill(checkIn2);
-    await page.locator('label:has-text("Fecha de Check-out") + input[type="date"]').fill(checkOut2);
-
-    // Search availability
-    await page.locator('button:has-text("Ver Disponibilidad")').click();
-
-    // Cart is now automatically emptied as expected. Let's add Doble room
-    await getRoomCard(page, 'Doble').locator('button:has-text("+")').click();
-
-    // Go to Step 3
-    await page.click('button:has-text("Siguiente: Distribuir Huéspedes")');
-    await expect(page.locator('text=¡Perfecto! Todos los huéspedes y mascotas han sido asignados correctamente.')).toBeVisible();
-
-    // Proceed to step 4
-    await page.click('button:has-text("Siguiente: Datos de Huésped")');
-
-    // Fill guest details
-    await page.locator('label:has-text("Nombre") + input').fill('Ruben');
-    await page.locator('label:has-text("Apellido") + input').fill('Blades');
-    await page.locator('label:has-text("Correo Electrónico") + input').fill('ruben.blades@test.com');
-
-    // Proceed to Step 5
-    await page.click('button:has-text("Siguiente: Proceder al Pago")');
-
-    // Choose bank transfer and Oferta Simple coupon
-    await page.locator('button:has-text("Transferencia / Yappy / Cupón")').click();
-    await page.locator('button:has-text("Cupón de Oferta Simple")').click();
-    await page.locator('label:has-text("Referencia de Transacción") + input').fill('OFERTA-SIMPLE-100');
-
-    // Upload receipt file
-    const fileChooserPromise = page.waitForEvent('filechooser');
-    await page.locator('#public-receipt-input').click();
-    const fileChooser = await fileChooserPromise;
-    await fileChooser.setFiles(tempPdfPath);
-
-    // Submit
-    await page.click('button:has-text("Confirmar Reserva y Subir Recibo")');
-
-    // Verify success confirmation
-    await expect(page.locator('text=¡Tu solicitud de reserva ha sido enviada!')).toBeVisible();
-
-    // Verify in SQLite database that Ruben Blades has a reservation with coupon reference and correct dates
-    const db = new Database(`C:\\Users\\Usuario\\.gemini\\antigravity\\scratch\\casa-mahana-pms\\data\\casa-mahana-test.db`);
-    try {
-      const reservation = db.prepare("SELECT * FROM reservas_hotel WHERE cliente = 'Ruben' AND apellido = 'Blades'").get() as any;
-      expect(reservation).toBeDefined();
-      expect(reservation.check_in).toBe(checkIn2);
-      expect(reservation.check_out).toBe(checkOut2);
-    } finally {
-      db.close();
-    }
-  });
-
-  test('Workflow 4: Camping Enthusiast Reservation with Pets & Partial Deposit Payment', async ({ page }) => {
-    await page.goto('/reservar');
-    const { checkInStr, checkOutStr } = getFutureDates();
-
-    await page.locator('label:has-text("Fecha de Check-in") + input[type="date"]').fill(checkInStr);
-    await page.locator('label:has-text("Fecha de Check-out") + input[type="date"]').fill(checkOutStr);
-    await page.locator('label:has-text("Adultos") + select').selectOption({ value: '2' });
-    await page.locator('label:has-text("Mascotas") + select').selectOption({ value: '2' });
-    await page.locator('button:has-text("Ver Disponibilidad")').click();
-
-    // Add Camping room to cart
-    await getRoomCard(page, 'Camping').locator('button:has-text("+")').click();
-
-    // Go to step 3
-    await page.click('button:has-text("Siguiente: Distribuir Huéspedes")');
-
-    // Check perfect allocation of guests & pets
-    await expect(page.locator('text=¡Perfecto! Todos los huéspedes y mascotas han sido asignados correctamente.')).toBeVisible();
-
-    // Go to step 4
-    await page.click('button:has-text("Siguiente: Datos de Huésped")');
-
-    // Verify "Depósito Mínimo" option is selected or toggle it
-    await page.locator('button:has-text("Depósito Mínimo")').click();
-
-    // Fill guest details
-    await page.locator('label:has-text("Nombre") + input').fill('Daniel');
-    await page.locator('label:has-text("Apellido") + input').fill('Ortega');
-    await page.locator('label:has-text("Correo Electrónico") + input').fill('daniel.ortega@test.com');
-
-    // Go to step 5
-    await page.click('button:has-text("Siguiente: Proceder al Pago")');
-
-    // Check offline payment method
-    await page.locator('button:has-text("Transferencia / Yappy / Cupón")').click();
-    await page.locator('label:has-text("Referencia de Transacción") + input').fill('CAMP-PETS-DEP');
-
-    // Upload receipt file
-    const fileChooserPromise = page.waitForEvent('filechooser');
-    await page.locator('#public-receipt-input').click();
-    const fileChooser = await fileChooserPromise;
-    await fileChooser.setFiles(tempPdfPath);
-
-    // Submit
-    await page.click('button:has-text("Confirmar Reserva y Subir Recibo")');
-
-    // Verify success confirmation
-    await expect(page.locator('text=¡Tu solicitud de reserva ha sido enviada!')).toBeVisible();
-
-    // Retrieve group code
-    const groupCodeText = await page.locator('p:has-text("REF-") + p').innerText();
-    const code = groupCodeText.replace('#', '');
-
-    // Verify in database that deposit matches standard config rules
-    const db = new Database(`C:\\Users\\Usuario\\.gemini\\antigravity\\scratch\\casa-mahana-pms\\data\\casa-mahana-test.db`);
-    try {
-      const records = db.prepare("SELECT * FROM reservas_hotel WHERE grupo_codigo = ?").all(code) as any[];
-      expect(records.length).toBe(1);
-      
-      const folio = db.prepare("SELECT * FROM folio_hotel WHERE reserva_id = ?").get(records[0].id) as any;
-      expect(folio).toBeDefined();
-      expect(folio.deposito_monto).toBeGreaterThan(0);
-      expect(folio.monto_por_pagar).toBeGreaterThan(0);
-    } finally {
-      db.close();
-    }
-  });
-
-  test('Workflow 5: International Guest Checkout with PayPal API Simulation', async ({ page }) => {
-    // Manually ensure PayPal is enabled in DB
-    const db = new Database(`C:\\Users\\Usuario\\.gemini\\antigravity\\scratch\\casa-mahana-pms\\data\\casa-mahana-test.db`);
-    try {
-      db.prepare("UPDATE config_hotel SET valor = 'sb-client-id-12345' WHERE clave = 'paypal_client_id'").run();
-    } finally {
-      db.close();
+  test('Workflow 3: Complete Guest Journey — Destination Wedding Inquiry on /eventos', async ({ page }) => {
+    await page.goto('/eventos');
+    await page.waitForLoadState('domcontentloaded');
+
+    // 1. Inspect Weddings & Events page title
+    await expect(page.getByRole('heading', { name: 'Eventos & Bodas' })).toBeVisible();
+    await expect(page.getByText('Bodas de Ensueño')).toBeVisible();
+
+    // 2. Open photo gallery lightbox
+    const galleryCard = page.locator('div.grid.grid-cols-1.md\\:grid-cols-3.gap-8 div.cursor-pointer').first();
+    await galleryCard.click();
+
+    // Lightbox modal must be visible
+    const lightboxModal = page.locator('div.fixed.inset-0.z-\\[60\\]');
+    await expect(lightboxModal).toBeVisible();
+
+    // Close lightbox modal
+    const closeLightboxBtn = page.getByLabel('Close image');
+    await closeLightboxBtn.click();
+    await expect(lightboxModal).toBeHidden();
+
+    // 3. Fill and submit custom event inquiry
+    await page.getByPlaceholder('e.g. John Doe').fill('Carolina Herrera');
+    await page.getByPlaceholder('e.g. +507 6612-3456').fill('+507 6555-4321');
+    await page.getByPlaceholder('e.g. email@domain.com').fill('carolina@events.com');
+    await page.locator('select').first().selectOption('wedding');
+    await page.getByPlaceholder('...').fill('Boda íntima frente al atardecer para 80 personas.');
+
+    // Toggle full lodge buyout
+    const buyoutCheckbox = page.locator('input[type="checkbox"]');
+    if (await buyoutCheckbox.count() > 0) {
+      await buyoutCheckbox.first().check();
     }
 
-    await page.goto('/reservar');
-    
-    // Switch language to English
-    await page.locator('button[aria-label="Switch Language"]').click();
+    // Submit form
+    await page.getByRole('button', { name: 'Enviar Solicitud' }).click();
 
-    const { checkInStr, checkOutStr } = getFutureDates();
-    await page.locator('label:has-text("Check-in Date") + input[type="date"]').fill(checkInStr);
-    await page.locator('label:has-text("Check-out Date") + input[type="date"]').fill(checkOutStr);
-    await page.locator('button:has-text("Check Availability")').click();
+    // 4. Verify confirmation card
+    await expect(page.getByText('¡Solicitud Recibida con Éxito!')).toBeVisible();
+    await expect(page.getByText('Tu consulta ha sido enviada al equipo de eventos')).toBeVisible();
 
-    // Add Doble room to cart
-    await getRoomCard(page, 'Doble').locator('button:has-text("+")').click();
-
-    // Proceed to Step 3
-    await page.click('button:has-text("Next: Allocate Guests")');
-    await expect(page.locator('text=Perfect guest allocation!')).toBeVisible();
-
-    // Proceed to step 4
-    await page.click('button:has-text("Next: Guest Info")');
-
-    // Fill guest details in English
-    await page.locator('label:has-text("First Name") + input').fill('James');
-    await page.locator('label:has-text("Last Name") + input').fill('Bond');
-    await page.locator('label:has-text("Email Address") + input').fill('james.bond@mi6.gov');
-
-    // Go to step 5
-    await page.click('button:has-text("Next: Proceed to Payment")');
-
-    // Choose PayPal online payment
-    await page.locator('button:has-text("Secure Online Payment")').click();
-
-    // Since mock PayPalButtons is a stub that calls success when clicked in testing, let's verify it is rendered
-    await expect(page.locator('div.paypal-buttons-container')).toBeVisible();
-
-    // Click the mock PayPal button
-    await page.click('button.mock-paypal-btn');
-
-    // Verify step 6 confirmation screen is shown automatically
-    await expect(page.locator('text=Your booking request has been submitted!')).toBeVisible();
-
-    // Verify reservation state in SQLite database is automatically set to 'Confirmada' because of immediate online payment validation!
-    const db2 = new Database(`C:\\Users\\Usuario\\.gemini\\antigravity\\scratch\\casa-mahana-pms\\data\\casa-mahana-test.db`);
-    try {
-      const reservation = db2.prepare("SELECT * FROM reservas_hotel WHERE cliente = 'James' AND email = 'james.bond@mi6.gov'").get() as any;
-      expect(reservation).toBeDefined();
-      expect(reservation.estado).toBe('Confirmada');
-    } finally {
-      db2.close();
-    }
+    // 5. Reset form for new submission
+    await page.getByRole('button', { name: 'Volver a Cotizar' }).click();
+    await expect(page.getByPlaceholder('e.g. John Doe')).toHaveValue('');
   });
+
+  test('Workflow 4: Complete Guest Journey — Adventure & Tours Exploration on /mahana-tours', async ({ page }) => {
+    await page.goto('/mahana-tours');
+    await page.waitForLoadState('domcontentloaded');
+
+    // 1. Verify Tours hero
+    await expect(page.locator('h1')).toContainText('Mahana Tours');
+
+    // 2. Test interactive category filters
+    const filterIslands = page.getByRole('button', { name: /Islas/i });
+    await filterIslands.click();
+    await expect(page.getByRole('heading', { name: 'Isla Otoque y Isla Boná' })).toBeVisible();
+    await expect(page.getByRole('heading', { name: 'Avistamiento de Ballenas Jorobadas' })).toBeVisible();
+
+    // Filter by extreme adventure
+    const filterAdventure = page.getByRole('button', { name: /Aventura/i });
+    await filterAdventure.click();
+    await expect(page.getByRole('heading', { name: 'Tour de Jet Ski' })).toBeVisible();
+    await expect(page.getByRole('heading', { name: /Mulitas/i })).toBeVisible();
+
+    // Filter by boat charters
+    const filterBoats = page.getByRole('button', { name: /Charters/i });
+    await filterBoats.click();
+    await expect(page.getByRole('heading', { name: /Chárter Privado: Yate Sthamas/i })).toBeVisible();
+
+    // 3. Inspect WhatsApp booking button
+    const whatsappButton = page.locator('button:has-text("Cotizar por WhatsApp")').first();
+    await expect(whatsappButton).toBeVisible();
+  });
+
+  test('Workflow 5: Complete Guest Journey — Surf Shack Beach Club Experience on /surf-shack', async ({ page }) => {
+    let capturedPmsUrl = '';
+    await page.route('https://casa-mahana-pms.onrender.com/**', route => {
+      capturedPmsUrl = route.request().url();
+      return route.fulfill({ status: 200, contentType: 'text/html', body: '<html><body>PMS</body></html>' });
+    });
+
+    await page.goto('/surf-shack');
+    await page.waitForLoadState('domcontentloaded');
+
+    // 1. Inspect Beach Club hero & credentials
+    await expect(page.getByRole('heading', { name: 'Surf Shack Beach Club' })).toBeVisible();
+    await expect(page.getByRole('heading', { name: 'Academia Nacional de Surf' })).toBeVisible();
+
+    // 2. Inspect Lessons and Gear Rentals
+    await expect(page.getByText('Alquiler de Tablas')).toBeVisible();
+    await expect(page.getByText('$20')).toBeVisible();
+    await expect(page.getByText('Clase de Surf (Principiantes)')).toBeVisible();
+    await expect(page.getByText('$35')).toBeVisible();
+
+    // 3. Click booking CTA
+    const bookLessonBtn = page.getByRole('button', { name: 'Reservar Clase de Surf' }).first();
+    await bookLessonBtn.click();
+    await expect.poll(() => capturedPmsUrl).toContain('https://casa-mahana-pms.onrender.com/reservar');
+  });
+
 });

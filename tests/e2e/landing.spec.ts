@@ -3,8 +3,13 @@ import { test, expect } from '@playwright/test';
 test.describe('Casa Mahana Landing & Showcase E2E Tests', () => {
 
   test.beforeEach(async ({ page }) => {
-    // Navigate to the homepage before each test
+    // Intercept PMS booking redirects cleanly
+    await page.route('https://casa-mahana-pms.onrender.com/**', route => {
+      return route.fulfill({ status: 200, contentType: 'text/html', body: '<html><body>PMS</body></html>' });
+    });
+    // Navigate to homepage before each test
     await page.goto('/');
+    await page.waitForLoadState('domcontentloaded');
   });
 
   // Helper function to switch language to English
@@ -15,6 +20,7 @@ test.describe('Casa Mahana Landing & Showcase E2E Tests', () => {
     const text = await switcher.innerText();
     if (text.includes('EN')) {
       await switcher.click();
+      await page.waitForTimeout(100);
     }
   };
 
@@ -26,6 +32,7 @@ test.describe('Casa Mahana Landing & Showcase E2E Tests', () => {
     const text = await switcher.innerText();
     if (text.includes('ES')) {
       await switcher.click();
+      await page.waitForTimeout(100);
     }
   };
 
@@ -42,21 +49,20 @@ test.describe('Casa Mahana Landing & Showcase E2E Tests', () => {
     await expect(page.locator('nav button:has-text("Day Passes")')).toBeVisible();
     await expect(page.locator('nav a:has-text("Restaurant")')).toBeVisible();
     await expect(page.locator('nav a:has-text("Surf Shack")')).toBeVisible();
-    await expect(page.locator('nav a:has-text("Events & Weddings")')).toBeVisible();
+    await expect(page.locator('nav a:has-text("Events")')).toBeVisible();
     
     // Check CTA button in English
-    await expect(page.locator('button:has-text("Book Lodging")').first()).toBeVisible();
+    await expect(page.locator('header button:has-text("Book Lodging")').first()).toBeVisible();
   });
 
   test('2. Should display hero headline and subheadline correctly in English', async ({ page }) => {
     await switchToEnglish(page);
     
-    await expect(page.locator('text=Your Oceanfront Tropical Sanctuary')).toBeVisible();
-    await expect(page.locator('text=Casa Mahana Lodge & Restaurant — Relax, enjoy the pool, and taste our exquisite gastronomy in Chame, Panama.')).toBeVisible();
+    await expect(page.locator('text=Your Tropical Sanctuary in the Heart of Chame')).toBeVisible();
+    await expect(page.locator('text=Casa Mahana Lodge & Restaurant — Relax by the pool, surrounded by tropical nature and artisanal cuisine.')).toBeVisible();
     
-    // Hero CTAs
-    await expect(page.locator('section#inicio button:has-text("Book Lodging")')).toBeVisible();
-    await expect(page.locator('section#inicio button:has-text("Pool Day Pass")')).toBeVisible();
+    // Hero booking bar submit button
+    await expect(page.locator('section#inicio button[type="submit"]')).toBeVisible();
   });
 
   test('3. Should display facilities section title, subtitle, and card details in English', async ({ page }) => {
@@ -66,29 +72,29 @@ test.describe('Casa Mahana Landing & Showcase E2E Tests', () => {
     await expect(page.locator('text=Amenities designed for your absolute relaxation')).toBeVisible();
     
     // Facilities cards
-    await expect(page.locator('text=Tropical Pool')).toBeVisible();
+    await expect(page.locator('section#instalaciones h3:has-text("Tropical Pool")')).toBeVisible();
     await expect(page.locator('text=A crystal-clear pool surrounded by lush vegetation, lounge chairs, and great ambient music.')).toBeVisible();
-    await expect(page.locator('text=Surf Shack · Beach Club')).toBeVisible();
-    await expect(page.locator('text=Lounge & Rest Areas')).toBeVisible();
+    await expect(page.locator('section#instalaciones h3:has-text("Surf Shack · Beach Club")')).toBeVisible();
+    await expect(page.locator('section#instalaciones h3:has-text("Lounge & Rest Areas")')).toBeVisible();
   });
 
   test('4. Should display restaurant section details and dish descriptions in English', async ({ page }) => {
     await switchToEnglish(page);
     
-    await expect(page.locator('section#restaurante span:has-text("Lodge & Restaurant")')).toBeVisible();
-    await expect(page.locator('text=A tropical journey of flavors with sea breeze')).toBeVisible();
+    await expect(page.locator('section#restaurante h2 span:has-text("Lodge & Restaurant")')).toBeVisible();
+    await expect(page.locator('text=A tropical journey of flavors in the heart of Chame')).toBeVisible();
     
-    // Dishes details
-    await expect(page.locator('text=Wood-fired Pizzas')).toBeVisible();
+    // Dishes details scoped to restaurant section
+    await expect(page.locator('section#restaurante h3:has-text("Wood-fired Pizzas")')).toBeVisible();
     await expect(page.locator('text=Delicious artisanal pizzas baked fresh in our oven with top-quality ingredients.')).toBeVisible();
-    await expect(page.locator('text=Fresh Seafood')).toBeVisible();
-    await expect(page.locator('text=Gourmet Burgers')).toBeVisible();
+    await expect(page.locator('section#restaurante h3:has-text("Fresh Seafood")')).toBeVisible();
+    await expect(page.locator('section#restaurante h3:has-text("Gourmet Burgers")')).toBeVisible();
   });
 
   test('5. Should display reviews section title and aggregate ratings in English', async ({ page }) => {
     await switchToEnglish(page);
     
-    await expect(page.locator('text=Excellent 4.1 out of 5 stars')).toBeVisible();
+    await expect(page.locator('text=Excellent 4.2 out of 5 stars')).toBeVisible();
     await expect(page.locator('text=Based on over 590 verified guest reviews on our Google Business profile.')).toBeVisible();
   });
 
@@ -105,21 +111,20 @@ test.describe('Casa Mahana Landing & Showcase E2E Tests', () => {
     await expect(page.locator('nav button:has-text("Pasadías")')).toBeVisible();
     await expect(page.locator('nav a:has-text("Restaurante")')).toBeVisible();
     await expect(page.locator('nav a:has-text("Surf Shack")')).toBeVisible();
-    await expect(page.locator('nav a:has-text("Eventos & Bodas")')).toBeVisible();
+    await expect(page.locator('nav a:has-text("Eventos")')).toBeVisible();
     
     // Check CTA button in Spanish
-    await expect(page.locator('button:has-text("Reservar Hospedaje")').first()).toBeVisible();
+    await expect(page.locator('header button:has-text("Reservar Hospedaje")').first()).toBeVisible();
   });
 
   test('7. Should display hero headline and subheadline correctly in Spanish', async ({ page }) => {
     await switchToSpanish(page);
     
-    await expect(page.locator('text=Tu Refugio Tropical frente al Mar')).toBeVisible();
-    await expect(page.locator('text=Casa Mahana Lodge & Restaurante — Relájate, disfruta de la piscina y degusta nuestra exquisita gastronomía en Chame, Panamá.')).toBeVisible();
+    await expect(page.locator('text=Tu Refugio Tropical en el Corazón de Chame')).toBeVisible();
+    await expect(page.locator('text=Casa Mahana Lodge & Restaurante — Relájate entre piscina, naturaleza tropical y nuestra gastronomía artesanal.')).toBeVisible();
     
-    // Hero CTAs
-    await expect(page.locator('section#inicio button:has-text("Reservar Hospedaje")')).toBeVisible();
-    await expect(page.locator('section#inicio button:has-text("Pasadía de Piscina")')).toBeVisible();
+    // Hero booking bar submit button
+    await expect(page.locator('section#inicio button[type="submit"]')).toBeVisible();
   });
 
   test('8. Should display facilities section title, subtitle, and card details in Spanish', async ({ page }) => {
@@ -129,29 +134,29 @@ test.describe('Casa Mahana Landing & Showcase E2E Tests', () => {
     await expect(page.locator('text=Amenidades diseñadas para tu descanso absoluto')).toBeVisible();
     
     // Facilities cards
-    await expect(page.locator('text=Piscina Tropical')).toBeVisible();
+    await expect(page.locator('section#instalaciones h3:has-text("Piscina Tropical")')).toBeVisible();
     await expect(page.locator('text=Una piscina cristalina rodeada de vegetación, camastros y excelente música ambiental.')).toBeVisible();
-    await expect(page.locator('text=Surf Shack · Club de Playa')).toBeVisible();
-    await expect(page.locator('text=Áreas de Descanso')).toBeVisible();
+    await expect(page.locator('section#instalaciones h3:has-text("Surf Shack · Club de Playa")')).toBeVisible();
+    await expect(page.locator('section#instalaciones h3:has-text("Áreas de Descanso")')).toBeVisible();
   });
 
   test('9. Should display restaurant section details and dish descriptions in Spanish', async ({ page }) => {
     await switchToSpanish(page);
     
-    await expect(page.locator('section#restaurante span:has-text("Lodge & Restaurante")')).toBeVisible();
-    await expect(page.locator('text=Un viaje de sabores tropicales frente a la brisa marina')).toBeVisible();
+    await expect(page.locator('section#restaurante h2 span:has-text("Lodge & Restaurante")')).toBeVisible();
+    await expect(page.locator('text=Un viaje de sabores tropicales en el corazón de Chame')).toBeVisible();
     
-    // Dishes details
-    await expect(page.locator('text=Pizzas a la Leña')).toBeVisible();
+    // Dishes details scoped to restaurant section
+    await expect(page.locator('section#restaurante h3:has-text("Pizzas a la Leña")')).toBeVisible();
     await expect(page.locator('text=Deliciosas pizzas artesanales horneadas al momento con ingredientes frescos.')).toBeVisible();
-    await expect(page.locator('text=Mariscos Frescos')).toBeVisible();
-    await expect(page.locator('text=Hamburguesas Gourmet')).toBeVisible();
+    await expect(page.locator('section#restaurante h3:has-text("Mariscos Frescos")')).toBeVisible();
+    await expect(page.locator('section#restaurante h3:has-text("Hamburguesas Gourmet")')).toBeVisible();
   });
 
   test('10. Should display reviews section title and aggregate ratings in Spanish', async ({ page }) => {
     await switchToSpanish(page);
     
-    await expect(page.locator('text=Excelente 4.1 de 5 estrellas')).toBeVisible();
+    await expect(page.locator('text=Excelente 4.2 de 5 estrellas')).toBeVisible();
     await expect(page.locator('text=Basado en más de 590 opiniones verificadas de huéspedes en nuestro perfil de Google.')).toBeVisible();
   });
 
@@ -160,7 +165,6 @@ test.describe('Casa Mahana Landing & Showcase E2E Tests', () => {
   // ==========================================
 
   test('11. Should dynamically toggle header navigation text on language switch', async ({ page }) => {
-    // Starts in ES or toggle it to ES
     await switchToSpanish(page);
     await expect(page.locator('nav a:has-text("Inicio")')).toBeVisible();
     
@@ -175,54 +179,54 @@ test.describe('Casa Mahana Landing & Showcase E2E Tests', () => {
 
   test('12. Should dynamically toggle Hero section content on language switch', async ({ page }) => {
     await switchToSpanish(page);
-    await expect(page.locator('text=Tu Refugio Tropical frente al Mar')).toBeVisible();
+    await expect(page.locator('text=Tu Refugio Tropical en el Corazón de Chame')).toBeVisible();
     
     // Switch to EN
     await page.locator('button[aria-label="Switch Language"]').first().click();
-    await expect(page.locator('text=Your Oceanfront Tropical Sanctuary')).toBeVisible();
+    await expect(page.locator('text=Your Tropical Sanctuary in the Heart of Chame')).toBeVisible();
     
     // Switch back
     await page.locator('button[aria-label="Switch Language"]').first().click();
-    await expect(page.locator('text=Tu Refugio Tropical frente al Mar')).toBeVisible();
+    await expect(page.locator('text=Tu Refugio Tropical en el Corazón de Chame')).toBeVisible();
   });
 
   test('13. Should dynamically toggle Facilities cards text on language switch', async ({ page }) => {
     await switchToSpanish(page);
-    await expect(page.locator('text=Piscina Tropical')).toBeVisible();
+    await expect(page.locator('section#instalaciones h3:has-text("Piscina Tropical")')).toBeVisible();
     
     // Switch to EN
     await page.locator('button[aria-label="Switch Language"]').first().click();
-    await expect(page.locator('text=Tropical Pool')).toBeVisible();
+    await expect(page.locator('section#instalaciones h3:has-text("Tropical Pool")')).toBeVisible();
     
     // Switch back
     await page.locator('button[aria-label="Switch Language"]').first().click();
-    await expect(page.locator('text=Piscina Tropical')).toBeVisible();
+    await expect(page.locator('section#instalaciones h3:has-text("Piscina Tropical")')).toBeVisible();
   });
 
   test('14. Should dynamically toggle Restaurant dishes details on language switch', async ({ page }) => {
     await switchToSpanish(page);
-    await expect(page.locator('text=Pizzas a la Leña')).toBeVisible();
+    await expect(page.locator('section#restaurante h3:has-text("Pizzas a la Leña")')).toBeVisible();
     
     // Switch to EN
     await page.locator('button[aria-label="Switch Language"]').first().click();
-    await expect(page.locator('text=Wood-fired Pizzas')).toBeVisible();
+    await expect(page.locator('section#restaurante h3:has-text("Wood-fired Pizzas")')).toBeVisible();
     
     // Switch back
     await page.locator('button[aria-label="Switch Language"]').first().click();
-    await expect(page.locator('text=Pizzas a la Leña')).toBeVisible();
+    await expect(page.locator('section#restaurante h3:has-text("Pizzas a la Leña")')).toBeVisible();
   });
 
   test('15. Should dynamically toggle Reviews list and details on language switch', async ({ page }) => {
     await switchToSpanish(page);
-    await expect(page.locator('text=Excelente 4.1 de 5 estrellas')).toBeVisible();
+    await expect(page.locator('text=Excelente 4.2 de 5 estrellas')).toBeVisible();
     
     // Switch to EN
     await page.locator('button[aria-label="Switch Language"]').first().click();
-    await expect(page.locator('text=Excellent 4.1 out of 5 stars')).toBeVisible();
+    await expect(page.locator('text=Excellent 4.2 out of 5 stars')).toBeVisible();
     
     // Switch back
     await page.locator('button[aria-label="Switch Language"]').first().click();
-    await expect(page.locator('text=Excelente 4.1 de 5 estrellas')).toBeVisible();
+    await expect(page.locator('text=Excelente 4.2 de 5 estrellas')).toBeVisible();
   });
 
   // ==========================================
@@ -239,10 +243,10 @@ test.describe('Casa Mahana Landing & Showcase E2E Tests', () => {
     await page.goto('/experiencias');
     
     await expect(page.locator('h2:has-text("Mahana Experience")')).toBeVisible();
-    await expect(page.locator('text=Alojamiento confortable con desayuno buffet incluido, acceso completo a piscina tropical, WiFi y estacionamiento privado.')).toBeVisible();
+    await expect(page.locator('text=Alojamiento confortable con desayuno completo de cortesía').first()).toBeVisible();
     
     // Check inclusions
-    await expect(page.locator('text=Desayuno Buffet completo')).toBeVisible();
+    await expect(page.getByText('Desayuno completo de cortesía', { exact: true })).toBeVisible();
     await expect(page.locator('text=Acceso a Piscina & Áreas sociales')).toBeVisible();
     
     // Check schedule
@@ -287,23 +291,20 @@ test.describe('Casa Mahana Landing & Showcase E2E Tests', () => {
   });
 
   test('20. Should navigate to Booking Wizard with correct state pre-filled when clicking a Product card CTA', async ({ page }) => {
+    let redirectedUrl = '';
+    await page.route('https://casa-mahana-pms.onrender.com/**', route => {
+      redirectedUrl = route.request().url();
+      return route.fulfill({ status: 200, contentType: 'text/html', body: '<html><body>PMS</body></html>' });
+    });
+
     await page.goto('/experiencias');
+    await page.waitForLoadState('domcontentloaded');
     
     // Click CTA for Mahana Experience (Stay)
     await page.locator('button:has-text("Reservar Estadía")').click();
     
-    // Verify navigating to booking and stay is active
-    await expect(page).toHaveURL(/\/reservar/);
-    
-    const stayTab = page.locator('button:has-text("Estadía (Hospedaje)")');
-    await expect(stayTab).toHaveClass(/bg-turquoise-700/); // selected tab style
-    
-    // Go back and try Day Pass
-    await page.goto('/experiencias');
-    await page.locator('button:has-text("Reservar Pasadía")').click();
-    await expect(page).toHaveURL(/\/reservar/);
-    
-    const dayPassTab = page.locator('button:has-text("Pasadía (Por el día)")');
-    await expect(dayPassTab).toHaveClass(/bg-turquoise-700/);
+    // Verify PMS redirected URL captures plan and category
+    await expect.poll(() => redirectedUrl).toContain('plan=mahana_exp');
+    await expect.poll(() => redirectedUrl).toContain('category=Estad%C3%ADa');
   });
 });

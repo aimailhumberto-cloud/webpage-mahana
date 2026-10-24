@@ -13,7 +13,7 @@ import { SEO } from '../components/SEO';
 
 export const LandingPage: React.FC = () => {
   return (
-    <div className="animate-fade-in">
+    <div className="animate-fade-in w-full overflow-x-clip">
       <SEO 
         titleEs="Casa Mahana — Lodge & Restaurante Gourmet en Chame, Panamá"
         titleEn="Casa Mahana — Boutique Lodge & Gourmet Restaurant in Chame, Panama"

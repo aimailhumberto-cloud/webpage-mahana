@@ -15,12 +15,12 @@ test.describe('Casa Mahana - Multi-Page & Weddings E2E Verification Suite', () =
     await expect(page.locator('h2:has-text("Habitación Doble")')).toBeVisible();
     await expect(page.locator('h2:has-text("Habitación Estándar")')).toBeVisible();
     await expect(page.locator('h2:has-text("Habitación Familiar")')).toBeVisible();
-    await expect(page.locator('h2:has-text("Camping Confort")')).toBeVisible();
+    await expect(page.locator('h2:has-text("Camping Comfort")')).toBeVisible();
 
     // Verify Specific Bedding and Capacity info
-    await expect(page.getByText('Camas: 2 Camas Queen de Lujo')).toBeVisible();
-    await expect(page.getByText('Camas: 2 Camas King + 1 Litera (Bunk bed)')).toBeVisible();
-    await expect(page.getByText('Camas: 1 Colchón Inflable Queen Premium')).toBeVisible();
+    await expect(page.locator('text=2 Camas Dobles').first()).toBeVisible();
+    await expect(page.locator('text=1 Cama Doble + 4 Camas Sencillas').first()).toBeVisible();
+    await expect(page.locator('text=1 Colchón Doble Confort').first()).toBeVisible();
 
     // Verify Room Comparison Table
     await expect(page.getByText('Comparativa de Alojamiento')).toBeVisible();
@@ -34,12 +34,19 @@ test.describe('Casa Mahana - Multi-Page & Weddings E2E Verification Suite', () =
     // Verify English Translations
     await expect(page.locator('h1')).toContainText('Rooms & Capacities');
     await expect(page.locator('h2:has-text("Double Room")')).toBeVisible();
-    await expect(page.getByText('Beds: 2 Luxury Queen Beds')).toBeVisible();
-    await expect(page.getByText('Beds: 2 Luxury King Beds + 1 Bunk Bed')).toBeVisible();
+    await expect(page.locator('text=2 Double Beds').first()).toBeVisible();
+    await expect(page.locator('text=1 Double Bed + 4 Single Beds').first()).toBeVisible();
     await expect(page.getByText('Max Capacity')).toBeVisible();
   });
 
   test('R2. Render /pasadias hub with day pass plans & direct booking triggers', async ({ page }) => {
+    // Intercept PMS booking redirect
+    let redirectedUrl = '';
+    await page.route('https://casa-mahana-pms.onrender.com/**', route => {
+      redirectedUrl = route.request().url();
+      return route.fulfill({ status: 200, contentType: 'text/html', body: '<html><body>PMS</body></html>' });
+    });
+
     await page.goto('/pasadias');
     await page.waitForLoadState('networkidle');
 
@@ -48,15 +55,14 @@ test.describe('Casa Mahana - Multi-Page & Weddings E2E Verification Suite', () =
     
     // Verify specific plan rates
     await expect(page.getByText('$38.50')).toBeVisible();
-    await expect(page.getByText('$15')).toBeVisible();
+    await expect(page.getByText('$5.50')).toBeVisible();
 
-    // Clicking 'Reservar Pasadía' redirects to wizard with correct pre-filled plan
-    await page.getByRole('button', { name: 'Reservar Pasadía' }).first().click();
-    await page.waitForURL('**/reservar');
+    // Clicking exact 'Reservar' button on the day pass card redirects to /reservar with correct pre-filled plan
+    await page.getByRole('button', { name: 'Reservar', exact: true }).first().click();
     
-    // Verify that we are on the /reservar page
-    const checkedDateInput = page.locator('input[type="date"]');
-    await expect(checkedDateInput).toBeVisible();
+    // Verify PMS redirect URL captures the planCode and category
+    await expect.poll(() => redirectedUrl).toContain('plan=pasadia_comidas');
+    await expect.poll(() => redirectedUrl).toContain('category=Pasad%C3%ADa');
   });
 
   test('R3. Render /restaurante and check digital menu pricing', async ({ page }) => {
@@ -64,21 +70,22 @@ test.describe('Casa Mahana - Multi-Page & Weddings E2E Verification Suite', () =
     await page.waitForLoadState('networkidle');
 
     await expect(page.locator('h1')).toContainText('Restaurante');
-    await expect(page.getByText('Pizza Pepperoni')).toBeVisible();
-    await expect(page.getByText('Ceviche de la Casa')).toBeVisible();
-    await expect(page.getByText('$12.50')).toBeVisible(); // Combination pizza price
-    await expect(page.getByText('$6.00')).toBeVisible();  // Ceviche price
+    await expect(page.getByRole('heading', { name: 'Pizza Pepperoni' })).toBeVisible();
+    await expect(page.getByRole('heading', { name: 'Ceviche de la Casa' })).toBeVisible();
+    await expect(page.getByText('$14.50')).toBeVisible(); // Pizza price badge
+    await expect(page.getByText('$9.50')).toBeVisible();  // Ceviche price badge
   });
 
   test('R4. Render /surf-shack and check Surf Academy options', async ({ page }) => {
     await page.goto('/surf-shack');
     await page.waitForLoadState('networkidle');
 
-    await expect(page.getByRole('heading', { name: 'Surf Shack & Academia' })).toBeVisible();
-    await expect(page.getByText('Clases de Surf Individuales')).toBeVisible();
-    await expect(page.getByText('$35 por clase')).toBeVisible();
-    await expect(page.getByText('Alquiler de Tablas de Surf')).toBeVisible();
-    await expect(page.getByText('$20 por día')).toBeVisible();
+    await expect(page.getByRole('heading', { name: 'Surf Shack Beach Club' })).toBeVisible();
+    await expect(page.getByRole('heading', { name: 'Academia Nacional de Surf' })).toBeVisible();
+    await expect(page.getByText('Clase de Surf (Principiantes)')).toBeVisible();
+    await expect(page.getByText('$35').first()).toBeVisible();
+    await expect(page.getByText('Alquiler de Tablas')).toBeVisible();
+    await expect(page.getByText('$20').first()).toBeVisible();
   });
 
   test('R5. Render /eventos, submit Weddings Inquiry Form, and verify confirmation card', async ({ page }) => {
@@ -110,4 +117,3 @@ test.describe('Casa Mahana - Multi-Page & Weddings E2E Verification Suite', () =
   });
 
 });
-

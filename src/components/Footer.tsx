@@ -9,8 +9,8 @@ export const Footer: React.FC = () => {
 
   return (
     <footer className="bg-mahana-dark text-sand-100/90 pt-16 pb-8 border-t border-turquoise-900 font-sans">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-10 mb-12">
+      <div className="max-w-[1720px] 2xl:max-w-[1820px] mx-auto px-4 sm:px-8 lg:px-12 xl:px-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-10 mb-12">
           {/* Brand Info */}
           <div className="md:col-span-2 space-y-4">
             <div className="flex items-center space-x-3">
@@ -97,50 +97,50 @@ export const Footer: React.FC = () => {
           </div>
 
           {/* Contact Details */}
-          <div className="space-y-4">
+          <div className="space-y-4 min-w-0">
             <h3 className="text-white font-semibold text-base mb-4 tracking-wider uppercase">
               {language === 'es' ? 'Contacto' : 'Contact'}
             </h3>
-            <ul className="space-y-3.5 text-sm">
-              <li className="flex items-start space-x-2.5">
+            <ul className="space-y-3.5 text-sm min-w-0">
+              <li className="flex items-start space-x-2.5 min-w-0">
                 <MapPin className="h-5 w-5 text-turquoise-400 shrink-0 mt-0.5" />
                 <a
                   href="https://maps.google.com/?q=Chame,+Panama"
                   target="_blank"
                   rel="noopener noreferrer"
                   onClick={() => trackEvent('click_map_directions')}
-                  className="hover:text-turquoise-400 transition-colors"
+                  className="hover:text-turquoise-400 transition-colors break-words min-w-0"
                 >
                   Vía Punta Chame, El Mangote,<br />
                   Chame, Panamá Oeste
                 </a>
               </li>
-              <li className="flex items-center space-x-2.5">
+              <li className="flex items-center space-x-2.5 min-w-0">
                 <Phone className="h-5 w-5 text-turquoise-400 shrink-0" />
                 <a
                   href="tel:+5073453222"
                   onClick={() => trackEvent('click_phone_call', { phone: '+5073453222' })}
-                  className="hover:text-turquoise-400 transition-colors"
+                  className="hover:text-turquoise-400 transition-colors break-words min-w-0"
                 >
                   +507 345-3222
                 </a>
               </li>
-              <li className="flex items-center space-x-2.5">
+              <li className="flex items-center space-x-2.5 min-w-0">
                 <Phone className="h-5 w-5 text-turquoise-400 shrink-0" />
                 <a
                   href="https://wa.me/50762906800"
                   onClick={() => trackWhatsAppClick('footer_contact', 'whatsapp_recepcion')}
-                  className="hover:text-turquoise-400 transition-colors"
+                  className="hover:text-turquoise-400 transition-colors break-words min-w-0"
                 >
                   +507 6290-6800 (WhatsApp)
                 </a>
               </li>
-              <li className="flex items-center space-x-2.5">
+              <li className="flex items-center space-x-2.5 min-w-0">
                 <Mail className="h-5 w-5 text-turquoise-400 shrink-0" />
                 <a
                   href="mailto:recepcion@casamahana.com"
                   onClick={() => trackEvent('click_email', { email: 'recepcion@casamahana.com' })}
-                  className="hover:text-turquoise-400 transition-colors"
+                  className="hover:text-turquoise-400 transition-colors break-all min-w-0"
                 >
                   recepcion@casamahana.com
                 </a>

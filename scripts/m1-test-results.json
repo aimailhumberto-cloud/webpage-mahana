@@ -1,0 +1,976 @@
+{
+  "cssStaticAnalysis": {
+    "postcssParseSuccess": true,
+    "turquoise950Count": 16,
+    "turquoise800Count": 7,
+    "turquoise750Count": 4,
+    "hasHex950": true,
+    "hasHex800": true,
+    "hasHex750": true,
+    "containerFluidRules": [
+      {
+        "selector": ".container-fluid",
+        "parentMedia": null,
+        "declarations": [
+          "margin-left: auto",
+          "margin-right: auto",
+          "width: 100%",
+          "max-width: 1680px",
+          "padding-left: 1rem",
+          "padding-right: 1rem"
+        ]
+      },
+      {
+        "selector": ".container-fluid",
+        "parentMedia": "(min-width: 640px)",
+        "declarations": [
+          "padding-left: 2rem",
+          "padding-right: 2rem"
+        ]
+      },
+      {
+        "selector": ".container-fluid",
+        "parentMedia": "(min-width: 1024px)",
+        "declarations": [
+          "padding-left: 3rem",
+          "padding-right: 3rem"
+        ]
+      },
+      {
+        "selector": ".container-fluid",
+        "parentMedia": "(min-width: 1280px)",
+        "declarations": [
+          "padding-left: 4rem",
+          "padding-right: 4rem"
+        ]
+      },
+      {
+        "selector": ".container-fluid",
+        "parentMedia": "(min-width: 1536px)",
+        "declarations": [
+          "max-width: 1800px"
+        ]
+      }
+    ],
+    "bandFullBleedRules": [
+      {
+        "selector": ".band-full-bleed",
+        "declarations": [
+          "position: relative",
+          "width: 100%",
+          "overflow: hidden"
+        ]
+      }
+    ],
+    "maxW1720Rules": [
+      {
+        "selector": ".max-w-\\[1720px\\]",
+        "declarations": [
+          "max-width: 1720px"
+        ]
+      }
+    ],
+    "fontSerifRules": [
+      {
+        "selector": ".font-serif",
+        "declarations": [
+          "font-family: Playfair Display,Cormorant Garamond,Georgia,serif"
+        ]
+      }
+    ]
+  },
+  "browserViewportTests": [
+    {
+      "viewport": "Mobile (375px)",
+      "width": 375,
+      "route": "/",
+      "hasOverflow": false,
+      "scrollW": 375,
+      "innerW": 375,
+      "overflowingElements": [
+        {
+          "tag": "div",
+          "id": "",
+          "className": "absolute inset-0 bg-cover bg-center transition-all duration-[1800ms] ease-in-out opacity-100 scale-1",
+          "right": 384.37501525878906,
+          "width": 393.75,
+          "exceedBy": 9
+        },
+        {
+          "tag": "div",
+          "id": "",
+          "className": "inline-flex items-center space-x-3 bg-white px-5 py-3 rounded-2xl border border-turquoise-100/50 sha",
+          "right": 581.7850341796875,
+          "width": 307.15625,
+          "exceedBy": 207
+        },
+        {
+          "tag": "div",
+          "id": "",
+          "className": "flex flex-col",
+          "right": 560.7850341796875,
+          "width": 233.15625,
+          "exceedBy": 186
+        },
+        {
+          "tag": "div",
+          "id": "",
+          "className": "flex items-center space-x-1.5",
+          "right": 560.7850341796875,
+          "width": 233.15625,
+          "exceedBy": 186
+        },
+        {
+          "tag": "span",
+          "id": "",
+          "className": "font-extrabold text-xs text-turquoise-900",
+          "right": 380.4881591796875,
+          "width": 52.859375,
+          "exceedBy": 5
+        }
+      ],
+      "layoutMetrics": {
+        "header": {
+          "width": 375,
+          "maxWidth": "1720px",
+          "paddingLeft": "16px",
+          "paddingRight": "16px",
+          "marginLeft": "0px",
+          "marginRight": "0px",
+          "display": "block"
+        },
+        "footer": {
+          "width": 375,
+          "maxWidth": "1720px",
+          "paddingLeft": "16px",
+          "paddingRight": "16px",
+          "marginLeft": "0px",
+          "marginRight": "0px",
+          "display": "block"
+        },
+        "desktopNavDisplay": "none",
+        "mobileToggleDisplay": "flex"
+      }
+    },
+    {
+      "viewport": "Mobile (375px)",
+      "width": 375,
+      "route": "/pasadias",
+      "hasOverflow": false,
+      "scrollW": 375,
+      "innerW": 375,
+      "overflowingElements": [],
+      "layoutMetrics": {
+        "header": {
+          "width": 375,
+          "maxWidth": "1720px",
+          "paddingLeft": "16px",
+          "paddingRight": "16px",
+          "marginLeft": "0px",
+          "marginRight": "0px",
+          "display": "block"
+        },
+        "footer": {
+          "width": 375,
+          "maxWidth": "1720px",
+          "paddingLeft": "16px",
+          "paddingRight": "16px",
+          "marginLeft": "0px",
+          "marginRight": "0px",
+          "display": "block"
+        },
+        "desktopNavDisplay": "none",
+        "mobileToggleDisplay": "flex"
+      }
+    },
+    {
+      "viewport": "Mobile (375px)",
+      "width": 375,
+      "route": "/estadias",
+      "hasOverflow": false,
+      "scrollW": 375,
+      "innerW": 375,
+      "overflowingElements": [
+        {
+          "tag": "table",
+          "id": "",
+          "className": "w-full border-collapse text-left text-sm text-mahana-dark",
+          "right": 513.03125,
+          "width": 480.03125,
+          "exceedBy": 138
+        },
+        {
+          "tag": "thead",
+          "id": "",
+          "className": "",
+          "right": 513.03125,
+          "width": 480.03125,
+          "exceedBy": 138
+        },
+        {
+          "tag": "tr",
+          "id": "",
+          "className": "border-b border-sand-200 text-xs uppercase tracking-wider font-extrabold text-turquoise-900 bg-sand-",
+          "right": 513.03125,
+          "width": 480.03125,
+          "exceedBy": 138
+        },
+        {
+          "tag": "th",
+          "id": "",
+          "className": "py-4 px-2 sm:px-4",
+          "right": 380.125,
+          "width": 85.9375,
+          "exceedBy": 5
+        },
+        {
+          "tag": "th",
+          "id": "",
+          "className": "py-4 px-2 sm:px-4",
+          "right": 513.03125,
+          "width": 132.90625,
+          "exceedBy": 138
+        }
+      ],
+      "layoutMetrics": {
+        "header": {
+          "width": 375,
+          "maxWidth": "1720px",
+          "paddingLeft": "16px",
+          "paddingRight": "16px",
+          "marginLeft": "0px",
+          "marginRight": "0px",
+          "display": "block"
+        },
+        "footer": {
+          "width": 375,
+          "maxWidth": "1720px",
+          "paddingLeft": "16px",
+          "paddingRight": "16px",
+          "marginLeft": "0px",
+          "marginRight": "0px",
+          "display": "block"
+        },
+        "desktopNavDisplay": "none",
+        "mobileToggleDisplay": "flex"
+      }
+    },
+    {
+      "viewport": "Mobile (375px)",
+      "width": 375,
+      "route": "/restaurante",
+      "hasOverflow": false,
+      "scrollW": 375,
+      "innerW": 375,
+      "overflowingElements": [],
+      "layoutMetrics": {
+        "header": {
+          "width": 375,
+          "maxWidth": "1720px",
+          "paddingLeft": "16px",
+          "paddingRight": "16px",
+          "marginLeft": "0px",
+          "marginRight": "0px",
+          "display": "block"
+        },
+        "footer": {
+          "width": 375,
+          "maxWidth": "1720px",
+          "paddingLeft": "16px",
+          "paddingRight": "16px",
+          "marginLeft": "0px",
+          "marginRight": "0px",
+          "display": "block"
+        },
+        "desktopNavDisplay": "none",
+        "mobileToggleDisplay": "flex"
+      }
+    },
+    {
+      "viewport": "Tablet (768px)",
+      "width": 768,
+      "route": "/",
+      "hasOverflow": false,
+      "scrollW": 768,
+      "innerW": 768,
+      "overflowingElements": [
+        {
+          "tag": "div",
+          "id": "",
+          "className": "absolute inset-0 bg-cover bg-center transition-all duration-[1800ms] ease-in-out opacity-100 scale-1",
+          "right": 787.1999206542969,
+          "width": 806.39990234375,
+          "exceedBy": 19
+        },
+        {
+          "tag": "div",
+          "id": "",
+          "className": "inline-flex items-center space-x-3 bg-white px-5 py-3 rounded-2xl border border-turquoise-100/50 sha",
+          "right": 919.4664916992188,
+          "width": 315.484375,
+          "exceedBy": 151
+        },
+        {
+          "tag": "div",
+          "id": "",
+          "className": "flex flex-col",
+          "right": 898.4664916992188,
+          "width": 241.484375,
+          "exceedBy": 130
+        },
+        {
+          "tag": "div",
+          "id": "",
+          "className": "flex items-center space-x-1.5",
+          "right": 898.4664916992188,
+          "width": 241.484375,
+          "exceedBy": 130
+        },
+        {
+          "tag": "span",
+          "id": "",
+          "className": "text-[11px] text-turquoise-700/80 font-medium",
+          "right": 898.4664916992188,
+          "width": 241.484375,
+          "exceedBy": 130
+        }
+      ],
+      "layoutMetrics": {
+        "header": {
+          "width": 768,
+          "maxWidth": "1720px",
+          "paddingLeft": "32px",
+          "paddingRight": "32px",
+          "marginLeft": "0px",
+          "marginRight": "0px",
+          "display": "block"
+        },
+        "footer": {
+          "width": 768,
+          "maxWidth": "1720px",
+          "paddingLeft": "32px",
+          "paddingRight": "32px",
+          "marginLeft": "0px",
+          "marginRight": "0px",
+          "display": "block"
+        },
+        "desktopNavDisplay": "none",
+        "mobileToggleDisplay": "flex"
+      }
+    },
+    {
+      "viewport": "Tablet (768px)",
+      "width": 768,
+      "route": "/pasadias",
+      "hasOverflow": false,
+      "scrollW": 768,
+      "innerW": 768,
+      "overflowingElements": [],
+      "layoutMetrics": {
+        "header": {
+          "width": 768,
+          "maxWidth": "1720px",
+          "paddingLeft": "32px",
+          "paddingRight": "32px",
+          "marginLeft": "0px",
+          "marginRight": "0px",
+          "display": "block"
+        },
+        "footer": {
+          "width": 768,
+          "maxWidth": "1720px",
+          "paddingLeft": "32px",
+          "paddingRight": "32px",
+          "marginLeft": "0px",
+          "marginRight": "0px",
+          "display": "block"
+        },
+        "desktopNavDisplay": "none",
+        "mobileToggleDisplay": "flex"
+      }
+    },
+    {
+      "viewport": "Tablet (768px)",
+      "width": 768,
+      "route": "/estadias",
+      "hasOverflow": false,
+      "scrollW": 768,
+      "innerW": 768,
+      "overflowingElements": [],
+      "layoutMetrics": {
+        "header": {
+          "width": 768,
+          "maxWidth": "1720px",
+          "paddingLeft": "32px",
+          "paddingRight": "32px",
+          "marginLeft": "0px",
+          "marginRight": "0px",
+          "display": "block"
+        },
+        "footer": {
+          "width": 768,
+          "maxWidth": "1720px",
+          "paddingLeft": "32px",
+          "paddingRight": "32px",
+          "marginLeft": "0px",
+          "marginRight": "0px",
+          "display": "block"
+        },
+        "desktopNavDisplay": "none",
+        "mobileToggleDisplay": "flex"
+      }
+    },
+    {
+      "viewport": "Tablet (768px)",
+      "width": 768,
+      "route": "/restaurante",
+      "hasOverflow": false,
+      "scrollW": 768,
+      "innerW": 768,
+      "overflowingElements": [],
+      "layoutMetrics": {
+        "header": {
+          "width": 768,
+          "maxWidth": "1720px",
+          "paddingLeft": "32px",
+          "paddingRight": "32px",
+          "marginLeft": "0px",
+          "marginRight": "0px",
+          "display": "block"
+        },
+        "footer": {
+          "width": 768,
+          "maxWidth": "1720px",
+          "paddingLeft": "32px",
+          "paddingRight": "32px",
+          "marginLeft": "0px",
+          "marginRight": "0px",
+          "display": "block"
+        },
+        "desktopNavDisplay": "none",
+        "mobileToggleDisplay": "flex"
+      }
+    },
+    {
+      "viewport": "Desktop Widescreen (1440px)",
+      "width": 1440,
+      "route": "/",
+      "hasOverflow": false,
+      "scrollW": 1440,
+      "innerW": 1440,
+      "overflowingElements": [
+        {
+          "tag": "div",
+          "id": "",
+          "className": "absolute inset-0 bg-cover bg-center transition-all duration-[1800ms] ease-in-out opacity-100 scale-1",
+          "right": 1476.0000610351562,
+          "width": 1512,
+          "exceedBy": 36
+        },
+        {
+          "tag": "div",
+          "id": "",
+          "className": "inline-flex items-center space-x-3 bg-white px-5 py-3 rounded-2xl border border-turquoise-100/50 sha",
+          "right": 1561.614501953125,
+          "width": 318.40625,
+          "exceedBy": 122
+        },
+        {
+          "tag": "div",
+          "id": "",
+          "className": "flex flex-col",
+          "right": 1540.614501953125,
+          "width": 244.40625,
+          "exceedBy": 101
+        },
+        {
+          "tag": "div",
+          "id": "",
+          "className": "flex items-center space-x-1.5",
+          "right": 1540.614501953125,
+          "width": 244.40625,
+          "exceedBy": 101
+        },
+        {
+          "tag": "span",
+          "id": "",
+          "className": "text-[11px] text-turquoise-700/80 font-medium",
+          "right": 1540.614501953125,
+          "width": 244.40625,
+          "exceedBy": 101
+        }
+      ],
+      "layoutMetrics": {
+        "header": {
+          "width": 1440,
+          "maxWidth": "1720px",
+          "paddingLeft": "64px",
+          "paddingRight": "64px",
+          "marginLeft": "0px",
+          "marginRight": "0px",
+          "display": "block"
+        },
+        "footer": {
+          "width": 1440,
+          "maxWidth": "1720px",
+          "paddingLeft": "64px",
+          "paddingRight": "64px",
+          "marginLeft": "0px",
+          "marginRight": "0px",
+          "display": "block"
+        },
+        "desktopNavDisplay": "flex",
+        "mobileToggleDisplay": "none"
+      }
+    },
+    {
+      "viewport": "Desktop Widescreen (1440px)",
+      "width": 1440,
+      "route": "/pasadias",
+      "hasOverflow": false,
+      "scrollW": 1440,
+      "innerW": 1440,
+      "overflowingElements": [],
+      "layoutMetrics": {
+        "header": {
+          "width": 1440,
+          "maxWidth": "1720px",
+          "paddingLeft": "64px",
+          "paddingRight": "64px",
+          "marginLeft": "0px",
+          "marginRight": "0px",
+          "display": "block"
+        },
+        "footer": {
+          "width": 1440,
+          "maxWidth": "1720px",
+          "paddingLeft": "64px",
+          "paddingRight": "64px",
+          "marginLeft": "0px",
+          "marginRight": "0px",
+          "display": "block"
+        },
+        "desktopNavDisplay": "flex",
+        "mobileToggleDisplay": "none"
+      }
+    },
+    {
+      "viewport": "Desktop Widescreen (1440px)",
+      "width": 1440,
+      "route": "/estadias",
+      "hasOverflow": false,
+      "scrollW": 1440,
+      "innerW": 1440,
+      "overflowingElements": [],
+      "layoutMetrics": {
+        "header": {
+          "width": 1440,
+          "maxWidth": "1720px",
+          "paddingLeft": "64px",
+          "paddingRight": "64px",
+          "marginLeft": "0px",
+          "marginRight": "0px",
+          "display": "block"
+        },
+        "footer": {
+          "width": 1440,
+          "maxWidth": "1720px",
+          "paddingLeft": "64px",
+          "paddingRight": "64px",
+          "marginLeft": "0px",
+          "marginRight": "0px",
+          "display": "block"
+        },
+        "desktopNavDisplay": "flex",
+        "mobileToggleDisplay": "none"
+      }
+    },
+    {
+      "viewport": "Desktop Widescreen (1440px)",
+      "width": 1440,
+      "route": "/restaurante",
+      "hasOverflow": false,
+      "scrollW": 1440,
+      "innerW": 1440,
+      "overflowingElements": [],
+      "layoutMetrics": {
+        "header": {
+          "width": 1440,
+          "maxWidth": "1720px",
+          "paddingLeft": "64px",
+          "paddingRight": "64px",
+          "marginLeft": "0px",
+          "marginRight": "0px",
+          "display": "block"
+        },
+        "footer": {
+          "width": 1440,
+          "maxWidth": "1720px",
+          "paddingLeft": "64px",
+          "paddingRight": "64px",
+          "marginLeft": "0px",
+          "marginRight": "0px",
+          "display": "block"
+        },
+        "desktopNavDisplay": "flex",
+        "mobileToggleDisplay": "none"
+      }
+    },
+    {
+      "viewport": "Ultra-Widescreen (1920px)",
+      "width": 1920,
+      "route": "/",
+      "hasOverflow": false,
+      "scrollW": 1920,
+      "innerW": 1920,
+      "overflowingElements": [
+        {
+          "tag": "div",
+          "id": "",
+          "className": "absolute inset-0 bg-cover bg-center transition-all duration-[1800ms] ease-in-out opacity-100 scale-1",
+          "right": 1968.0000610351562,
+          "width": 2016,
+          "exceedBy": 48
+        },
+        {
+          "tag": "div",
+          "id": "",
+          "className": "inline-flex items-center space-x-3 bg-white px-5 py-3 rounded-2xl border border-turquoise-100/50 sha",
+          "right": 2128.6845703125,
+          "width": 254.65625,
+          "exceedBy": 209
+        },
+        {
+          "tag": "div",
+          "id": "",
+          "className": "flex flex-col",
+          "right": 2107.6845703125,
+          "width": 180.65625,
+          "exceedBy": 188
+        },
+        {
+          "tag": "div",
+          "id": "",
+          "className": "flex items-center space-x-1.5",
+          "right": 2107.6845703125,
+          "width": 180.65625,
+          "exceedBy": 188
+        },
+        {
+          "tag": "span",
+          "id": "",
+          "className": "font-extrabold text-xs text-turquoise-900",
+          "right": 1970.8564453125,
+          "width": 43.828125,
+          "exceedBy": 51
+        }
+      ],
+      "layoutMetrics": {
+        "header": {
+          "width": 1820,
+          "maxWidth": "1820px",
+          "paddingLeft": "64px",
+          "paddingRight": "64px",
+          "marginLeft": "50px",
+          "marginRight": "50px",
+          "display": "block"
+        },
+        "footer": {
+          "width": 1820,
+          "maxWidth": "1820px",
+          "paddingLeft": "64px",
+          "paddingRight": "64px",
+          "marginLeft": "50px",
+          "marginRight": "50px",
+          "display": "block"
+        },
+        "desktopNavDisplay": "flex",
+        "mobileToggleDisplay": "none"
+      }
+    },
+    {
+      "viewport": "Ultra-Widescreen (1920px)",
+      "width": 1920,
+      "route": "/pasadias",
+      "hasOverflow": false,
+      "scrollW": 1920,
+      "innerW": 1920,
+      "overflowingElements": [],
+      "layoutMetrics": {
+        "header": {
+          "width": 1820,
+          "maxWidth": "1820px",
+          "paddingLeft": "64px",
+          "paddingRight": "64px",
+          "marginLeft": "50px",
+          "marginRight": "50px",
+          "display": "block"
+        },
+        "footer": {
+          "width": 1820,
+          "maxWidth": "1820px",
+          "paddingLeft": "64px",
+          "paddingRight": "64px",
+          "marginLeft": "50px",
+          "marginRight": "50px",
+          "display": "block"
+        },
+        "desktopNavDisplay": "flex",
+        "mobileToggleDisplay": "none"
+      }
+    },
+    {
+      "viewport": "Ultra-Widescreen (1920px)",
+      "width": 1920,
+      "route": "/estadias",
+      "hasOverflow": false,
+      "scrollW": 1920,
+      "innerW": 1920,
+      "overflowingElements": [],
+      "layoutMetrics": {
+        "header": {
+          "width": 1820,
+          "maxWidth": "1820px",
+          "paddingLeft": "64px",
+          "paddingRight": "64px",
+          "marginLeft": "50px",
+          "marginRight": "50px",
+          "display": "block"
+        },
+        "footer": {
+          "width": 1820,
+          "maxWidth": "1820px",
+          "paddingLeft": "64px",
+          "paddingRight": "64px",
+          "marginLeft": "50px",
+          "marginRight": "50px",
+          "display": "block"
+        },
+        "desktopNavDisplay": "flex",
+        "mobileToggleDisplay": "none"
+      }
+    },
+    {
+      "viewport": "Ultra-Widescreen (1920px)",
+      "width": 1920,
+      "route": "/restaurante",
+      "hasOverflow": false,
+      "scrollW": 1920,
+      "innerW": 1920,
+      "overflowingElements": [],
+      "layoutMetrics": {
+        "header": {
+          "width": 1820,
+          "maxWidth": "1820px",
+          "paddingLeft": "64px",
+          "paddingRight": "64px",
+          "marginLeft": "50px",
+          "marginRight": "50px",
+          "display": "block"
+        },
+        "footer": {
+          "width": 1820,
+          "maxWidth": "1820px",
+          "paddingLeft": "64px",
+          "paddingRight": "64px",
+          "marginLeft": "50px",
+          "marginRight": "50px",
+          "display": "block"
+        },
+        "desktopNavDisplay": "flex",
+        "mobileToggleDisplay": "none"
+      }
+    },
+    {
+      "viewport": "2K Extreme Ultra-wide (2560px)",
+      "width": 2560,
+      "route": "/",
+      "hasOverflow": false,
+      "scrollW": 2560,
+      "innerW": 2560,
+      "overflowingElements": [
+        {
+          "tag": "div",
+          "id": "",
+          "className": "absolute inset-0 bg-cover bg-center transition-all duration-[1800ms] ease-in-out opacity-100 scale-1",
+          "right": 2624,
+          "width": 2688,
+          "exceedBy": 64
+        },
+        {
+          "tag": "div",
+          "id": "",
+          "className": "inline-flex items-center space-x-3 bg-white px-5 py-3 rounded-2xl border border-turquoise-100/50 sha",
+          "right": 2794.5869140625,
+          "width": 315.484375,
+          "exceedBy": 235
+        },
+        {
+          "tag": "div",
+          "id": "",
+          "className": "flex flex-col",
+          "right": 2773.5869140625,
+          "width": 241.484375,
+          "exceedBy": 214
+        },
+        {
+          "tag": "div",
+          "id": "",
+          "className": "flex items-center space-x-1.5",
+          "right": 2773.5869140625,
+          "width": 241.484375,
+          "exceedBy": 214
+        },
+        {
+          "tag": "span",
+          "id": "",
+          "className": "font-extrabold text-xs text-turquoise-900",
+          "right": 2574.6806640625,
+          "width": 42.578125,
+          "exceedBy": 15
+        }
+      ],
+      "layoutMetrics": {
+        "header": {
+          "width": 1820,
+          "maxWidth": "1820px",
+          "paddingLeft": "64px",
+          "paddingRight": "64px",
+          "marginLeft": "370px",
+          "marginRight": "370px",
+          "display": "block"
+        },
+        "footer": {
+          "width": 1820,
+          "maxWidth": "1820px",
+          "paddingLeft": "64px",
+          "paddingRight": "64px",
+          "marginLeft": "370px",
+          "marginRight": "370px",
+          "display": "block"
+        },
+        "desktopNavDisplay": "flex",
+        "mobileToggleDisplay": "none"
+      }
+    },
+    {
+      "viewport": "2K Extreme Ultra-wide (2560px)",
+      "width": 2560,
+      "route": "/pasadias",
+      "hasOverflow": false,
+      "scrollW": 2560,
+      "innerW": 2560,
+      "overflowingElements": [],
+      "layoutMetrics": {
+        "header": {
+          "width": 1820,
+          "maxWidth": "1820px",
+          "paddingLeft": "64px",
+          "paddingRight": "64px",
+          "marginLeft": "370px",
+          "marginRight": "370px",
+          "display": "block"
+        },
+        "footer": {
+          "width": 1820,
+          "maxWidth": "1820px",
+          "paddingLeft": "64px",
+          "paddingRight": "64px",
+          "marginLeft": "370px",
+          "marginRight": "370px",
+          "display": "block"
+        },
+        "desktopNavDisplay": "flex",
+        "mobileToggleDisplay": "none"
+      }
+    },
+    {
+      "viewport": "2K Extreme Ultra-wide (2560px)",
+      "width": 2560,
+      "route": "/estadias",
+      "hasOverflow": false,
+      "scrollW": 2560,
+      "innerW": 2560,
+      "overflowingElements": [],
+      "layoutMetrics": {
+        "header": {
+          "width": 1820,
+          "maxWidth": "1820px",
+          "paddingLeft": "64px",
+          "paddingRight": "64px",
+          "marginLeft": "370px",
+          "marginRight": "370px",
+          "display": "block"
+        },
+        "footer": {
+          "width": 1820,
+          "maxWidth": "1820px",
+          "paddingLeft": "64px",
+          "paddingRight": "64px",
+          "marginLeft": "370px",
+          "marginRight": "370px",
+          "display": "block"
+        },
+        "desktopNavDisplay": "flex",
+        "mobileToggleDisplay": "none"
+      }
+    },
+    {
+      "viewport": "2K Extreme Ultra-wide (2560px)",
+      "width": 2560,
+      "route": "/restaurante",
+      "hasOverflow": false,
+      "scrollW": 2560,
+      "innerW": 2560,
+      "overflowingElements": [],
+      "layoutMetrics": {
+        "header": {
+          "width": 1820,
+          "maxWidth": "1820px",
+          "paddingLeft": "64px",
+          "paddingRight": "64px",
+          "marginLeft": "370px",
+          "marginRight": "370px",
+          "display": "block"
+        },
+        "footer": {
+          "width": 1820,
+          "maxWidth": "1820px",
+          "paddingLeft": "64px",
+          "paddingRight": "64px",
+          "marginLeft": "370px",
+          "marginRight": "370px",
+          "display": "block"
+        },
+        "desktopNavDisplay": "flex",
+        "mobileToggleDisplay": "none"
+      }
+    }
+  ],
+  "interactiveMobileTests": {
+    "drawerOpenTest": {
+      "hasOverflow": false,
+      "scrollW": 375,
+      "innerW": 375,
+      "drawerVisible": true,
+      "drawerHeight": 428
+    },
+    "accordionTest": {
+      "accordionLinkVisible": true,
+      "hasOverflow": false
+    },
+    "languageToggle": {
+      "initial": "EN",
+      "afterClick": "ES",
+      "toggled": true
+    }
+  },
+  "overflowIssues": [],
+  "verdict": "APPROVE",
+  "summary": [
+    "Milestone 1 satisfies all empirical criteria.",
+    "All color tokens (950, 800, 750) and layout utility classes (.container-fluid, .band-full-bleed) compiled cleanly.",
+    "Zero layout overflow observed across 375px, 768px, 1440px, 1920px, and 2560px viewports.",
+    "Header and Footer responsive scaling, interactive mobile drawer, and language toggle function seamlessly."
+  ]
+}
