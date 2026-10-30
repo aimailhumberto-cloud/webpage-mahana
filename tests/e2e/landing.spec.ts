@@ -48,7 +48,8 @@ test.describe('Casa Mahana Landing & Showcase E2E Tests', () => {
     await expect(page.locator('nav button:has-text("Lodging")')).toBeVisible();
     await expect(page.locator('nav button:has-text("Day Passes")')).toBeVisible();
     await expect(page.locator('nav a:has-text("Restaurant")')).toBeVisible();
-    await expect(page.locator('nav a:has-text("Surf Shack")')).toBeVisible();
+    await expect(page.locator('nav a:has-text("Tours")')).toBeVisible();
+    await expect(page.locator('nav a:has-text("Surf Shack")')).not.toBeVisible();
     await expect(page.locator('nav a:has-text("Events")')).toBeVisible();
     
     // Check CTA button in English
@@ -59,7 +60,7 @@ test.describe('Casa Mahana Landing & Showcase E2E Tests', () => {
     await switchToEnglish(page);
     
     await expect(page.locator('text=Your Tropical Sanctuary in the Heart of Chame')).toBeVisible();
-    await expect(page.locator('text=Casa Mahana Lodge & Restaurant — Relax by the pool, surrounded by tropical nature and artisanal cuisine.')).toBeVisible();
+    await expect(page.locator('text=Casa Mahana Lodge & Restaurant — Relax by 3 crystal pools, lush tropical nature, and wood-fired artisanal cuisine in Chame.')).toBeVisible();
     
     // Hero booking bar submit button
     await expect(page.locator('section#inicio button[type="submit"]')).toBeVisible();
@@ -74,7 +75,7 @@ test.describe('Casa Mahana Landing & Showcase E2E Tests', () => {
     // Facilities cards
     await expect(page.locator('section#instalaciones h3:has-text("Tropical Pool")')).toBeVisible();
     await expect(page.locator('text=A crystal-clear pool surrounded by lush vegetation, lounge chairs, and great ambient music.')).toBeVisible();
-    await expect(page.locator('section#instalaciones h3:has-text("Surf Shack · Beach Club")')).toBeVisible();
+    await expect(page.locator('section#instalaciones h3:has-text("Gourmet Restaurant & Bar")')).toBeVisible();
     await expect(page.locator('section#instalaciones h3:has-text("Lounge & Rest Areas")')).toBeVisible();
   });
 
@@ -110,7 +111,8 @@ test.describe('Casa Mahana Landing & Showcase E2E Tests', () => {
     await expect(page.locator('nav button:has-text("Hospedaje")')).toBeVisible();
     await expect(page.locator('nav button:has-text("Pasadías")')).toBeVisible();
     await expect(page.locator('nav a:has-text("Restaurante")')).toBeVisible();
-    await expect(page.locator('nav a:has-text("Surf Shack")')).toBeVisible();
+    await expect(page.locator('nav a:has-text("Tours")')).toBeVisible();
+    await expect(page.locator('nav a:has-text("Surf Shack")')).not.toBeVisible();
     await expect(page.locator('nav a:has-text("Eventos")')).toBeVisible();
     
     // Check CTA button in Spanish
@@ -121,7 +123,7 @@ test.describe('Casa Mahana Landing & Showcase E2E Tests', () => {
     await switchToSpanish(page);
     
     await expect(page.locator('text=Tu Refugio Tropical en el Corazón de Chame')).toBeVisible();
-    await expect(page.locator('text=Casa Mahana Lodge & Restaurante — Relájate entre piscina, naturaleza tropical y nuestra gastronomía artesanal.')).toBeVisible();
+    await expect(page.locator('text=Casa Mahana Lodge & Restaurante — Relájate entre 3 piscinas cristalinas, naturaleza tropical y nuestra gastronomía artesanal al horno de leña en Chame.')).toBeVisible();
     
     // Hero booking bar submit button
     await expect(page.locator('section#inicio button[type="submit"]')).toBeVisible();
@@ -136,7 +138,7 @@ test.describe('Casa Mahana Landing & Showcase E2E Tests', () => {
     // Facilities cards
     await expect(page.locator('section#instalaciones h3:has-text("Piscina Tropical")')).toBeVisible();
     await expect(page.locator('text=Una piscina cristalina rodeada de vegetación, camastros y excelente música ambiental.')).toBeVisible();
-    await expect(page.locator('section#instalaciones h3:has-text("Surf Shack · Club de Playa")')).toBeVisible();
+    await expect(page.locator('section#instalaciones h3:has-text("Restaurante Gourmet & Bar")')).toBeVisible();
     await expect(page.locator('section#instalaciones h3:has-text("Áreas de Descanso")')).toBeVisible();
   });
 

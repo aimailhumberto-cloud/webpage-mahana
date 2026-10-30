@@ -164,18 +164,18 @@ export const ProductShowcase: React.FC = () => {
         : ['Wood-Fired Oven', 'Pizzas from $8.00', 'Fresh Catch', 'Tropical Cocktails']
     },
     {
-      title: language === 'es' ? 'Surf Shack Beach Club & Academia' : 'Surf Shack Beach Club & Academy',
-      subtitle: language === 'es' ? 'Playa Caracol — Pacífico Panameño' : 'Playa Caracol — Panamanian Pacific',
+      title: language === 'es' ? 'Mahana Tours & Aventura' : 'Mahana Tours & Adventure',
+      subtitle: language === 'es' ? 'Manglares de Chame, Cascadas & Aventura' : 'Chame Mangroves, Waterfalls & Adventure',
       desc: language === 'es'
-        ? 'Vive la vibra costera frente al mar en Playa Caracol. Clases privadas de surf con instructores certificados de la Academia Nacional de Surf y alquiler de tablas quivers.'
-        : 'Experience the oceanfront beach club vibe at Playa Caracol. Private surf lessons with certified coaches from the National Surf Academy and full surfboard rentals.',
-      img: '/images/surf-shack-beach-club-drone.jpg',
-      badge: language === 'es' ? 'Beach Club & Surf' : 'Beach Club & Surf',
-      link: '/surf-shack',
-      actionLabel: language === 'es' ? 'Explorar Surf Shack' : 'Explore Surf Shack',
+        ? 'Descubre los rincones naturales más impresionantes de Chame: paseos en bote por los manglares vírgenes, expediciones a cascadas escondidas y aventuras guiadas.'
+        : 'Discover the most breathtaking natural spots in Chame: mangrove boat tours, hidden waterfalls, and guided outdoor eco-adventures.',
+      img: '/images/tours-mangrove-boat.jpg',
+      badge: language === 'es' ? 'Tours & Naturaleza' : 'Tours & Nature',
+      link: '/mahana-tours',
+      actionLabel: language === 'es' ? 'Ver Tours Disponibles' : 'View Available Tours',
       highlights: language === 'es'
-        ? ['Playa Caracol', 'Clases de Surf $35', 'Alquiler Tablas $20', 'Ambiente Playero']
-        : ['Playa Caracol', 'Surf Lessons $35', 'Board Rental $20', 'Coastal Vibe']
+        ? ['Paseos en Lancha', 'Cascadas de Chame', 'Guías Locales', 'Salidas Diarias']
+        : ['Boat Tours', 'Chame Waterfalls', 'Local Guides', 'Daily Departures']
     }
   ];
 
@@ -254,7 +254,7 @@ export const ProductShowcase: React.FC = () => {
                     : 'bg-white text-turquoise-900 border border-sand-200 hover:bg-sand-50'
                 }`}
               >
-                {language === 'es' ? 'Gastronomía & Beach Club' : 'Dining & Beach Club'}
+                {language === 'es' ? 'Gastronomía & Experiencias' : 'Dining & Experiences'}
               </button>
             </div>
           </div>
@@ -507,10 +507,10 @@ export const ProductShowcase: React.FC = () => {
               </span>
               <div>
                 <h2 className="text-xl sm:text-2xl font-serif font-bold text-turquoise-950">
-                  {language === 'es' ? 'Gastronomía & Beach Club' : 'Dining & Oceanfront Beach Club'}
+                  {language === 'es' ? 'Gastronomía & Experiencias' : 'Dining & Local Experiences'}
                 </h2>
                 <p className="text-xs sm:text-sm text-mahana-dark/70">
-                  {language === 'es' ? 'Sabores artesanales al horno de leña y la experiencia de playa en Playa Caracol' : 'Artisanal wood-fired cuisine and beach club vibes at Playa Caracol'}
+                  {language === 'es' ? 'Sabores artesanales al horno de leña, mariscos frescos y aventuras guiadas por Chame' : 'Artisanal wood-fired cuisine, fresh seafood, and guided outdoor adventures in Chame'}
                 </p>
               </div>
             </div>

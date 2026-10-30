@@ -62,7 +62,7 @@ export const PromoHabitacionGratis: React.FC = () => {
       incBreakfast: "Desayuno continental de cortesía diario para la pareja (¡totalmente gratis y adicional a tu abono de consumo!).",
       incConsumable: "Depósito de garantía 100% consumible en todo el menú de restaurante y bar.",
       incPools: "Acceso libre a nuestras 3 piscinas tropicales y áreas de hamacas.",
-      incBeach: "Pase al club de playa Surf Shack en la hermosa Playa Caracol.",
+      incBeach: "Entorno 100% Pet-Friendly para disfrutar con tus mascotas.",
       incWifi: "WiFi de alta velocidad y estacionamiento gratuito en el lodge.",
       
       ratesTitle: "Tarifas & Condiciones de la Promoción",
@@ -100,11 +100,11 @@ export const PromoHabitacionGratis: React.FC = () => {
       todo1Desc: "Refréscate y relájate bajo las palmeras en nuestras tres espectaculares piscinas, rodeadas de decks de hamacas y jardines.",
       todo2Title: "Cocina al Horno de Leña",
       todo2Desc: "Utiliza tu saldo al 100% en pizzas artesanales, ceviches frescos, hamburguesas premium y cócteles helados frente a la piscina.",
-      todo3Title: "Surf Shack Beach Club",
-      todo3Desc: "Accede de cortesía a nuestro club de playa en Playa Caracol (a 12 min). Disfruta de la brisa, arena y olas del Pacífico.",
+      todo3Title: "Tours de Naturaleza & Manglares",
+      todo3Desc: "Explora los impresionantes senderos ecológicos y paseos en bote por los manglares vírgenes de Chame.",
       todo4Title: "Beach Buggies & Mulitas",
       todo4Desc: "Alquila vehículos todo terreno directamente en el lodge y vive la aventura recorriendo los extensos senderos costeros de Chame.",
-      todo5Title: "Surf & Kitesurf",
+      todo5Title: "Kitesurf en Punta Chame",
       todo5Desc: "Aprende o practica deportes acuáticos en Punta Chame, uno de los destinos más cotizados a nivel mundial por sus vientos y oleaje.",
       todo6Title: "Estadía Pet-Friendly",
       todo6Desc: "No dejes a tu mejor amigo atrás. Somos un hotel amante de los animales, tus mascotas son siempre bienvenidas aquí.",
@@ -142,7 +142,7 @@ export const PromoHabitacionGratis: React.FC = () => {
       incBreakfast: "Complimentary continental breakfast daily for two (fully free and in addition to your consumable credit!).",
       incConsumable: "100% consumable security deposit on the entire restaurant and bar menu.",
       incPools: "Unlimited access to our 3 tropical pools and hammock deck.",
-      incBeach: "Access pass to our Surf Shack beach club in Playa Caracol.",
+      incBeach: "100% Pet-Friendly environment to enjoy with your furry friends.",
       incWifi: "High-speed WiFi and secure parking on the house.",
       
       ratesTitle: "Promotion Rates & Terms",
@@ -180,11 +180,11 @@ export const PromoHabitacionGratis: React.FC = () => {
       todo1Desc: "Cool off and unwind under palm trees in our three spectacular swimming pools, surrounded by hammock decks and lush gardens.",
       todo2Title: "Wood-Fired Kitchen",
       todo2Desc: "Use 100% of your tab credit on artisanal pizzas, fresh ceviches, premium burgers, and ice-cold poolside cocktails.",
-      todo3Title: "Surf Shack Beach Club",
-      todo3Desc: "Enjoy free access to our beach club at Playa Caracol (12 mins away). Dive into the breeze, volcanic sand, and Pacific waves.",
+      todo3Title: "Tours de Naturaleza & Manglares",
+      todo3Desc: "Explore stunning ecological trails and guided boat excursions through Chame’s pristine mangroves.",
       todo4Title: "Beach Buggies & Mulitas",
       todo4Desc: "Rent off-road buggies directly at the lodge and adventure along Chame's massive coastlines and sandy trails.",
-      todo5Title: "Surf & Kitesurf",
+      todo5Title: "Kitesurf en Punta Chame",
       todo5Desc: "Learn or practice water sports in Punta Chame, a world-famous destination renowned for its constant winds and active tides.",
       todo6Title: "Pet-Friendly Stay",
       todo6Desc: "Don't leave your furry best friend behind! We are a pet-loving lodge, and pets are always welcomed here.",
@@ -413,10 +413,10 @@ export const PromoHabitacionGratis: React.FC = () => {
               </div>
             </div>
 
-            {/* Surf Shack */}
+            {/* Tours de Naturaleza */}
             <div 
               className="relative rounded-3xl overflow-hidden h-64 sm:h-72 md:h-80 shadow-md group hover:shadow-xl hover:scale-[1.02] transition-all duration-300 flex flex-col justify-end p-6 border border-sand-200/50"
-              style={{ backgroundImage: 'url("/images/surf-shack-hero-v2.jpg")', backgroundSize: 'cover', backgroundPosition: 'center' }}
+              style={{ backgroundImage: 'url("/images/tours-mangrove-boat.jpg")', backgroundSize: 'cover', backgroundPosition: 'center' }}
             >
               <div className="absolute inset-0 bg-black/70 group-hover:bg-black/60 transition-colors z-0" />
               <div className="relative z-10 text-white space-y-2">
@@ -443,7 +443,7 @@ export const PromoHabitacionGratis: React.FC = () => {
               </div>
             </div>
 
-            {/* Surf & Kitesurf */}
+            {/* Kitesurf */}
             <div 
               className="relative rounded-3xl overflow-hidden h-64 sm:h-72 md:h-80 shadow-md group hover:shadow-xl hover:scale-[1.02] transition-all duration-300 flex flex-col justify-end p-6 border border-sand-200/50"
               style={{ backgroundImage: 'url("/images/surf-camp-kids-v2.jpg")', backgroundSize: 'cover', backgroundPosition: 'center' }}

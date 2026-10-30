@@ -83,11 +83,7 @@ export const Footer: React.FC = () => {
                   {language === 'es' ? 'Mahana Tours & Aventura' : 'Mahana Tours & Adventure'}
                 </Link>
               </li>
-              <li>
-                <Link to="/surf-shack" className="hover:text-turquoise-400 transition-colors">
-                  Surf Shack & Academia
-                </Link>
-              </li>
+
               <li>
                 <Link to="/eventos" className="hover:text-turquoise-400 transition-colors">
                   {language === 'es' ? 'Bodas & Eventos' : 'Weddings & Events'}

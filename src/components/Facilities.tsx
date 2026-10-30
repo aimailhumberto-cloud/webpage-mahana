@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { useLanguage } from '../context/LanguageContext';
 import { useMedia } from '../context/MediaContext';
-import { Waves, Palmtree, Sunset, Sparkles, ArrowRight, CheckCircle2 } from 'lucide-react';
+import { Waves, Utensils, Sunset, Sparkles, ArrowRight, CheckCircle2 } from 'lucide-react';
 
 export const Facilities: React.FC = () => {
   const { t, language } = useLanguage();
@@ -23,17 +23,17 @@ export const Facilities: React.FC = () => {
       cta: language === 'es' ? 'Ver Piscinas & Pasadías' : 'View Pools & Passes'
     },
     {
-      bgImage: media.fac_beach || '/images/surf-shack-beach-club-drone.jpg',
-      icon: <Palmtree className="h-6 w-6 text-amber-300" />,
-      tag: language === 'es' ? 'Club de Playa' : 'Beach Club',
+      bgImage: media.fac_beach || '/images/food-pizza-oven.jpg',
+      icon: <Utensils className="h-6 w-6 text-amber-300" />,
+      tag: language === 'es' ? 'Gastronomía de Autor' : 'Signature Dining',
       title: t('facilities.beach_title'),
-      subtitle: language === 'es' ? 'A solo 5 minutos del Lodge' : 'Just 5 minutes from Lodge',
+      subtitle: language === 'es' ? 'Horno de Leña & Bar Tropical' : 'Wood-Fired & Tropical Bar',
       desc: t('facilities.beach_desc'),
       amenities: language === 'es'
-        ? ['Playa Caracol', 'Clases de Surf', 'Carpas Balinesas', 'Alquiler de Tablas']
-        : ['Caracol Beach', 'Surf Lessons', 'Beach Cabanas', 'Board Rentals'],
-      link: '/surf-shack',
-      cta: language === 'es' ? 'Conocer Surf Shack' : 'Discover Surf Shack'
+        ? ['Pizzas a la Leña', 'Mariscos Frescos', 'Coctelería de Autor', 'Abierto al Público']
+        : ['Wood-Fired Pizzas', 'Fresh Seafood', 'Signature Cocktails', 'Open to Public'],
+      link: '/restaurante',
+      cta: language === 'es' ? 'Conocer Restaurante' : 'Discover Restaurant'
     },
     {
       bgImage: media.fac_relax || '/images/lodge-grounds.jpg',
@@ -76,8 +76,8 @@ export const Facilities: React.FC = () => {
 
           <p className="text-base sm:text-lg text-mahana-dark/75 max-w-2xl mx-auto leading-relaxed">
             {language === 'es'
-              ? 'Espacios diseñados para la desconexión. Cada rincón de Casa Mahana está pensado para conectarte con la calma, el sol y la naturaleza: 3 piscinas tropicales, club de playa en Playa Caracol y amplios jardines para pasear.'
-              : 'Spaces crafted for deep relaxation. Every corner of Casa Mahana is tailored for tranquility, sunshine, and nature: 3 tropical swimming pools, an oceanfront beach club at Caracol Beach, and spacious grounds for leisurely strolls.'}
+              ? 'Espacios diseñados para la desconexión. Cada rincón de Casa Mahana está pensado para conectarte con la calma, el sol y la naturaleza: 3 piscinas tropicales, restaurante gourmet al horno de leña y amplios jardines para pasear.'
+              : 'Spaces crafted for deep relaxation. Every corner of Casa Mahana is tailored for tranquility, sunshine, and nature: 3 tropical swimming pools, a wood-fired gourmet restaurant, and spacious grounds for leisurely strolls.'}
           </p>
         </div>
 

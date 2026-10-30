@@ -150,30 +150,15 @@ test.describe('Casa Mahana E2E Tier 4 Real-World Workflows', () => {
     await expect(whatsappButton).toBeVisible();
   });
 
-  test('Workflow 5: Complete Guest Journey — Surf Shack Beach Club Experience on /surf-shack', async ({ page }) => {
-    let capturedPmsUrl = '';
-    await page.route('https://casa-mahana-pms.onrender.com/**', route => {
-      capturedPmsUrl = route.request().url();
-      return route.fulfill({ status: 200, contentType: 'text/html', body: '<html><body>PMS</body></html>' });
-    });
-
+  test('Workflow 5: Complete Guest Journey — Closed Surf Shack Redirect & Navigation Sanity', async ({ page }) => {
     await page.goto('/surf-shack');
     await page.waitForLoadState('domcontentloaded');
 
-    // 1. Inspect Beach Club hero & credentials
-    await expect(page.getByRole('heading', { name: 'Surf Shack Beach Club' })).toBeVisible();
-    await expect(page.getByRole('heading', { name: 'Academia Nacional de Surf' })).toBeVisible();
+    // 1. Confirm redirect to homepage
+    await expect(page).toHaveURL('/');
 
-    // 2. Inspect Lessons and Gear Rentals
-    await expect(page.getByText('Alquiler de Tablas')).toBeVisible();
-    await expect(page.getByText('$20')).toBeVisible();
-    await expect(page.getByText('Clase de Surf (Principiantes)')).toBeVisible();
-    await expect(page.getByText('$35')).toBeVisible();
-
-    // 3. Click booking CTA
-    const bookLessonBtn = page.getByRole('button', { name: 'Reservar Clase de Surf' }).first();
-    await bookLessonBtn.click();
-    await expect.poll(() => capturedPmsUrl).toContain('https://casa-mahana-pms.onrender.com/reservar');
+    // 2. Confirm no Surf Shack links in navigation
+    await expect(page.locator('nav a:has-text("Surf Shack")')).toHaveCount(0);
   });
 
 });

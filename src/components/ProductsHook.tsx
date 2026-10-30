@@ -68,23 +68,23 @@ export const ProductsHook: React.FC = () => {
       accentColor: 'border-rose-500'
     },
     {
-      icon: <Waves className="w-6 h-6 text-cyan-600" />,
-      title: 'Surf Shack Beach Club',
-      subtitle: language === 'es' ? 'Playa Caracol · Pacific Coast' : 'Caracol Beach · Pacific Coast',
+      icon: <Sparkles className="w-6 h-6 text-emerald-600" />,
+      title: language === 'es' ? 'Mahana Tours & Aventura' : 'Mahana Tours & Adventure',
+      subtitle: language === 'es' ? 'Manglares, Cascadas & Chame' : 'Mangroves, Waterfalls & Chame',
       desc: language === 'es'
-        ? 'El club de playa de Casa Mahana en Playa Caracol. Clases de surf personalizadas avaladas por la Academia Nacional de Surf, alquiler de tablas, carpas balinesas y chillout playero.'
-        : 'Casa Mahana’s oceanfront beach club at Playa Caracol. Certified surf coaching with the National Surf Academy, quiver rentals, beach daybeds, and coastal vibes.',
-      bgImage: media.exp_surf || '/images/surf-shack-beach-club-drone.jpg',
-      badge: language === 'es' ? 'Surf & Beach Club' : 'Surf & Beach Club',
-      priceBadgeSub: language === 'es' ? 'Experiencias de Mar' : 'Ocean Experiences',
-      priceBadge: language === 'es' ? 'Clases desde $35' : 'Lessons from $35',
-      priceNote: language === 'es' ? 'A 5 min del Lodge' : '5 min from Lodge',
+        ? 'Explora los mejores tesoros naturales de Chame: paseos en lancha por los manglares vírgenes, expediciones a cascadas escondidas y aventuras guiadas al aire libre.'
+        : 'Explore Chame’s natural treasures: boat excursions through pristine mangroves, hidden waterfall hikes, and guided outdoor eco-adventures.',
+      bgImage: media.exp_surf || '/images/tours-mangrove-boat.jpg',
+      badge: language === 'es' ? 'Tours & Naturaleza' : 'Tours & Nature',
+      priceBadgeSub: language === 'es' ? 'Excursiones Desde' : 'Tours From',
+      priceBadge: language === 'es' ? 'Desde $25/persona' : 'From $25/person',
+      priceNote: language === 'es' ? 'Guías locales expertos' : 'Expert local guides',
       highlights: language === 'es'
-        ? ['Academia Nacional de Surf', 'Alquiler de Tablas', 'Vibe Costero', 'Daybeds frente al mar']
-        : ['National Surf Academy', 'Board Rentals', 'Coastal Vibe', 'Oceanfront Daybeds'],
-      link: '/surf-shack',
-      cta: language === 'es' ? 'Descubrir Surf Shack' : 'Discover Surf Shack',
-      accentColor: 'border-cyan-500'
+        ? ['Paseos en Lancha', 'Cascadas de Chame', 'Guías Certificados', 'Salidas Diarias']
+        : ['Boat Tours', 'Chame Waterfalls', 'Certified Guides', 'Daily Departures'],
+      link: '/mahana-tours',
+      cta: language === 'es' ? 'Explorar Tours' : 'Explore Tours',
+      accentColor: 'border-emerald-500'
     }
   ];
 
@@ -110,8 +110,8 @@ export const ProductsHook: React.FC = () => {
 
           <p className="text-base sm:text-lg text-mahana-dark/70 max-w-2xl mx-auto leading-relaxed">
             {language === 'es'
-              ? 'Desde una escapada de fin de semana con todo incluido hasta un pasadía en nuestras 3 piscinas, una pizza artesanal al horno de leña o una sesión de surf en Playa Caracol.'
-              : 'From an all-inclusive weekend getaway to a refreshing day pass by our 3 pools, artisanal wood-fired pizza, or a surf lesson at Caracol Beach.'}
+              ? 'Desde una escapada de fin de semana con todo incluido hasta un pasadía en nuestras 3 piscinas, una pizza artesanal al horno de leña o un tour guiado por la naturaleza de Chame.'
+              : 'From an all-inclusive weekend getaway to a refreshing day pass by our 3 pools, artisanal wood-fired pizza, or a guided eco-tour in Chame.'}
           </p>
         </div>
 

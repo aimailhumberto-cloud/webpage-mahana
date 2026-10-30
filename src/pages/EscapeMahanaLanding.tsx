@@ -12,7 +12,7 @@ export const EscapeMahanaLanding: React.FC = () => {
     { text: language === 'es' ? 'Hospedaje para 2 personas (Habitación Standard)' : 'Lodging for 2 guests (Standard Room)' },
     { text: language === 'es' ? 'Desayuno continental completo incluido para la pareja' : 'Continental breakfast included for both guests' },
     { text: language === 'es' ? 'Acceso libre a nuestras 3 piscinas tropicales durante la estancia' : 'Unlimited access to our 3 tropical swimming pools' },
-    { text: language === 'es' ? 'Acceso a nuestro club de playa Surf Shack en Playa Caracol' : 'Access to our Surf Shack beach club in Playa Caracol' },
+    { text: language === 'es' ? 'Entorno 100% Pet-Friendly, hamacas y amplios jardines tropicales' : '100% Pet-Friendly setting, hammocks, and spacious tropical grounds' },
     { text: language === 'es' ? 'WiFi de alta velocidad de cortesía en todas las áreas' : 'Complimentary high-speed WiFi throughout the property' }
   ];
 

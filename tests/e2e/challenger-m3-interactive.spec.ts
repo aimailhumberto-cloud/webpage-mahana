@@ -279,7 +279,7 @@ test.describe('Challenger M3 Interactive Workflows & Verification Suite', () => 
 
     const staysSectionHeading = page.getByRole('heading', { name: 'Hospedaje & Estadías en el Lodge' });
     const dayPassSectionHeading = page.getByRole('heading', { name: 'Pasadías & Días de Sol' });
-    const diningSectionHeading = page.getByRole('heading', { name: 'Gastronomía & Beach Club' });
+    const diningSectionHeading = page.getByRole('heading', { name: 'Gastronomía & Experiencias' });
 
     // Initial state: "all" filter active -> all 3 sections visible
     await expect(staysSectionHeading).toBeVisible();
@@ -311,7 +311,7 @@ test.describe('Challenger M3 Interactive Workflows & Verification Suite', () => 
     await checkOverflow();
 
     // 3. Filter: "Gastronomía & Beach Club"
-    await page.getByRole('button', { name: 'Gastronomía & Beach Club' }).click();
+    await page.getByRole('button', { name: 'Gastronomía & Experiencias' }).click();
     await expect(staysSectionHeading).toBeHidden();
     await expect(dayPassSectionHeading).toBeHidden();
     await expect(diningSectionHeading).toBeVisible();

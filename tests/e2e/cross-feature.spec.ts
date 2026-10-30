@@ -47,7 +47,7 @@ test.describe('Casa Mahana E2E Tier 3 Cross-Feature Combination Tests', () => {
   });
 
   test('2. i18n Language Persistence across Page Reload', async ({ page }) => {
-    await page.goto('/surf-shack');
+    await page.goto('/restaurante');
     await page.waitForLoadState('domcontentloaded');
 
     // Switch to English
@@ -56,14 +56,14 @@ test.describe('Casa Mahana E2E Tier 3 Cross-Feature Combination Tests', () => {
     await page.waitForTimeout(100);
 
     // Verify English text
-    await expect(page.getByRole('heading', { name: 'National Surf Academy' })).toBeVisible();
+    await expect(page.getByRole('heading', { name: 'Public Restaurant & Bar' })).toBeVisible();
 
     // Reload page
     await page.reload();
     await page.waitForLoadState('domcontentloaded');
 
     // Must remain in English
-    await expect(page.getByRole('heading', { name: 'National Surf Academy' })).toBeVisible();
+    await expect(page.getByRole('heading', { name: 'Public Restaurant & Bar' })).toBeVisible();
     const savedLanguage = await page.evaluate(() => localStorage.getItem('language'));
     expect(savedLanguage).toBe('en');
   });

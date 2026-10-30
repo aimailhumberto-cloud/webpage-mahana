@@ -118,7 +118,8 @@ test.describe('Casa Mahana E2E Tier 2 Boundary & Corner Cases', () => {
     // Verify drawer contains navigation links
     const mobileMenu = page.locator('header .lg\\:hidden');
     await expect(mobileMenu.locator('a:has-text("Restaurante")')).toBeVisible();
-    await expect(mobileMenu.locator('a:has-text("Surf Shack")')).toBeVisible();
+    await expect(mobileMenu.locator('a:has-text("Tours y Aventura")')).toBeVisible();
+    await expect(mobileMenu.locator('a:has-text("Surf Shack")')).not.toBeVisible();
 
     // Toggle Estadías accordion inside mobile drawer
     const estadiasAccordionBtn = mobileMenu.getByRole('button', { name: 'Hospedaje', exact: true });

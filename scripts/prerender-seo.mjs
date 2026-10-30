@@ -10,7 +10,7 @@ const routes = [
   {
     path: '/',
     title: 'Casa Mahana — Lodge & Restaurante Gourmet en Chame, Panamá',
-    description: 'Disfruta de una escapada tropical inolvidable en Casa Mahana. Hospedaje acogedor, piscina tropical, restaurante gourmet al horno de leña, surf y tours de aventura en Chame.',
+    description: 'Disfruta de una escapada tropical inolvidable en Casa Mahana. Hospedaje acogedor, piscina tropical, restaurante gourmet al horno de leña, 3 piscinas tropicales y tours de aventura en Chame.',
     image: 'https://www.casamahana.com/images/hero-pool-drone-aerial.jpg',
     schemaType: 'LodgingBusiness'
   },
@@ -45,7 +45,7 @@ const routes = [
   {
     path: '/estadias/todo-incluido',
     title: 'Estadía Todo Incluido + Open Bar — Casa Mahana Lodge',
-    description: 'Disfruta de la desconexión definitiva con hospedaje, pensión completa, barra libre de cócteles premium ilimitados y traslado al club de playa Surf Shack.',
+    description: 'Disfruta de la desconexión definitiva con hospedaje, pensión completa, barra libre de cócteles premium ilimitados y acceso a 3 piscinas tropicales.',
     image: 'https://www.casamahana.com/images/all-inclusive-pool-hero-v2.jpg',
     schemaType: 'LodgingBusiness'
   },
@@ -76,13 +76,6 @@ const routes = [
     description: 'Abierto al público en Chame. Saborea nuestras pizzas artesanales a la leña, ceviches frescos, mariscos locales y cócteles de autor frente a la piscina tropical.',
     image: 'https://www.casamahana.com/images/food-pizza-oven.jpg',
     schemaType: 'Restaurant'
-  },
-  {
-    path: '/surf-shack',
-    title: 'Surf Shack Beach Club & Academy — Casa Mahana',
-    description: 'Visita nuestro club de playa en Playa Caracol, Chame. Ofrecemos clases de surf para todos los niveles, alquiler de tablas, cócteles y camastros frente al mar.',
-    image: 'https://www.casamahana.com/images/surf-shack-beach-club-drone.jpg',
-    schemaType: 'TouristAttraction'
   },
   {
     path: '/eventos',

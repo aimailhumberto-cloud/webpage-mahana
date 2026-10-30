@@ -124,10 +124,6 @@ export const Header: React.FC = () => {
               {language === 'es' ? 'Tours' : 'Tours'}
             </Link>
 
-            <Link to="/surf-shack" className="text-mahana-dark/80 hover:text-turquoise-950 font-bold transition-colors">
-              Surf Shack
-            </Link>
-
             <Link to="/eventos" className="text-mahana-dark/80 hover:text-turquoise-950 font-bold transition-colors shrink-0">
               {language === 'es' ? 'Eventos' : 'Events'}
             </Link>
@@ -263,13 +259,7 @@ export const Header: React.FC = () => {
               {language === 'es' ? 'Tours y Aventura' : 'Tours & Adventure'}
             </Link>
 
-            <Link
-              to="/surf-shack"
-              onClick={handleLinkClick}
-              className="py-2 text-mahana-dark font-extrabold border-b border-sand-100 text-base"
-            >
-              Surf Shack
-            </Link>
+
 
             <Link
               to="/eventos"

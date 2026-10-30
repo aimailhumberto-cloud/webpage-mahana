@@ -11,9 +11,9 @@ export const EstadiaAllInclusiveLanding: React.FC = () => {
   const inclusions = [
     { text: language === 'es' ? 'Pensión Completa: Desayuno, Almuerzo y Cena' : 'Full Board: Breakfast, Lunch, and Dinner included' },
     { text: language === 'es' ? 'Snack de bienvenida al llegar a Casa Mahana' : 'Complimentary welcome snack upon arrival at Casa Mahana' },
-    { text: language === 'es' ? 'Comidas en el Lodge o frente al mar en Surfshack Beach Club' : 'Meals available at the Lodge or oceanfront at Surfshack Beach Club' },
+    { text: language === 'es' ? 'Comidas completas a la carta en el Lodge y restaurante de leña' : 'Full a-la-carte dining at the Lodge and wood-fired restaurant' },
     { text: language === 'es' ? 'Open Bar Premium Ilimitado (cócteles, vinos, cervezas, tragos nacionales)' : 'Unlimited Premium Open Bar (cocktails, wine, beers, local spirits)' },
-    { text: language === 'es' ? 'Hasta 6 cervezas por adulto en cooler para llevar a la playa' : 'Up to 6 beers per adult in a cooler to take to the beach' },
+    { text: language === 'es' ? 'Cócteles de autor y bebidas ilimitadas servidas en piscina y restaurante' : 'Signature cocktails and unlimited drinks served poolside and in restaurant' },
     { text: language === 'es' ? 'Bebidas sin alcohol ilimitadas (refrescos, jugos, café, té)' : 'Unlimited non-alcoholic beverages (soft drinks, juices, coffee, tea)' },
     { text: language === 'es' ? 'Mocktails (cócteles sin alcohol) ilimitados para niños' : 'Unlimited mocktails (non-alcoholic cocktails) for children' },
     { text: language === 'es' ? 'Acceso libre a la piscina tropical y hamacas durante el día' : 'Daytime access to the tropical pool and hammock areas' }
@@ -34,8 +34,8 @@ export const EstadiaAllInclusiveLanding: React.FC = () => {
       <SEO 
         titleEs="Estadía Todo Incluido + Open Bar — Casa Mahana Lodge"
         titleEn="All-Inclusive Stay + Open Bar — Casa Mahana Lodge"
-        descriptionEs="Disfruta de la desconexión definitiva con hospedaje, pensión completa, barra libre de cócteles premium ilimitados y traslado al club de playa Surf Shack."
-        descriptionEn="Enjoy the ultimate escape with premium lodging, full board meals, unlimited premium open bar cocktails, and beach club shuttle."
+        descriptionEs="Disfruta de la desconexión definitiva con hospedaje, pensión completa, barra libre de cócteles premium ilimitados y acceso a 3 piscinas tropicales."
+        descriptionEn="Enjoy the ultimate escape with premium lodging, full board meals, unlimited premium open bar cocktails, and access to 3 tropical pools."
         image="/images/all-inclusive-pool-hero-v2.jpg"
         path="/estadias/todo-incluido"
       />
@@ -73,8 +73,8 @@ export const EstadiaAllInclusiveLanding: React.FC = () => {
             </h2>
             <p className="text-mahana-dark/85 leading-relaxed text-base">
               {language === 'es' 
-                ? 'Nuestro plan Todo Incluido + Open Bar está diseñado para quienes buscan una escapada sin límites ni preocupaciones en Chame. Disfruta de un snack de bienvenida al llegar al lodge, accede a cenas a la carta con más de 8 platos para escoger y deléitate con desayunos y almuerzos en el lodge o directamente frente al mar en nuestro club de playa Surfshack.'
-                : 'Our All-Inclusive + Open Bar plan is designed for those seeking a limitless, carefree getaway in Chame. Savor a welcome snack upon arrival, choose from over 8 premium a-la-carte dishes for dinner, and enjoy breakfasts and lunches at the lodge or right in front of the ocean at Surfshack Beach Club.'}
+                ? 'Nuestro plan Todo Incluido + Open Bar está diseñado para quienes buscan una escapada sin límites ni preocupaciones en Chame. Disfruta de un snack de bienvenida al llegar al lodge, accede a cenas a la carta con más de 8 platos para escoger y deléitate con desayunos, almuerzos y cócteles premium ilimitados servidos junto a nuestras piscinas tropicales.'
+                : 'Our All-Inclusive + Open Bar plan is designed for those seeking a limitless, carefree getaway in Chame. Savor a welcome snack upon arrival, choose from over 8 premium a-la-carte dishes for dinner, and enjoy breakfasts, lunches, and unlimited premium cocktails served poolside.'}
             </p>
           </div>
 
@@ -165,11 +165,11 @@ export const EstadiaAllInclusiveLanding: React.FC = () => {
             <div className="bg-white rounded-3xl border border-sand-200 shadow-glass p-5 sm:p-8 space-y-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm font-semibold text-mahana-dark/80">
                 <div className="space-y-2">
-                  <h4 className="font-bold text-turquoise-950">{language === 'es' ? 'Transporte a Surfshack' : 'Shuttle to Surfshack'}</h4>
+                  <h4 className="font-bold text-turquoise-950">{language === 'es' ? 'Políticas Pet Friendly' : 'Pet Friendly Policies'}</h4>
                   <p className="text-xs text-mahana-dark/70 font-medium leading-relaxed">
                     {language === 'es'
-                      ? 'Traslado opcional de ida y vuelta al Club de Playa. Tarifa de B/. 10.00 por habitación (Estándar o Doble) o B/. 15.00 por habitación Familiar. Salida única a las 9:00 a.m. y regresos a las 12:30 p.m. o 5:00 p.m. Se requiere confirmación de espacio al reservar.'
-                      : 'Optional round-trip beach club shuttle. Rate of $10.00 per Standard or Double room, or $15.00 per Family room. Departure at 9:00 AM, returns at 12:30 PM or 5:00 PM. Seating confirmation is required when booking.'}
+                      ? 'Tus mascotas son 100% bienvenidas en Casa Mahana. Amplios jardines y áreas verdes para disfrutar en familia (tarifa de B/. 10.00 por mascota).'
+                      : 'Your pets are 100% welcome at Casa Mahana. Spacious gardens and green areas for family enjoyment ($10.00 fee per pet).'}
                   </p>
                 </div>
                 <div className="space-y-2">

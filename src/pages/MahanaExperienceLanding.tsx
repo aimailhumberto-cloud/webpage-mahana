@@ -10,7 +10,7 @@ export const MahanaExperienceLanding: React.FC = () => {
 
   const inclusions = [
     { text: language === 'es' ? 'Pensión Completa: Desayuno, Almuerzo y Cena incluidos' : 'Full Board: Breakfast, Lunch, and Dinner included' },
-    { text: language === 'es' ? 'Comidas a escoger en el Lodge o frente al mar en Surfshack' : 'Meals available at the Lodge or oceanfront at Surfshack' },
+    { text: language === 'es' ? 'Pensión completa: Desayuno, almuerzo y cena en nuestro restaurante de leña' : 'Full board: Breakfast, lunch, and dinner at our wood-fired restaurant' },
     { text: language === 'es' ? 'Acceso libre a la Piscina Tropical y áreas de relajación durante el día' : 'Daytime access to the Tropical Pool and lounge areas' },
     { text: language === 'es' ? 'Conexión WiFi de alta velocidad de cortesía en todo el Lodge' : 'Complimentary high-speed WiFi throughout the Lodge' },
     { text: language === 'es' ? 'Estacionamiento privado gratuito dentro de las instalaciones' : 'Complimentary secure private parking on site' }
@@ -19,7 +19,7 @@ export const MahanaExperienceLanding: React.FC = () => {
   const experiencePhotos = [
     { src: '/images/food-fish-patacones.jpg', titleEs: 'Gastronomía Costera y Horno de Leña', titleEn: 'Coastal Dining & Wood-Fired Specialties' },
     { src: '/images/hero-pool-drone-aerial.jpg', titleEs: 'Piscina Tropical y Camastros de Descanso', titleEn: 'Tropical Pool & Relaxing Sun Loungers' },
-    { src: '/images/surf-shack-swing.jpg', titleEs: 'Club de Playa Surfshack en Playa Caracol', titleEn: 'Surfshack Beach Club at Playa Caracol' }
+    { src: '/images/pet-friendly.jpg', titleEs: 'Entorno Natural y Pet-Friendly', titleEn: 'Natural & Pet-Friendly Grounds' }
   ];
 
   const handleBook = () => {
@@ -31,8 +31,8 @@ export const MahanaExperienceLanding: React.FC = () => {
       <SEO 
         titleEs="Mahana Experience (Pensión Completa) — Casa Mahana Lodge"
         titleEn="Mahana Experience (Full Board) — Casa Mahana Lodge"
-        descriptionEs="La escapada perfecta con pensión completa (desayuno, almuerzo y cena). Disfruta de una habitación acogedora, piscina tropical, WiFi y acceso a Surf Shack."
-        descriptionEn="The perfect getaway with full board (breakfast, lunch, and dinner). Enjoy a cozy room, tropical pool, WiFi, and Surf Shack access."
+        descriptionEs="La escapada perfecta con pensión completa (desayuno, almuerzo y cena). Disfruta de una habitación acogedora, 3 piscinas tropicales, WiFi Starlink y restaurante de leña."
+        descriptionEn="The perfect getaway with full board (breakfast, lunch, and dinner). Enjoy a cozy room, 3 tropical pools, Starlink WiFi, and wood-fired dining."
         image="/images/hero-pool-drone.jpg"
         path="/estadias/mahana-experience"
       />
@@ -70,8 +70,8 @@ export const MahanaExperienceLanding: React.FC = () => {
             </h2>
             <p className="text-mahana-dark/85 leading-relaxed text-base">
               {language === 'es' 
-                ? 'Con el paquete Mahana Experience, te ofrecemos una estancia relajada y completa en Chame. Este plan incluye alojamiento y todas tus comidas principales (desayuno, almuerzo y cena). Para tu comodidad, puedes disfrutar de la gastronomía directamente en el lodge o frente al mar en nuestro club de playa Surfshack.'
-                : 'With the Mahana Experience package, we offer you a relaxed and completely covered stay in Chame. This plan includes premium lodging and all your main meals (breakfast, lunch, and dinner). For your convenience, meals can be enjoyed directly at the lodge or oceanfront at our Surfshack beach club.'}
+                ? 'Con el paquete Mahana Experience, te ofrecemos una estancia relajada y completa en Chame. Este plan incluye alojamiento y todas tus comidas principales (desayuno, almuerzo y cena). Para tu comodidad, disfruta de la mejor gastronomía artesanal al horno de leña servida directamente en el lodge frente a la piscina.'
+                : 'With the Mahana Experience package, we offer you a relaxed and completely covered stay in Chame. This plan includes premium lodging and all your main meals (breakfast, lunch, and dinner). For your convenience, enjoy the finest wood-fired artisanal cuisine served directly at the lodge by the pool.'}
             </p>
           </div>
 
@@ -170,11 +170,11 @@ export const MahanaExperienceLanding: React.FC = () => {
                   </p>
                 </div>
                 <div className="space-y-2">
-                  <h4 className="font-bold text-turquoise-950">{language === 'es' ? 'Transporte a Surfshack' : 'Shuttle to Surfshack'}</h4>
+                  <h4 className="font-bold text-turquoise-950">{language === 'es' ? '3 Piscinas Tropicales' : '3 Tropical Pools'}</h4>
                   <p className="text-xs text-mahana-dark/70 font-medium leading-relaxed">
                     {language === 'es'
-                      ? 'Traslado opcional a nuestro club de playa en Playa Caracol. Puede coordinar transporte directo con nuestro equipo o asistir por su cuenta.'
-                      : 'Optional transfer to our beach club at Playa Caracol. You can book safe transportation directly with us or attend on your own.'}
+                      ? 'Acceso total e ilimitado durante toda la estadía a las 3 piscinas de Casa Mahana, solarium con camastros acolchados y duchas al aire libre.'
+                      : 'Unlimited access throughout your stay to Casa Mahana’s 3 pools, sun deck with plush loungers, and outdoor showers.'}
                   </p>
                 </div>
               </div>

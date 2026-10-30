@@ -76,16 +76,12 @@ test.describe('Casa Mahana - Multi-Page & Weddings E2E Verification Suite', () =
     await expect(page.getByText('$9.50')).toBeVisible();  // Ceviche price badge
   });
 
-  test('R4. Render /surf-shack and check Surf Academy options', async ({ page }) => {
+  test('R4. Render /surf-shack and verify permanent redirect to home page', async ({ page }) => {
     await page.goto('/surf-shack');
     await page.waitForLoadState('networkidle');
 
-    await expect(page.getByRole('heading', { name: 'Surf Shack Beach Club' })).toBeVisible();
-    await expect(page.getByRole('heading', { name: 'Academia Nacional de Surf' })).toBeVisible();
-    await expect(page.getByText('Clase de Surf (Principiantes)')).toBeVisible();
-    await expect(page.getByText('$35').first()).toBeVisible();
-    await expect(page.getByText('Alquiler de Tablas')).toBeVisible();
-    await expect(page.getByText('$20').first()).toBeVisible();
+    // Closed venue should gracefully redirect to home
+    await expect(page).toHaveURL('/');
   });
 
   test('R5. Render /eventos, submit Weddings Inquiry Form, and verify confirmation card', async ({ page }) => {

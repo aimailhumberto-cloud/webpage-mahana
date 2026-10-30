@@ -49,11 +49,11 @@ export const MediaAdmin: React.FC = () => {
       { key: 'exp_stays', label: 'Tarjeta de Estadías (Hospedaje)', desc: 'Muestra el confort de las habitaciones en la sección de planes.' },
       { key: 'exp_daypass', label: 'Tarjeta de Pasadías (Día de Sol)', desc: 'Imagen superior para invitar al pasadía con cócteles y piscina.' },
       { key: 'exp_restaurant', label: 'Tarjeta del Restaurante', desc: 'Evoca la gastronomía de horno de leña de Casa Mahana.' },
-      { key: 'exp_surf', label: 'Tarjeta del Surf Shack', desc: 'Invita a las actividades de surf y playa en Playa Caracol.' }
+      { key: 'exp_surf', label: 'Tarjeta de Tours & Aventura', desc: 'Invita a las actividades y tours de naturaleza en Chame.' }
     ],
     facilities: [
       { key: 'fac_pool', label: 'Piscina Tropical', desc: 'Fondo inmersivo para la tarjeta de piscina en instalaciones.' },
-      { key: 'fac_beach', label: 'Club de Playa', desc: 'Fondo inmersivo para la sección de club de playa Surf Shack.' },
+      { key: 'fac_beach', label: 'Restaurante & Bar Gourmet', desc: 'Fondo inmersivo para la sección de gastronomía y horno de leña.' },
       { key: 'fac_relax', label: 'Áreas de Descanso', desc: 'Fondo inmersivo para la tarjeta de bohíos y hamacas de relajación.' }
     ],
     restaurant: [

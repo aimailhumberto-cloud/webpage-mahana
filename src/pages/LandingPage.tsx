@@ -17,8 +17,8 @@ export const LandingPage: React.FC = () => {
       <SEO 
         titleEs="Casa Mahana — Lodge & Restaurante Gourmet en Chame, Panamá"
         titleEn="Casa Mahana — Boutique Lodge & Gourmet Restaurant in Chame, Panama"
-        descriptionEs="Disfruta de una escapada tropical inolvidable en Casa Mahana. Hospedaje acogedor, piscina tropical, restaurante gourmet al horno de leña, surf y tours de aventura en Chame."
-        descriptionEn="Enjoy an unforgettable tropical getaway at Casa Mahana. Cozy lodging, tropical pools, wood-fired gourmet restaurant, surfing, and adventure tours in Chame."
+        descriptionEs="Disfruta de una escapada tropical inolvidable en Casa Mahana. Hospedaje acogedor, piscina tropical, restaurante gourmet al horno de leña, 3 piscinas tropicales y tours de aventura en Chame."
+        descriptionEn="Enjoy an unforgettable tropical getaway at Casa Mahana. Cozy lodging, tropical pools, wood-fired gourmet restaurant, 3 tropical pools, and adventure tours in Chame."
         image="/images/hero-pool-drone-aerial.jpg"
         path="/"
       />

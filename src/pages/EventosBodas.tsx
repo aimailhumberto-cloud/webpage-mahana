@@ -60,8 +60,8 @@ export const EventosBodas: React.FC = () => {
       icon: <Palmtree className="h-8 w-8 text-turquoise-700" />,
       title: language === 'es' ? 'Retiros & Team Building' : 'Retreats & Team Building',
       desc: language === 'es'
-        ? 'Conecta a tu equipo fuera de la oficina. Ofrecemos la exclusividad del Lodge completo, almuerzos de negocios en la piscina, espacios de trabajo inspiradores y clases de surf integradas en nuestro beach club.'
-        : 'Engage your team outside the office. We offer complete Lodge buyout options, poolside business lunches, inspiring outdoor workspaces, and custom integration surf lessons at our beach club.',
+        ? 'Conecta a tu equipo fuera de la oficina. Ofrecemos la exclusividad del Lodge completo, almuerzos de negocios en la piscina, espacios de trabajo inspiradores y actividades de integración tropical al aire libre.'
+        : 'Engage your team outside the office. We offer complete Lodge buyout options, poolside business lunches, inspiring outdoor workspaces, and custom outdoor team building activities.',
       capacity: '👥 10 to 40 Guests (Lodge Buyout)',
       img: '/images/lodge-grounds.jpg?v=2',
       badge: 'Team Building'

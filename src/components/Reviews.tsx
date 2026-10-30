@@ -41,10 +41,10 @@ export const Reviews: React.FC = () => {
     },
     {
       text: language === 'es'
-        ? "Las clases de surf en Playa Caracol con los instructores de Mahana Surf Shack fueron de nivel mundial. Llegar al Lodge a relajarse en la piscina después de surfear fue un sueño."
-        : "The surf coaching at Caracol Beach with the Mahana Surf Shack team was world-class. Returning to the Lodge to unwind in the pool after surfing was absolute bliss.",
+        ? "El ambiente natural de Casa Mahana y sus 3 piscinas son inigualables. La pizza a la leña crocante y la atención del equipo hicieron de nuestra escapada una experiencia perfecta."
+        : "The natural setting of Casa Mahana and its 3 pools are unmatched. The crispy wood-fired pizza and attentive staff made our weekend getaway truly wonderful.",
       author: "Andrés G.",
-      role: language === 'es' ? "Surf Camp & Hospedaje" : "Surf Camp & Stay",
+      role: language === 'es' ? "Escapada de Fin de Semana" : "Weekend Getaway",
       date: language === 'es' ? "Hace 2 meses" : "2 months ago"
     }
   ];

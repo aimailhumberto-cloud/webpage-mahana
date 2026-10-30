@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { LanguageProvider, useLanguage } from './context/LanguageContext';
 import { MediaProvider } from './context/MediaContext';
 import { Header } from './components/Header';
@@ -21,7 +21,6 @@ import { PoolDayLanding } from './pages/PoolDayLanding';
 import { PasadyaAllInclusiveLanding } from './pages/PasadyaAllInclusiveLanding';
 
 import { RestaurantePublico } from './pages/RestaurantePublico';
-import { SurfShackAcademy } from './pages/SurfShackAcademy';
 import { EventosBodas } from './pages/EventosBodas';
 import { MediaAdmin } from './pages/MediaAdmin';
 import { MahanaTours } from './pages/MahanaTours';
@@ -126,9 +125,9 @@ const AppContent: React.FC = () => {
           <Route path="/pasadias/pool-day" element={<PoolDayLanding />} />
           <Route path="/pasadias/todo-incluido" element={<PasadyaAllInclusiveLanding />} />
 
-          {/* Public Restaurant, Surf Shack & Events */}
+          {/* Public Restaurant, Experiences & Events */}
           <Route path="/restaurante" element={<RestaurantePublico />} />
-          <Route path="/surf-shack" element={<SurfShackAcademy />} />
+          <Route path="/surf-shack" element={<Navigate to="/" replace />} />
           <Route path="/eventos" element={<EventosBodas />} />
           <Route path="/mahana-tours" element={<MahanaTours />} />
 
