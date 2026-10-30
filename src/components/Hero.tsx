@@ -22,9 +22,14 @@ export const Hero: React.FC = () => {
 
   const slides = [
     {
-      src: media.hero_1 || '/images/hero-pool-drone.jpg',
+      src: media.hero_1 || '/images/hero-luxury-pool-sunlit.jpg',
       labelEs: 'Piscina Principal',
       labelEn: 'Main Pool'
+    },
+    {
+      src: '/images/hero-pool-drone.jpg',
+      labelEs: 'Vista Aérea',
+      labelEn: 'Aerial View'
     },
     {
       src: media.hero_2 || '/images/hero-pool-deck.jpg',
@@ -199,7 +204,7 @@ export const Hero: React.FC = () => {
             <div className="md:col-span-3 pt-2 md:pt-0">
               <button
                 type="submit"
-                className="w-full flex items-center justify-center space-x-2 py-3.5 px-6 bg-turquoise-750 hover:bg-turquoise-800 active:scale-[0.98] text-white rounded-2xl md:rounded-full font-extrabold text-xs sm:text-sm transition-all shadow-md hover:shadow-lg hover:scale-[1.02]"
+                className="w-full flex items-center justify-center space-x-2 py-3.5 px-6 bg-turquoise-750 hover:bg-turquoise-800 text-white rounded-2xl md:rounded-full font-extrabold text-xs sm:text-sm shadow-md hover:shadow-lg btn-press ease-spring"
               >
                 <span>{language === 'es' ? 'Consultar Disponibilidad' : 'Check Availability'}</span>
                 <ArrowRight className="w-4 h-4" />

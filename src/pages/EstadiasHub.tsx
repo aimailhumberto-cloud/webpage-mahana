@@ -121,6 +121,7 @@ export const EstadiasHub: React.FC = () => {
   ];
 
   const galleryImages = [
+    { src: '/images/suite-deluxe-teak-terrace.jpg', titleEs: 'Suite Balcón y Terraza Teca', titleEn: 'Deluxe Suite with Teak Terrace' },
     { src: '/images/room-gallery-woodendoor.jpg', titleEs: 'Distribución Familiar / Doble', titleEn: 'Family / Double Layout' },
     { src: '/images/room-gallery-bathroom.jpg', titleEs: 'Baño de Lujo Privado', titleEn: 'Luxury Private Bathroom' },
     { src: '/images/room-gallery-singlebeds.jpg', titleEs: 'Habitación Camas Sencillas', titleEn: 'Single Beds Room' },
@@ -277,7 +278,7 @@ export const EstadiasHub: React.FC = () => {
 
                     <button 
                       onClick={() => handleBookRoom(room.planCode)}
-                      className="w-full sm:w-auto px-6 py-3.5 bg-turquoise-700 hover:bg-turquoise-900 text-white rounded-2xl font-bold flex items-center justify-center space-x-2 transition-all shadow-md group shrink-0 active:scale-[0.98] cursor-pointer"
+                      className="w-full sm:w-auto px-6 py-3.5 bg-turquoise-700 hover:bg-turquoise-900 text-white rounded-2xl font-bold flex items-center justify-center space-x-2 shadow-md group shrink-0 cursor-pointer btn-press ease-spring"
                     >
                       <span>{language === 'es' ? 'Reservar Habitación' : 'Book Room'}</span>
                       <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
